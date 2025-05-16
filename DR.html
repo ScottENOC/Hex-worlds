@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Divine Right Map</title>
+
+<link rel="manifest" href="manifest.json" />
+<meta name="theme-color" content="#222222">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+ 
+    #turnInfo {
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+ 
+    #info {
+      margin-top: 10px;
+      padding: 10px;
+      border: 1px solid black;
+      width: 300px;
+      white-space: pre-line;
+    }
+ 
+    svg {
+      border: 1px solid #ccc;
+    }
+ 
+    .hex {
+      stroke: black;
+      stroke-width: 1.5;
+      cursor: pointer;
+    }
+    .unit.faded {
+      opacity: 0.4;
+    }
+.attack-target {
+    outline: 3px solid red;
+    outline-offset: -3px;
+    cursor: pointer;
+}
+ 
+    .terrain-icon, .fortress-icon, .fortress-name, .fortress-number, .unit-label {
+      pointer-events: none;
+      text-anchor: middle;
+    }
+ 
+    .fortress-name {
+      font-size: 6px;
+      fill: white;
+    }
+ 
+    .fortress-number {
+      font-size: 8px;
+      fill: white;
+      font-weight: bold;
+    }
+ 
+    .unit {
+      stroke: black;
+      stroke-width: 1;
+    }
+ 
+    .unit-label {
+      font-size: 8px;
+      fill: white;
+    }
+ 
+    .valid-move {
+      stroke: yellow;
+      stroke-width: 3;
+    }
+
+.valid-combat {
+  stroke: red;
+  stroke-width: 3;
+}
+ 
+.lake, .river, .tile-name {
+  pointer-events: none;
+}
+ 
+@keyframes pulse-red {
+  0% { stroke-opacity: 1; }
+  50% { stroke-opacity: 0.3; }
+  100% { stroke-opacity: 1; }
+}
+
+.besieged-outline {
+  animation: pulse-red 1.5s infinite;
+}
+
+.selectable-mutiny {
+  stroke: red;
+  stroke-width: 3px;
+  cursor: pointer;
+}
+ 
+.current-combat {
+  stroke: blue;
+  stroke-width: 3;
+}
+
+#map-container {
+  width: 100vw;
+  height: 90vh;
+  overflow: auto;
+}
+
+#map {
+width: 200vw;
+  height: 90vh;
+  display: block;
+}
+
+
+  </style>
+</head>
+<body>
+  <h1>Divine Right Map</h1>
+<div id="combat-panel" style="display: none; position: absolute; top: 20px; right: 20px; background: white; padding: 10px; border: 1px solid black; z-index: 10;">
+  <div id="combat-info"></div>
+  <button id="resolve-button">Resolve Combat</button>
+  <button id="continue-button" style="display:none;">Continue</button>
+</div> 
+
+  <div id="turnInfo">Current Faction: </div>
+  <div id="vpInfo"></div>
+  <button onclick="endTurn()">End Turn</button>
+<div id="save-load-panel" style="position: absolute; top: 10px; right: 10px; background: #f0f0f0; padding: 8px; border: 1px solid #888;">
+  <h4>Save / Load</h4>
+  <button onclick="saveGameToLocalStorage()">Save</button>
+  <button onclick="loadGameFromLocalStorage()">Load</button>
+</div>
+ 
+
+<div id="map-container">
+  <svg id="map"></svg>
+</div>
+<div id="info">Click on a hex to see details.</div>
+
+ <script src="state.js"></script>
+ <script src="utils.js"></script>
+<script src="drawing.js"></script>
+<script src="mapData.js"></script>
+<script src="unitData.js"></script>
+
+
+<script src="scripts/phase2DiploCards.js"></script>
+<script src="scripts/phase3diplomacy.js"></script>
+<script src="scripts/phase4siege.js"></script>
+<script src="scripts/phase5Movement.js"></script>
+<script src="scripts/phase6combatDeclaration.js"></script>
+<script src="scripts/phase7CombatResolution.js"></script>
+<script src="index.js"></script>
+
+<script src="scripts/phase1Event.js"></script>
+</body>
+</html>
