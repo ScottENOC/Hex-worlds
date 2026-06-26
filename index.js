@@ -1,6 +1,7 @@
 const svg = document.getElementById("map");
 const info = document.getElementById("info");
 const turnInfo = document.getElementById("turnInfo");
+const vpInfo = document.getElementById("vpInfo");
 
 svg.setAttribute("width", 2800);
 svg.setAttribute("height", 2000);
@@ -21,6 +22,8 @@ function initGame() {
   turnOrder = [...factionList];
   shuffle(turnOrder);
   currentTurnIndex = 0;
+  diploDeck = buildDiploDeck();
+  initDiplomaticInfluence();
   drawMap();
   updateTurnInfo();
   updateVPInfo();
@@ -41,6 +44,22 @@ function endTurn() {
 
   if (currentPhase === "event") {
     handleEventPhase(currentFaction);
+    return;
+  }
+
+  if (currentPhase === "diplo-draw") {
+    handleDiploDrawPhase(currentFaction, () => {
+      currentPhase = "diplo-play";
+      updateTurnInfo();
+    });
+    return;
+  }
+
+  if (currentPhase === "diplo-play") {
+    handleDiploPlayPhase(currentFaction, () => {
+      currentPhase = "siege";
+      updateTurnInfo();
+    });
     return;
   }
 
@@ -96,10 +115,10 @@ if (currentPhase === "siege") {
     if (total >= 6) {
       alert(`Fortress at (${row}, ${col}) will fall.`);
 
-      // Remove only non-leader defenders
-      for (let unit of defendersInFortress) {
+      // Remove non-leader defenders
+      for (let unit of [...defendersInFortress]) {
         if (!unit.isLeader) {
-          removeUnitFromMap(unit);
+          removeUnit(unit);
         }
       }
 

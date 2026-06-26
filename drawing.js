@@ -41,7 +41,7 @@ function drawHex(row, col, besiegedFortresses = new Set()) {
   // Base hex
   const hex = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
   hex.setAttribute("points", points);
-  hex.setAttribute("fill", factions[faction]);
+  hex.setAttribute("fill", kingdomColors[faction] || "#d2b48c");
   hex.classList.add("hex");
   hex.setAttribute("pointer-events", "all");
   hex.dataset.hex = `${row},${col}`;
@@ -105,11 +105,13 @@ if (currentPhase === "movement") {
     const targets = getAdjacentEnemies(selectedUnit).map(([r, c]) => `${r},${c}`);
     if (targets.includes(clickedHex)) {
       info.innerText = `Unit at (${selectedUnit.row}, ${selectedUnit.col}) is attacking (${row}, ${col})!`;
-      declaredCombats.push({
-        attacker: selectedUnit,
-        fromHex: { row: selectedUnit.row, col: selectedUnit.col },
-        targetHex: { row, col },
-      });
+      const fromHex = { row: selectedUnit.row, col: selectedUnit.col };
+      const targetHex = { row, col };
+      const alreadyDeclared = declaredCombats.some(
+        c => c.fromHex.row === fromHex.row && c.fromHex.col === fromHex.col
+          && c.targetHex.row === targetHex.row && c.targetHex.col === targetHex.col
+      );
+      if (!alreadyDeclared) declaredCombats.push({ fromHex, targetHex });
       selectedUnit = null;
       highlightedTilesByType.combat = [];
       drawMap();
@@ -117,6 +119,7 @@ if (currentPhase === "movement") {
     }
   }
 
+  const currentFaction = turnOrder[currentTurnIndex];
   const clickedUnit = units.find(
     u => u.row === row && u.col === col && u.faction === currentFaction);
 
@@ -314,7 +317,7 @@ function drawUnitsInHex(row, col, cx, cy, lakes) {
       element.setAttribute("points", points);
     }
  
-    element.setAttribute("fill", factions[unit.faction]);
+    element.setAttribute("fill", kingdomColors[unit.faction] || "#d2b48c");
 
 if (unit.isMercenary) {
   element.setAttribute("stroke", "#000"); // black stroke to highlight
@@ -406,15 +409,10 @@ highlightedTilesByType[type] = tiles;
  
  
 function showValidMovesOrCombat(unit) {
-  alert(`Called showValidMovesOrCombat for ${unit.faction}`);
   const tileList = currentPhase === "movement"
     ? validMoves(unit)
     : currentPhase === "combat-declare"
       ? getAdjacentEnemies(unit)
       : [];
- 
-  highlightedTiles = tileList;
-  alert(`Found ${tileList.length} valid tiles for ${unit.faction}`);
- 
   highlightTiles(tileList, currentPhase === "movement" ? "movement" : "combat");
 }

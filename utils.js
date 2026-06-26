@@ -54,7 +54,7 @@ function fateDieRoll(unit) {
   eliminatedFactions.add(unit.faction);
 
   // Remove leader from board
-  removeUnitFromMap(unit);
+  removeUnit(unit);
 
   // Move all faction mercenaries to reserve
   for (let u of units.filter(u => u.faction === unit.faction && u.isMercenary)) {
@@ -82,9 +82,10 @@ function fateDieRoll(unit) {
   }
 
   // Award 70 VP
+  const activeFaction = turnOrder[currentTurnIndex];
   let responsibleFactions = [];
-  if (currentFaction !== unit.faction) {
-    responsibleFactions = [currentFaction];
+  if (activeFaction !== unit.faction) {
+    responsibleFactions = [activeFaction];
   } else {
     responsibleFactions = units
       .filter(u => u.row === unit.row && u.col === unit.col && u.faction !== unit.faction)
@@ -93,13 +94,13 @@ function fateDieRoll(unit) {
 
   for (let faction of new Set(responsibleFactions)) {
     addVictoryPoints(faction, 70);
-    alert(`${faction} gains 70 VP for killing ${unit.faction}'s leader!`);
+    alert(`${faction} gains 70 VP for killing ${unit.faction}’s leader!`);
   }
 
-  // If it's the dead leader's faction turn, skip it
-  if (currentFaction === unit.faction) {
-    alert(`${unit.faction}'s turn ends early due to their leader’s death.`);
-    endTurn(); // or whatever your turn advance function is
+  // If it’s the dead leader’s faction turn, skip it
+  if (activeFaction === unit.faction) {
+    alert(`${unit.faction}’s turn ends early due to their leader’s death.`);
+    endTurn();
   }
 
   updateVPInfo();
@@ -135,22 +136,27 @@ function continueEventPhase(currentFaction) {
   const die2 = Math.ceil(Math.random() * 6);
   const total = die1 + die2;
 
+  const advanceToDiplo = () => {
+    currentPhase = "diplo-draw";
+    updateTurnInfo();
+  };
+
   switch (total) {
     case 2:
-      alert("Event: Omen - Nothing happens (placeholder).");
+      alert("Event: Dark Omen — all your units are spent with unease. No bonus this turn.");
       break;
 
     case 3:
   alert("Event: Storms! Select one of your fleets to eliminate.");
   promptUnitSelection({
-    filterFn: u => u.faction === currentFaction && u.type === "fleet" && !u.isLeader,
+    filterFn: u => u.faction === currentFaction && u.isFleet && !u.isLeader,
     onSelect: unit => {
-      alert(`Eliminating fleet at (${unit.row}, ${unit.col})`);
+      alert(`Storm destroys fleet at (${unit.row}, ${unit.col})`);
       removeUnit(unit);
-      currentPhase = "siege";
-      updateTurnInfo();
+      advanceToDiplo();
     },
-    highlightClass: "selectable-fleet"
+    highlightClass: "selectable-mutiny",
+    onNone: advanceToDiplo
   });
   return;
 
@@ -159,25 +165,22 @@ function continueEventPhase(currentFaction) {
   promptUnitSelection({
     filterFn: u => u.faction === currentFaction && !u.isLeader,
     onSelect: unit => {
-      alert(`Eliminating unit at (${unit.row}, ${unit.col})`);
+      alert(`Mutiny! Eliminating unit at (${unit.row}, ${unit.col})`);
       removeUnit(unit);
-      currentPhase = "siege";
-      updateTurnInfo();
+      advanceToDiplo();
     },
-    highlightClass: "selectable-mutiny"
+    highlightClass: "selectable-mutiny",
+    onNone: advanceToDiplo
   });
   return;
 
     case 5:
-      alert("Event: Festival - Nothing happens.");
+      alert("Event: Festival — the land celebrates. No events this turn.");
       break;
 
     case 6:
       alert("Event: Supply Drop! Deploy up to 2 reserve units to their original positions.");
-      handleReserveDeployment(2, true, false, () => {
-        currentPhase = "siege";
-        updateTurnInfo();
-      });
+      handleReserveDeployment(2, true, false, advanceToDiplo);
       return;
 
     case 7:
@@ -186,10 +189,7 @@ function continueEventPhase(currentFaction) {
 
     case 8:
       alert("Event: Mercenary Surge! Deploy up to 2 mercenaries to their original positions.");
-      handleReserveDeployment(2, false, true, () => {
-        currentPhase = "siege";
-        updateTurnInfo();
-      });
+      handleReserveDeployment(2, false, true, advanceToDiplo);
       return;
 
     case 9:
@@ -197,45 +197,45 @@ function continueEventPhase(currentFaction) {
   promptUnitSelection({
     filterFn: u => u.faction === currentFaction && !u.isLeader,
     onSelect: unit => {
-      alert(`Eliminating unit at (${unit.row}, ${unit.col})`);
+      alert(`Plague! Eliminating unit at (${unit.row}, ${unit.col})`);
       removeUnit(unit);
-      currentPhase = "siege";
-      updateTurnInfo();
+      advanceToDiplo();
     },
-    highlightClass: "selectable-mutiny"
+    highlightClass: "selectable-mutiny",
+    onNone: advanceToDiplo
   });
   return;
 
     case 10:
       alert("Event: Tactical Opportunity! Deploy 1 unit (regular or mercenary) to its original position.");
-      handleReserveDeployment(1, true, true, () => {
-        currentPhase = "siege";
-        updateTurnInfo();
-      });
+      handleReserveDeployment(1, true, true, advanceToDiplo);
       return;
 
     case 11:
-  alert("Event: Mercenary desertion! Select one of your mercenaries to eliminate.");
+  alert("Event: Mercenary Desertion! Select one of your mercenaries to eliminate.");
   promptUnitSelection({
     filterFn: u => u.faction === currentFaction && u.isMercenary && !u.isLeader,
     onSelect: unit => {
-      alert(`Eliminating mercenary at (${unit.row}, ${unit.col})`);
+      alert(`Mercenary deserts at (${unit.row}, ${unit.col})`);
       removeUnit(unit);
-      currentPhase = "siege";
-      updateTurnInfo();
+      advanceToDiplo();
     },
-    highlightClass: "selectable-merc"
+    highlightClass: "selectable-mutiny",
+    onNone: advanceToDiplo
   });
   return;
 
     case 12:
-      alert("Event: Heroic Surge - Nothing happens.");
+      alert("Event: The Wild Hunt rides! Your leader may move a second time this turn.");
+      // Leader's hasMoved is reset so they can move again in the movement phase
+      for (const u of units) {
+        if (u.faction === currentFaction && u.isLeader) u.hasMoved = false;
+      }
       break;
   }
 
-  // Only reached for instant events (not requiring async handling)
-  currentPhase = "siege";
-  updateTurnInfo();
+  // Instant events fall through here
+  advanceToDiplo();
 }
 
 function highlightHex(hexId, className) {
@@ -247,7 +247,7 @@ function clearHighlights(className) {
     document.querySelectorAll(`.${className}`).forEach(el => el.classList.remove(className));
 }
 
-function promptUnitSelection({ filterFn, onSelect, highlightClass = "selectable" }) {
+function promptUnitSelection({ filterFn, onSelect, highlightClass = "selectable", onNone }) {
   let found = false;
 
   document.querySelectorAll("circle.unit").forEach(el => {
@@ -260,21 +260,18 @@ function promptUnitSelection({ filterFn, onSelect, highlightClass = "selectable"
 
       el.addEventListener("click", function handleClick(e) {
         e.stopPropagation();
-        onSelect(unit);
-
-        // Cleanup: remove highlight and listeners
         document.querySelectorAll(`.${highlightClass}`).forEach(el => {
           el.classList.remove(highlightClass);
-          el.replaceWith(el.cloneNode(true)); // removes all event listeners
+          el.replaceWith(el.cloneNode(true));
         });
+        onSelect(unit);
       });
     }
   });
 
   if (!found) {
     alert("No valid units to select.");
-currentPhase = "siege";
-  updateTurnInfo();
+    if (typeof onNone === "function") onNone();
   }
 }
 
@@ -323,19 +320,19 @@ function removeUnitsAtLocation(row, col) {
 
 let currentDeploymentHandler = null; // Track the active deployment listener
 
-function handleReserveDeployment(numUnits, allowRegulars, allowMercenaries) {
+function handleReserveDeployment(numUnits, allowRegulars, allowMercenaries, onComplete) {
   alert(`Deploy up to ${numUnits} unit(s) from reserve.`);
 
-  // Remove any existing click handler to avoid stacking
   if (currentDeploymentHandler) {
     svg.removeEventListener("click", currentDeploymentHandler);
     currentDeploymentHandler = null;
   }
 
+  const faction = turnOrder[currentTurnIndex];
   let eligibleUnits = [];
   if (allowRegulars) {
     eligibleUnits = eligibleUnits.concat(
-      (reserves[turnOrder[currentTurnIndex]] || []).filter(u => !u.isMercenary)
+      (reserves[faction] || []).filter(u => !u.isMercenary)
     );
   }
   if (allowMercenaries) {
@@ -344,29 +341,25 @@ function handleReserveDeployment(numUnits, allowRegulars, allowMercenaries) {
       (mercenaryReserves.fleet || [])
     );
   }
+
   if (eligibleUnits.length === 0) {
-  alert("No eligible units in reserve.");
-  highlightedTiles = [];
-  drawMap();
-  if (typeof onComplete === "function") onComplete();
-  return;
-}
-
-  const hasRegulars = allowRegulars && eligibleUnits.some(u => !u.isMercenary);
-  const hasMercenaries = allowMercenaries && eligibleUnits.some(u => u.isMercenary);
-
-  let highlightedTilesForSpawn = [];
-  if (hasRegulars && !hasMercenaries) {
-    highlightedTilesForSpawn = eligibleUnits.map(u => u.startCoords);
-  } else if (!hasRegulars && hasMercenaries) {
-    highlightedTilesForSpawn = getValidMercenarySpawnTiles(turnOrder[currentTurnIndex]);
-  } else {
-    const regularStarts = eligibleUnits.filter(u => !u.isMercenary).map(u => u.startCoords);
-    const mercenaryStarts = getValidMercenarySpawnTiles(turnOrder[currentTurnIndex]);
-    highlightedTilesForSpawn = [...regularStarts, ...mercenaryStarts];
+    alert("No eligible units in reserve.");
+    highlightedTilesByType.event = [];
+    drawMap();
+    if (typeof onComplete === "function") onComplete();
+    return;
   }
 
-  highlightedTiles = highlightedTilesForSpawn;
+  const hasRegulars = eligibleUnits.some(u => !u.isMercenary);
+  const hasMercs = eligibleUnits.some(u => u.isMercenary);
+
+  function buildSpawnTiles() {
+    const regulars = hasRegulars ? eligibleUnits.filter(u => !u.isMercenary).map(u => u.startCoords).filter(Boolean) : [];
+    const mercs = hasMercs ? getValidMercenarySpawnTiles(faction) : [];
+    return [...regulars, ...mercs];
+  }
+
+  highlightedTilesByType.event = buildSpawnTiles();
   drawMap();
 
   let deployedCount = 0;
@@ -377,64 +370,40 @@ function handleReserveDeployment(numUnits, allowRegulars, allowMercenaries) {
 
     const [row, col] = hexId.split(",").map(Number);
 
-const unitsHere = units.filter(u => u.row === row && u.col === col && u.isMercenary);
-
     let unitIndex = eligibleUnits.findIndex(u =>
-      !u.isMercenary &&
-      u.startCoords &&
-      u.startCoords[0] === row &&
-      u.startCoords[1] === col
+      !u.isMercenary && u.startCoords && u.startCoords[0] === row && u.startCoords[1] === col
     );
 
     if (unitIndex === -1) {
-      const isValidMercTile = getValidMercenarySpawnTiles(turnOrder[currentTurnIndex])
-        .some(([r, c]) => r === row && c === col);
-
-      if (!isValidMercTile) {
-        alert("Invalid placement.");
-        return;
-      }
-
+      const isValidMercTile = getValidMercenarySpawnTiles(faction).some(([r, c]) => r === row && c === col);
+      if (!isValidMercTile) { alert("Invalid placement."); return; }
       unitIndex = eligibleUnits.findIndex(u => u.isMercenary);
-      if (unitIndex === -1) {
-        alert("No available mercenaries.");
-        return;
-      }
+      if (unitIndex === -1) { alert("No available mercenaries."); return; }
     }
 
     const unit = eligibleUnits.splice(unitIndex, 1)[0];
-
     unit.row = row;
     unit.col = col;
-    unit.faction = turnOrder[currentTurnIndex];
+    unit.faction = faction;
 
     if (unit.isMercenary) {
-removeFromMercenaryReserve(unit);
+      removeFromMercenaryReserve(unit);
     } else {
-      reserves[turnOrder[currentTurnIndex]] = eligibleUnits.filter(u => !u.isMercenary);
+      reserves[faction] = reserves[faction].filter(u => !u.isMercenary && u !== unit);
     }
 
     units.push(unit);
-deployedCount++;
-
-const updatedUnitsHere = units.filter(u => u.row === row && u.col === col && u.isMercenary);
-
+    deployedCount++;
     alert(`Deployed ${unit.isMercenary ? "mercenary" : "regular"} to (${row}, ${col})`);
 
     if (deployedCount >= numUnits || eligibleUnits.length === 0) {
       svg.removeEventListener("click", handleClick);
       currentDeploymentHandler = null;
-      highlightedTiles = [];
-      currentPhase = "siege";
-      updateTurnInfo();
+      highlightedTilesByType.event = [];
       drawMap();
+      if (typeof onComplete === "function") onComplete();
     } else {
-      const remainingRegulars = eligibleUnits.filter(u => !u.isMercenary);
-      const remainingMercs = eligibleUnits.filter(u => u.isMercenary);
-      highlightedTiles = [
-        ...remainingRegulars.map(u => u.startCoords),
-        ...(remainingMercs.length ? getValidMercenarySpawnTiles(turnOrder[currentTurnIndex]) : [])
-      ];
+      highlightedTilesByType.event = buildSpawnTiles();
       drawMap();
     }
   }
@@ -661,70 +630,35 @@ function areAdjacent(row1, col1, row2, col2) {
   return false;
 }
 
+// A fortress is under siege when at least one adjacent enemy unit carries siege strength.
 function getBesiegedFortresses() {
   const besieged = new Set();
 
   for (const key in tileData) {
     const tile = tileData[key];
-    if (!tile?.isFortress) continue;
+    if (!tile?.isFortress || !tile.faction || tile.faction === "none") continue;
 
     const [row, col] = key.split(',').map(Number);
-    const adjacents = getAdjacentHexes(row, col);
-    const defenderFaction = tile.faction;
-    const fortressStrength = tile.fortressStrength || 0;
+    const adjacents = getAdjacentCoords(row, col);
+    const hasAdjacentSieger = adjacents.some(([r, c]) =>
+      units.some(u => u.faction !== tile.faction && u.row === r && u.col === c && (u.siegeStrength || 0) > 0)
+    );
 
-    // Track which tiles are threatened
-    const threatenedTiles = new Set();
-
-    for (const unit of units) {
-      if (unit.faction === defenderFaction) continue;
-      if (unit.siegeStrength <= 0) continue; // Only threatening units
-
-      // Only project threat if adjacent to the fortress
-      const dr = Math.abs(unit.row - row);
-      const dc = Math.abs(unit.col - col);
-      if (dr <= 1 && dc <= 1) {
-        threatenedTiles.add(`${unit.row},${unit.col}`);
-
-        const neighbors = getAdjacentHexes(unit.row, unit.col);
-        for (const [r, c] of neighbors) {
-          if (areAdjacent(r, c, row, col)) {
-            threatenedTiles.add(`${r},${c}`);
-          }
-        }
-      }
-    }
-
-    // Check if all fortress-adjacent tiles are threatened
-    const allAdjThreatened = adjacents.every(([r, c]) => {
-      const k = `${r},${c}`;
-      return !tileData[k] || threatenedTiles.has(k); // undefined = threatened
-    });
-
-    if (!allAdjThreatened) continue;
-
-    // Count attacker strength: enemy units with siegeStrength > 0 adjacent to fortress
-    const attackerStrength = units.filter(u =>
-      u.faction !== defenderFaction &&
-      u.siegeStrength > 0 &&
-      areAdjacent(u.row, u.col, row, col)
-    ).length;
-
-    // Count defenders inside fortress
-    const defendersInFort = units.filter(u =>
-      u.faction === defenderFaction &&
-      u.row === row && u.col === col
-    ).length;
-
-    const defenderTotal = defendersInFort + fortressStrength;
-
-    if (attackerStrength > defenderTotal) {
-      besieged.add(`${row},${col}`);
-    }
+    if (hasAdjacentSieger) besieged.add(key);
   }
 
   return besieged;
 }
+
+// Returns true if any enemy combat unit is adjacent to (row,col)
+function isTileThreatened(row, col, faction) {
+  return getAdjacentCoords(row, col).some(([r, c]) =>
+    units.some(u => u.row === r && u.col === c && u.faction !== faction && u.combatStrength > 0)
+  );
+}
+
+// Alias so older code using the long name still works
+const removeUnitFromMap = removeUnit;
 
 function getTileCost(row, col, unit) {
   const key = `${row},${col}`;
@@ -853,21 +787,14 @@ function updateTurnInfo() {
   let phaseText = "";
 
   switch (currentPhase) {
-    case "event":
-      phaseText = "EVENT Phase";
-      break;
-    case "siege":
-      phaseText = "SIEGE Phase";
-      break;
-    case "movement":
-      phaseText = "MOVEMENT Phase";
-      break;
-    case "combat-declare":
-      phaseText = "COMBAT DECLARATION Phase";
-      break;
-    case "combat-resolve":
-      phaseText = "COMBAT RESOLUTION Phase";
-      break;
+    case "event":       phaseText = "EVENT Phase"; break;
+    case "diplo-draw":  phaseText = "DIPLOMACY — Draw Cards"; break;
+    case "diplo-play":  phaseText = "DIPLOMACY — Play Cards"; break;
+    case "siege":       phaseText = "SIEGE Phase"; break;
+    case "movement":    phaseText = "MOVEMENT Phase"; break;
+    case "combat-declare":  phaseText = "COMBAT DECLARATION Phase"; break;
+    case "combat-resolve":  phaseText = "COMBAT RESOLUTION Phase"; break;
+    default:            phaseText = currentPhase.toUpperCase(); break;
   }
 
 
@@ -888,8 +815,10 @@ const factionText = turnOrder[currentTurnIndex];
 
 function addVictoryPoints(faction, amount) {
   victoryPoints[faction] = (victoryPoints[faction] || 0) + amount;
-  updateVictoryPointDisplay();
+  updateVPInfo();
 }
+
+const updateVictoryPointDisplay = updateVPInfo;
 
 function updateVPInfo() {
   const entries = Object.entries(victoryPoints)

@@ -79,10 +79,38 @@ for (let i = 0; i < 4; i++) {
  
 const factionList = Object.keys(factions).filter(f => f !== "none");
 
+// Colours for neutral kingdoms that appear on the map but aren't player-controlled.
+// Drawing code uses kingdomColors so new kingdoms just need an entry here.
+const neutralKingdomColors = {
+  "hothior":   "#E85025",
+  "muetar":    "#FFD700",
+  "pon":       "#4488CC",
+  "shucassam": "#9B4B1C",
+  "rombune":   "#CC22BB",
+  "wasteland": "#C4A265",
+};
+const kingdomColors = { ...factions, ...neutralKingdomColors };
+
+// Gold treasury per player faction
+const gold = { neuth: 5, immer: 5, zorn: 5, dwarfland: 5, mivior: 5, trolls: 5 };
+
+// Diplomatic influence: { kingdomName: { factionName: score } }
+const diplomaticInfluence = {};
+
+// Each player's hand of diplomatic cards
+const diplomacyHands = {};
+for (const f of factionList) diplomacyHands[f] = [];
+
+// Shared diplomatic deck — populated by buildDiploDeck() in initGame
+let diploDeck = [];
+
+// Factions whose leader has died and who are out of the game
+const eliminatedFactions = new Set();
+
 let turnNumber = 1;
-const maxTurns = 1;
+const maxTurns = 20;
 let currentPhase = "event";
-let declaredCombats = [];
+let declaredCombats = [];   // array of { fromHex:{row,col}, targetHex:{row,col} }
 let highlightedTilesByType = {
   movement: [],
   combat: [],
