@@ -26,22 +26,27 @@ function drawMap() {
  
 function drawHex(row, col, besiegedFortresses = new Set()) {
   const key = `${row},${col}`;
-  const data = tileData[key] || {};
+  const rawData = tileData[key];                         // undefined = not yet coded
+  const data = rawData || {};
   const faction = data.faction || "none";
   const name = data.name || "";
   const terrainArray = Array.isArray(data.terrain) ? data.terrain : data.terrain ? [data.terrain] : [];
   const isFortress = data.isFortress || false;
   const fortressStrength = data.fortressStrength || "";
- 
+
   const cx = col * horizSpacing + (row % 2 === 0 ? horizSpacing / 2 : 0);
   const cy = row * (vertSpacing * 0.5);
   const corners = Array.from({ length: 6 }, (_, i) => hexCorner(cx, cy, side, i));
   const points = corners.map(p => p.join(',')).join(' ');
- 
+
+  // Uncoded hexes (not in tileData at all) → pale grey so they're visually distinct
+  // from coded-but-neutral tiles which keep the tan #d2b48c colour.
+  const fillColor = !rawData ? "#d0d0d0" : (kingdomColors[faction] || "#d2b48c");
+
   // Base hex
   const hex = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
   hex.setAttribute("points", points);
-  hex.setAttribute("fill", kingdomColors[faction] || "#d2b48c");
+  hex.setAttribute("fill", fillColor);
   hex.classList.add("hex");
   hex.setAttribute("pointer-events", "all");
   hex.dataset.hex = `${row},${col}`;
@@ -49,90 +54,72 @@ function drawHex(row, col, besiegedFortresses = new Set()) {
  
   // Handle clicks...
   hex.addEventListener("click", () => {
+    // Spell targeting intercepts first (Vortex, Reflector target selection)
+    if (typeof handleSpellClick === "function" && handleSpellClick(row, col)) return;
+
     const clickedHex = `${row},${col}`;
- console.log(`Clicked tile: (${row}, ${col})`);
 
-const offsets = (col % 2 === 0) ? sideOffsetsEven : sideOffsetsOdd;
-
-  const neighbors = offsets.map(([dr, dc], side) => {
-    const nr = row + dr;
-    const nc = col + dc;
-    const neighborKey = `${nr},${nc}`;
-    return { side, row: nr, col: nc, exists: tileData[neighborKey] !== undefined };
-  });
-
-  console.log(`Neighbors of (${row}, ${col}):`);
-  for (const n of neighbors) {
-    console.log(`  Side ${n.side}: (${n.row}, ${n.col}) ${n.exists ? "✓" : "✗"}`);
-  }
-
-
-if (currentPhase === "movement") {
-  info.innerText = "Movement Phase";
-  if (selectedUnit && !selectedUnit.hasMoved) {
-    const moves = validMoves(selectedUnit).map(([r, c]) => `${r},${c}`);
-    if (moves.includes(clickedHex)) {
-      selectedUnit.row = row;
-      selectedUnit.col = col;
-      selectedUnit.hasMoved = true;
-
-      // Trigger fate roll if unit has combat strength and there are enemy leaders in the destination hex
-      if (selectedUnit.combatStrength > 0) {
-        const enemyLeaders = units.filter(
-          u =>
-            u.row === row &&
-            u.col === col &&
-            u.faction !== selectedUnit.faction &&
-            u.isLeader
-        );
-
-        for (const leader of enemyLeaders) {
-          fateDieRoll(leader);
+    if (currentPhase === "movement") {
+      if (selectedUnit && !selectedUnit.hasMoved) {
+        const moves = validMoves(selectedUnit).map(([r, c]) => `${r},${c}`);
+        if (moves.includes(clickedHex)) {
+          if (selectedUnit.combatStrength > 0) {
+            const enemyLeaders = units.filter(
+              u => u.row === row && u.col === col && u.faction !== selectedUnit.faction && u.isLeader
+            );
+            for (const leader of enemyLeaders) fateDieRoll(leader);
+          }
+          selectedUnit.row = row;
+          selectedUnit.col = col;
+          selectedUnit.hasMoved = true;
+          // Reset Bridge after Eaters complete their move
+          if (selectedUnit.isEatersOfWisdom && selectedUnit.bridgeActive) {
+            selectedUnit.bridgeActive = false;
+          }
+          // Enchanted Castle collapses when Eaters leave the hex
+          if (selectedUnit.isEatersOfWisdom && selectedUnit.enchantedCastleActive) {
+            selectedUnit.enchantedCastleActive = false;
+          }
+          selectedUnit = null;
+          highlightedTilesByType.movement = [];
+          drawMap();
         }
       }
-
-      selectedUnit = null;
-      highlightedTilesByType.movement = [];
-      drawMap();
+      showHexInfo(row, col);
+      return;
     }
-  }
-  return;
-}
- 
+
     if (currentPhase === "combat-declare") {
-  info.innerText = "Combat Declare Phase";
-  if (selectedUnit) {
-    const targets = getAdjacentEnemies(selectedUnit).map(([r, c]) => `${r},${c}`);
-    if (targets.includes(clickedHex)) {
-      info.innerText = `Unit at (${selectedUnit.row}, ${selectedUnit.col}) is attacking (${row}, ${col})!`;
-      const fromHex = { row: selectedUnit.row, col: selectedUnit.col };
-      const targetHex = { row, col };
-      const alreadyDeclared = declaredCombats.some(
-        c => c.fromHex.row === fromHex.row && c.fromHex.col === fromHex.col
-          && c.targetHex.row === targetHex.row && c.targetHex.col === targetHex.col
-      );
-      if (!alreadyDeclared) declaredCombats.push({ fromHex, targetHex });
-      selectedUnit = null;
-      highlightedTilesByType.combat = [];
-      drawMap();
+      if (selectedUnit) {
+        const targets = getAdjacentEnemies(selectedUnit).map(([r, c]) => `${r},${c}`);
+        if (targets.includes(clickedHex)) {
+          const fromHex = { row: selectedUnit.row, col: selectedUnit.col };
+          const targetHex = { row, col };
+          const alreadyDeclared = declaredCombats.some(
+            c => c.fromHex.row === fromHex.row && c.fromHex.col === fromHex.col
+              && c.targetHex.row === targetHex.row && c.targetHex.col === targetHex.col
+          );
+          if (!alreadyDeclared) declaredCombats.push({ fromHex, targetHex });
+          selectedUnit = null;
+          highlightedTilesByType.combat = [];
+          drawMap();
+          showHexInfo(row, col);
+          return;
+        }
+      }
+      const currentFaction = turnOrder[currentTurnIndex];
+      const clickedUnit = units.find(u => u.row === row && u.col === col && u.faction === currentFaction);
+      if (clickedUnit) {
+        selectedUnit = clickedUnit;
+        highlightedTilesByType.combat = [];
+        highlightTiles(getAdjacentEnemies(clickedUnit), "combat");
+      }
+      showHexInfo(row, col);
       return;
     }
-  }
 
-  const currentFaction = turnOrder[currentTurnIndex];
-  const clickedUnit = units.find(
-    u => u.row === row && u.col === col && u.faction === currentFaction);
-
-  if (clickedUnit) {
-    selectedUnit = clickedUnit;
-    highlightedTilesByType.combat = [];
-    const targets = getAdjacentEnemies(clickedUnit);
-    highlightTiles(targets, "combat");
-    info.innerText = "Selected unit for combat declaration.";
-  }
-  return;
-}
-      return;
+    // All other phases: just show tile info
+    showHexInfo(row, col);
   });
  
 // === MULTI-TYPE HIGHLIGHTS ===
@@ -317,12 +304,20 @@ function drawUnitsInHex(row, col, cx, cy, lakes) {
       element.setAttribute("points", points);
     }
  
-    element.setAttribute("fill", kingdomColors[unit.faction] || "#d2b48c");
+    if (unit.isBarbarian) {
+      element.setAttribute("fill", "#8B4513"); // saddle brown — barbarian colour
+    } else {
+      element.setAttribute("fill", kingdomColors[unit.faction] || "#d2b48c");
+    }
 
 if (unit.isMercenary) {
-  element.setAttribute("stroke", "#000"); // black stroke to highlight
+  element.setAttribute("stroke", "#000");
   element.setAttribute("stroke-width", "2");
-  element.setAttribute("stroke-dasharray", "3,1"); // dashed border to indicate mercenary
+  element.setAttribute("stroke-dasharray", "3,1"); // dashed border = mercenary
+} else if (unit.isBarbarian) {
+  element.setAttribute("stroke", "#fff");
+  element.setAttribute("stroke-width", "2");
+  element.setAttribute("stroke-dasharray", "4,2"); // double-dash = barbarian
 } else {
   element.setAttribute("stroke", "black");
   element.setAttribute("stroke-width", "1");
@@ -332,31 +327,24 @@ if (unit.isMercenary) {
     if (unit.hasMoved) element.classList.add("faded");
  
     element.addEventListener("click", e => {
-  e.stopPropagation();
- 
- 
-  if (turnOrder[currentTurnIndex] !== unit.faction) {
-    alert("Not this faction's turn.");
-    return;
-  }
- 
-  if (unit.hasMoved) {
-    alert("Unit has already moved.");
-    return;
-  }
- 
-  selectedUnit = unit;
- 
-if (currentPhase === "movement") {
-    const movementTiles = validMoves(unit);
-    highlightTiles(movementTiles, "movement");
-  }
+      e.stopPropagation();
 
-  if (currentPhase === "combat-declare") {
-    const targets = getAdjacentEnemies(unit);
-    highlightTiles(targets, "combat");
-  }
-});
+      // Always show the tile's info panel first
+      showHexInfo(unit.row, unit.col);
+
+      // Only allow interaction with the active faction's units
+      if (turnOrder[currentTurnIndex] !== unit.faction) return;
+
+      if (unit.hasMoved && currentPhase === "movement") return;
+
+      selectedUnit = unit;
+
+      if (currentPhase === "movement") {
+        highlightTiles(validMoves(unit), "movement");
+      } else if (currentPhase === "combat-declare") {
+        highlightTiles(getAdjacentEnemies(unit), "combat");
+      }
+    });
  
     svg.appendChild(element);
 
@@ -415,4 +403,68 @@ function showValidMovesOrCombat(unit) {
       ? getAdjacentEnemies(unit)
       : [];
   highlightTiles(tileList, currentPhase === "movement" ? "movement" : "combat");
+}
+
+function showHexInfo(row, col) {
+  const key = `${row},${col}`;
+  const data = tileData[key];
+  const lines = [];
+
+  // Coordinates
+  lines.push(`Hex (${row}, ${col})`);
+
+  if (!data) {
+    lines.push("(uncoded — not yet mapped)");
+    info.innerText = lines.join('\n');
+    return;
+  }
+
+  // Name
+  if (data.name) lines.push(data.name);
+
+  // Kingdom / faction
+  if (data.faction && data.faction !== "none") {
+    lines.push(`Kingdom: ${data.faction}`);
+  }
+
+  // Fortress
+  if (data.isFortress) {
+    const besiege = (highlightedTilesByType.siege || []).some(([r, c]) => r === row && c === col)
+      ? " — BESIEGED" : "";
+    lines.push(`Fortress: strength ${data.fortressStrength || 0}${besiege}`);
+  }
+
+  // Special hex notes
+  if (data.isTempleOfKings) lines.push('⚑ Temple of Kings — monarchs only, Test of Gods');
+  if (data.isEntryHex) lines.push(`★ Entry hex: ${data.isEntryHex}`);
+  if (data.isStubstaffKeep) lines.push(`★ Stubstaff Keep — activates when Black Knight deploys`);
+  if (data.isAncientBattlefield) lines.push('† Ancient Battlefield');
+
+  // Terrain
+  const terrainList = Array.isArray(data.terrain)
+    ? data.terrain : data.terrain ? [data.terrain] : [];
+  if (terrainList.length) lines.push(`Terrain: ${terrainList.join(', ')}`);
+
+  // Rivers
+  const rivers = Array.isArray(data.rivers) ? data.rivers : [];
+  if (rivers.length) lines.push(`Rivers: sides ${rivers.join(', ')}`);
+
+  // Lakes / water
+  const lakes = Array.isArray(data.lakes) ? data.lakes : [];
+  if (lakes.length) lines.push(`Water/coast: sides ${lakes.join(', ')}`);
+
+  // Units present
+  const here = units.filter(u => u.row === row && u.col === col);
+  if (here.length) {
+    lines.push('');
+    lines.push(`Troops (${here.length}):`);
+    for (const u of here) {
+      const kind = u.isFleet ? 'Fleet' : u.isLeader ? 'Leader' : u.isBarbarian ? 'Barbarian' : u.isSpecialMerc ? 'Special' : 'Army';
+      const tags = [u.isMercenary ? 'merc' : '', u.isBarbarian ? 'barb' : '', u.isScum ? 'scum' : '', u.isOgsbogg ? '+1siege' : '', u.templeSleep ? 'SLEEPING' : '', u.hasMoved ? 'moved' : ''].filter(Boolean).join(', ');
+      lines.push(`  ${u.faction} ${kind}${tags ? ` [${tags}]` : ''}`);
+      lines.push(`    Spd ${u.moveSpeed}  Atk ${u.combatStrength}  Siege ${u.siegeStrength || 0}`);
+    }
+  }
+
+  info.innerText = lines.join('\n');
 }

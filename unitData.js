@@ -46,6 +46,29 @@ const units = [
   { faction: "trolls", row: 29, col: 17, hasMoved: false, moveSpeed: 4, startCoords: [29, 17], isFleet: false, isMercenary: false, forestWalk: true, mountainWalk: true , isLeader: false, combatStrength: 1, siegeStrength: 1},
   { faction: "trolls", row: 29, col: 17, hasMoved: false, moveSpeed: 4, startCoords: [29, 17], isFleet: false, isMercenary: false, forestWalk: true, mountainWalk: true , isLeader: false, combatStrength: 1, siegeStrength: 1},
 
+  // Hothior — 2 fleets, 1 leader, 7 army units
+  { faction:"hothior", row:18, col:9,  hasMoved:false, moveSpeed:8, startCoords:[18,9],  isFleet:true,  isMercenary:false, forestWalk:false, mountainWalk:false, isLeader:false, combatStrength:1, siegeStrength:1 },
+  { faction:"hothior", row:19, col:13, hasMoved:false, moveSpeed:8, startCoords:[19,13], isFleet:true,  isMercenary:false, forestWalk:false, mountainWalk:false, isLeader:false, combatStrength:1, siegeStrength:1 },
+  { faction:"hothior", row:18, col:9,  hasMoved:false, moveSpeed:7, startCoords:[18,9],  isFleet:false, isMercenary:false, forestWalk:false, mountainWalk:false, isLeader:true,  combatStrength:0, siegeStrength:0, hasTakenAFateDieRoll:false },
+  { faction:"hothior", row:20, col:10, hasMoved:false, moveSpeed:5, startCoords:[20,10], isFleet:false, isMercenary:false, forestWalk:false, mountainWalk:false, isLeader:false, combatStrength:1, siegeStrength:1 },
+  { faction:"hothior", row:19, col:13, hasMoved:false, moveSpeed:5, startCoords:[19,13], isFleet:false, isMercenary:false, forestWalk:false, mountainWalk:false, isLeader:false, combatStrength:1, siegeStrength:1 },
+  { faction:"hothior", row:19, col:13, hasMoved:false, moveSpeed:5, startCoords:[19,13], isFleet:false, isMercenary:false, forestWalk:false, mountainWalk:false, isLeader:false, combatStrength:1, siegeStrength:1 },
+  { faction:"hothior", row:18, col:9,  hasMoved:false, moveSpeed:5, startCoords:[18,9],  isFleet:false, isMercenary:false, forestWalk:false, mountainWalk:false, isLeader:false, combatStrength:1, siegeStrength:1 },
+  { faction:"hothior", row:18, col:9,  hasMoved:false, moveSpeed:5, startCoords:[18,9],  isFleet:false, isMercenary:false, forestWalk:false, mountainWalk:false, isLeader:false, combatStrength:1, siegeStrength:1 },
+  { faction:"hothior", row:15, col:10, hasMoved:false, moveSpeed:5, startCoords:[15,10], isFleet:false, isMercenary:false, forestWalk:false, mountainWalk:false, isLeader:false, combatStrength:1, siegeStrength:1 },
+  { faction:"hothior", row:15, col:10, hasMoved:false, moveSpeed:5, startCoords:[15,10], isFleet:false, isMercenary:false, forestWalk:false, mountainWalk:false, isLeader:false, combatStrength:1, siegeStrength:1 },
+
+  // Eaters of Wisdom — combined leader + combat unit; wagon speed 8 per rulebook
+  { faction: "eaters", row: 11, col: 12, hasMoved: false, moveSpeed: 8, startCoords: [11, 12],
+    isFleet: false, isMercenary: false, forestWalk: true, mountainWalk: true,
+    isLeader: true, combatStrength: 2, siegeStrength: 1,
+    isMagical: true, isEatersOfWisdom: true, baseCombatStrength: 2,
+    hasTakenAFateDieRoll: false,
+    spellUsedThisTurn: null,
+    spells: { whirlingVortex: 0, reflector: 0, mistOfGroping: 0, theBridge: 0, enchantedCastle: 0 },
+    mistActive: false, mistActiveTurn: null,
+    enchantedCastleActive: false, bridgeActive: false },
+
   // Leader units
 { faction: "neuth", row: 6, col: 5, hasMoved: false, moveSpeed: 8, startCoords: [6, 5], isFleet: false, isMercenary: false, forestWalk: true, mountainWalk: false, isLeader: true, combatStrength: 0, siegeStrength: 0, hasTakenAFateDieRoll: false },
 { faction: "dwarfland", row: 11, col: 33, hasMoved: false, moveSpeed: 8, startCoords: [11, 33], isFleet: false, isMercenary: false, forestWalk: false, mountainWalk: true, isLeader: true, combatStrength: 0, siegeStrength: 0, hasTakenAFateDieRoll: false },

@@ -13,6 +13,30 @@ function startCombatResolution() {
     u => u.row === fromHex.row && u.col === fromHex.col && u.faction !== defFaction
   );
 
+  // Scum-alone rule: if all defenders are Scum, they retreat (4-6) or are eliminated.
+  const allScumDefenders = defenders.length > 0 && defenders.every(u => u.isScum);
+  if (allScumDefenders) {
+    const roll = Math.ceil(Math.random() * 6);
+    if (roll >= 4) {
+      // Retreat — move Scum to an adjacent friendly or empty hex
+      const adj = getAdjacentCoords(targetHex.row, targetHex.col);
+      const safeHex = adj.find(([r, c]) => !units.some(u => u.row === r && u.col === c && u.faction !== defenders[0].faction));
+      if (safeHex) {
+        for (const u of defenders) { u.row = safeHex[0]; u.col = safeHex[1]; }
+        alert(`The Scum retreat! (Roll: ${roll} ≥ 4 — they flee to ${safeHex[0]},${safeHex[1]})`);
+      } else {
+        for (const u of defenders) removeUnit(u);
+        alert(`The Scum try to retreat but have nowhere to go! (Roll: ${roll}) — Eliminated!`);
+      }
+    } else {
+      for (const u of [...defenders]) removeUnit(u);
+      alert(`The Scum cannot retreat and are eliminated! (Roll: ${roll} < 4)`);
+    }
+    drawMap();
+    startCombatResolution();
+    return;
+  }
+
   window.currentCombat = { attackers: [...attackers], defenders: [...defenders], fromHex, targetHex };
 
   document.getElementById("combat-info").innerHTML = `
@@ -34,10 +58,27 @@ function resolveCurrentCombat() {
   const tile = tileData[`${targetHex.row},${targetHex.col}`];
   const terrain = tile?.terrain;
 
+  // Eaters of Wisdom lose their combat value if enemy combat units occupy their hex.
+  // This only happens after enemies advanced in via a prior combat/siege.
+  const eaterInDefenders = defenders.find(u => u.isEatersOfWisdom);
+  if (eaterInDefenders) {
+    const enemiesInHex = units.some(u =>
+      u.row === targetHex.row && u.col === targetHex.col &&
+      u.faction !== eaterInDefenders.faction && (u.combatStrength || 0) > 0
+    );
+    if (enemiesInHex) eaterInDefenders.combatStrength = 0;
+  }
+  // Restore Eaters' base combat strength after this resolution finishes (see below).
+
   let attackerStrength = attackers.reduce((s, u) => s + (u.combatStrength || 0), 0);
   let defenderStrength = defenders.reduce((s, u) => s + (u.combatStrength || 0), 0);
 
   if (terrain === "mountain_pass") defenderStrength *= 2;
+
+  // Enchanted Castle doubles defensive strength for all units in the Eaters' hex
+  if (typeof getEnchantedCastleBonus === "function") {
+    defenderStrength *= getEnchantedCastleBonus(targetHex.row, targetHex.col);
+  }
 
   let attackerBonus = 0, defenderBonus = 0;
   if (attackerStrength > defenderStrength && defenderStrength > 0) {
@@ -48,10 +89,16 @@ function resolveCurrentCombat() {
   }
   if (terrain === "mountain") defenderBonus += 1;
 
+  // Sleeping monarch penalty: units of a sleeping king get -1 to combat rolls
+  const attackerFaction = attackers[0]?.faction;
+  const defenderFaction = defenders[0]?.faction;
+  const attackerSleepPenalty = units.some(u => u.isLeader && u.faction === attackerFaction && u.templeSleep) ? -1 : 0;
+  const defenderSleepPenalty = units.some(u => u.isLeader && u.faction === defenderFaction && u.templeSleep) ? -1 : 0;
+
   const attackerRoll = Math.floor(Math.random() * 6) + 1;
   const defenderRoll = Math.floor(Math.random() * 6) + 1;
-  const attackerTotal = attackerRoll + attackerBonus;
-  const defenderTotal = defenderRoll + defenderBonus;
+  const attackerTotal = attackerRoll + attackerBonus + attackerSleepPenalty;
+  const defenderTotal = defenderRoll + defenderBonus + defenderSleepPenalty;
 
   let attackerLosses = 0, defenderLosses = 0;
   let resultLine;
@@ -69,18 +116,21 @@ function resolveCurrentCombat() {
   const hexesWithLosses = new Set();
 
   for (let i = 0; i < defenderLosses; i++) {
-    const eligible = defenders.filter(u => !u.isLeader && units.includes(u));
+    // Scum absorb losses in place of better troops (preferred loss candidate)
+    let eligible = defenders.filter(u => !u.isLeader && units.includes(u));
     if (!eligible.length) break;
-    const u = eligible[Math.floor(Math.random() * eligible.length)];
+    const scumFirst = eligible.filter(u => u.isScum);
+    const u = scumFirst.length ? scumFirst[0] : eligible[Math.floor(Math.random() * eligible.length)];
     hexesWithLosses.add(`${u.row},${u.col}`);
     removeUnit(u);
     defenders.splice(defenders.indexOf(u), 1);
   }
 
   for (let i = 0; i < attackerLosses; i++) {
-    const eligible = attackers.filter(u => !u.isLeader && units.includes(u));
+    let eligible = attackers.filter(u => !u.isLeader && units.includes(u));
     if (!eligible.length) break;
-    const u = eligible[Math.floor(Math.random() * eligible.length)];
+    const scumFirst = eligible.filter(u => u.isScum);
+    const u = scumFirst.length ? scumFirst[0] : eligible[Math.floor(Math.random() * eligible.length)];
     hexesWithLosses.add(`${u.row},${u.col}`);
     removeUnit(u);
     attackers.splice(attackers.indexOf(u), 1);
@@ -93,12 +143,20 @@ function resolveCurrentCombat() {
     }
   }
 
-  const nonLeaderDefenders = defenders.filter(u => !u.isLeader);
+  // Restore Eaters' combat strength if it was nullified above (safe hex restores it)
+  if (eaterInDefenders && eaterInDefenders.combatStrength === 0) {
+    eaterInDefenders.combatStrength = eaterInDefenders.baseCombatStrength || 2;
+  }
+
+  // Eaters are a combined leader+combat unit — count them in the "non-leader" check
+  // so that attackers can advance when only the Eaters remain (they're also a combat unit).
+  const nonLeaderDefenders = defenders.filter(u => !u.isLeader || u.isEatersOfWisdom);
   if (nonLeaderDefenders.length === 0 && attackers.length > 0) {
     for (const u of attackers) {
       if (units.includes(u)) { u.row = targetHex.row; u.col = targetHex.col; }
     }
-    for (const leader of defenders.filter(u => u.isLeader)) fateDieRoll(leader);
+    // Fate die roll for any surviving non-Eaters leaders; Eaters roll is already handled
+    for (const leader of defenders.filter(u => u.isLeader && !u.isEatersOfWisdom)) fateDieRoll(leader);
   } else {
     for (const u of attackers) {
       if (units.includes(u)) { u.row = fromHex.row; u.col = fromHex.col; }

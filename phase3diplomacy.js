@@ -11,70 +11,281 @@ function getNeutralKingdoms() {
   return Array.from(result);
 }
 
-// Prompt the active faction to play a card from their hand against a neutral kingdom.
+function getPersonalityCard(kingdom) {
+  const cardId = typeof personalityCards !== "undefined" ? personalityCards[kingdom] : null;
+  return cardId != null && typeof PERSONALITY_CARDS !== "undefined" ? PERSONALITY_CARDS[cardId] : null;
+}
+
+function isAmbassadorBanned(faction, kingdom) {
+  return ambassadorBanned[faction]?.has(kingdom) ?? false;
+}
+
+function banAmbassador(faction, kingdom) {
+  if (!ambassadorBanned[faction]) ambassadorBanned[faction] = new Set();
+  ambassadorBanned[faction].add(kingdom);
+  alert(`${faction.toUpperCase()}'s ambassador has been BANISHED from ${kingdom.toUpperCase()}! They may no longer conduct diplomacy there.`);
+}
+
+// ── Barbarian Recruiting ───────────────────────────────────────────────────────
+function handleBarbarianRecruiting(faction, onComplete) {
+  const input = prompt(
+    `${faction.toUpperCase()} — BARBARIAN RECRUITING (Advanced)\n\n` +
+    `Place ambassador on a clear, unclaimed hex on the north (row 0-1) or south (row 28+) map edge.\n\n` +
+    `Enter target hex as "row,col", or leave blank to skip:`
+  );
+  if (!input?.trim()) { onComplete(); return; }
+
+  const parts = input.trim().split(",").map(s => parseInt(s.trim(), 10));
+  if (parts.length !== 2 || parts.some(isNaN)) { alert("Invalid hex — skipping."); onComplete(); return; }
+  const [row, col] = parts;
+
+  const key = `${row},${col}`;
+  const tile = tileData[key];
+  const isEdge = row <= 1 || row >= 28;
+  const isUnclaimed = !tile || !tile.faction || tile.faction === "none";
+  const terrains = Array.isArray(tile?.terrain) ? tile.terrain : tile?.terrain ? [tile.terrain] : [];
+  const isClear = terrains.length === 0 || terrains.includes("plains");
+  const hasEnemies = units.some(u => u.row === row && u.col === col && u.faction !== faction);
+
+  if (!isEdge) { alert("Hex must be on the north (row 0-1) or south (row 28+) map edge."); onComplete(); return; }
+  if (!isUnclaimed) { alert("Hex must be unclaimed (pale brown) territory."); onComplete(); return; }
+  if (!isClear) { alert("Hex must be clear terrain (no forest, mountain, hills, etc.)."); onComplete(); return; }
+  if (hasEnemies) { alert("Hex is occupied by enemy forces."); onComplete(); return; }
+
+  const roll = Math.ceil(Math.random() * 6);
+
+  if (roll >= 3) {
+    const available = barbarianPool.filter(b => b.faction === null);
+    const ownedCount = units.filter(u => u.isBarbarian && u.faction === faction).length;
+    const cap = 15;
+    const canRecruit = Math.min(roll, available.length, cap - ownedCount);
+
+    if (!barbarianOwners[faction]) {
+      const tribeChoice = prompt(
+        `Choose your Barbarian tribe:\n` +
+        BARBARIAN_TRIBES.map((t, i) => `${i+1}. ${t}`).join("\n") +
+        `\n\nEnter number 1-6:`
+      );
+      const idx = parseInt(tribeChoice, 10) - 1;
+      const tribe = BARBARIAN_TRIBES[idx] ?? BARBARIAN_TRIBES[0];
+      barbarianOwners[faction] = { tribe, inPlay: 0 };
+      alert(`${faction} tribe: ${tribe}`);
+    }
+
+    let recruited = 0;
+    for (let i = 0; i < canRecruit; i++) {
+      const b = available[i];
+      b.faction = faction; b.row = row; b.col = col;
+      b.hasMoved = true; b.justRecruited = true;
+      units.push(b);
+      barbarianPool.splice(barbarianPool.indexOf(b), 1);
+      recruited++;
+    }
+    alert(`Die roll: ${roll} — ${recruited} Barbarian(s) join ${faction} at (${row},${col})!\nThey may not move or attack this turn.`);
+  } else {
+    const friendly = units.filter(u => u.isBarbarian && u.faction === faction);
+    const toRemove = Math.min(roll, friendly.length);
+    for (let i = 0; i < toRemove; i++) {
+      const b = friendly[i];
+      units.splice(units.indexOf(b), 1);
+      b.faction = null; b.row = undefined; b.col = undefined;
+      barbarianPool.push(b);
+    }
+    alert(`Die roll: ${roll} — ${toRemove} Barbarian(s) of ${faction} desert.`);
+
+    if (roll === 1) {
+      alert(`The Barbarians burn your ambassador! Out of play for 2 turns.`);
+      if (!ambassadorStatus[faction]) ambassadorStatus[faction] = {};
+      ambassadorStatus[faction].deadUntilTurn = (turnNumber || 1) + 2;
+    }
+  }
+
+  drawMap();
+  onComplete();
+}
+
+// ── Special Mercenary Recruiting ──────────────────────────────────────────────
+// Called when a player plays a specialMerc card from their hand.
+function handleSpecialMercCard(faction, card, onComplete) {
+  const { mercType, entryType, entryHex, entryName } = card;
+  const pool = specialMercPool[mercType];
+  if (!pool) { alert(`No pool found for ${mercType}.`); onComplete(); return; }
+
+  const available = pool.filter(u => u.faction === null);
+  if (!available.length) { alert(`${card.label} is already in play — card discarded.`); onComplete(); return; }
+
+  let targetRow, targetCol;
+
+  if (entryType === "fixed") {
+    const [r, c] = entryHex.split(",").map(Number);
+    targetRow = r; targetCol = c;
+
+  } else if (entryType === "friendlyCastle") {
+    const castles = Object.entries(tileData)
+      .filter(([, t]) => t.isFortress && t.faction === faction)
+      .map(([k]) => k);
+    if (!castles.length) { alert("No friendly castles available."); onComplete(); return; }
+    const pick = prompt(`${card.label}\nChoose a friendly castle:\n${castles.join(', ')}\n\nEnter hex (row,col):`);
+    const parts = pick?.trim().split(",").map(Number);
+    if (!parts || parts.length !== 2 || parts.some(isNaN)) { onComplete(); return; }
+    [targetRow, targetCol] = parts;
+    if (!tileData[`${targetRow},${targetCol}`]?.isFortress || tileData[`${targetRow},${targetCol}`].faction !== faction) {
+      alert("Not a friendly castle."); onComplete(); return;
+    }
+
+  } else if (entryType === "friendlyPort") {
+    const ports = Object.entries(tileData)
+      .filter(([, t]) => t.isPort && t.faction === faction)
+      .map(([k]) => k);
+    if (!ports.length) { alert("No friendly seaports available — Bilge Rat cannot be recruited."); onComplete(); return; }
+    // Reaver can only enter on Great Sea / Sea of Drowning Men ports — player picks
+    const pick = prompt(`${card.label}\nChoose a friendly seaport:\n${ports.join(', ')}\n\nEnter hex (row,col):`);
+    const parts = pick?.trim().split(",").map(Number);
+    if (!parts || parts.length !== 2 || parts.some(isNaN)) { onComplete(); return; }
+    [targetRow, targetCol] = parts;
+
+  } else if (entryType === "friendlyNonCastle") {
+    const pick = prompt(`${card.label}\nEnter any friendly non-castle land hex (row,col):`);
+    const parts = pick?.trim().split(",").map(Number);
+    if (!parts || parts.length !== 2 || parts.some(isNaN)) { onComplete(); return; }
+    [targetRow, targetCol] = parts;
+    const t = tileData[`${targetRow},${targetCol}`];
+    if (!t || t.faction !== faction || t.isFortress) { alert("Must be a friendly non-castle hex."); onComplete(); return; }
+
+  } else if (entryType === "confusedKingdom") {
+    // Usurper: enter at royal castle of a kingdom whose monarch is dead
+    // For now, player specifies the castle hex manually
+    const pick = prompt(`${card.label}\nEnter the royal castle hex of a kingdom in confusion (row,col):`);
+    const parts = pick?.trim().split(",").map(Number);
+    if (!parts || parts.length !== 2 || parts.some(isNaN)) { onComplete(); return; }
+    [targetRow, targetCol] = parts;
+  }
+
+  // Check not enemy-occupied
+  const enemyAtTarget = units.some(u => u.row === targetRow && u.col === targetCol &&
+    u.faction !== faction && !neutralFactions.has(u.faction));
+  if (enemyAtTarget) { alert(`${entryName} is enemy-occupied — cannot recruit there.`); onComplete(); return; }
+
+  // Special case: Wandering People gifts go to royal castle
+  if (mercType === "wanderingPeople") {
+    const royalCastle = Object.entries(tileData).find(([, t]) => t.isCapital && t.faction === faction);
+    if (royalCastle) {
+      royalCastle[1].wanderingPeopleGifts = ["Flying Carpet", "Spinning Wheel", "Guiding Light"];
+      alert(`The Wandering People's gifts (Flying Carpet, Spinning Wheel, Guiding Light) are placed at ${royalCastle[1].name || royalCastle[0]}.`);
+    }
+    // Immovable marker stays at entry hex; troop is also placed there
+  }
+
+  // Place all units from the pool at the target hex
+  for (const u of available) {
+    u.faction = faction;
+    u.row = targetRow;
+    u.col = targetCol;
+    u.hasMoved = false;
+    units.push(u);
+  }
+
+  const count = available.length > 1 ? `${available.length}× ` : "";
+  alert(`${faction.toUpperCase()} enters ${count}${card.label} at (${targetRow},${targetCol}) — ${entryName}!`);
+  drawMap();
+  onComplete();
+}
+
+// ── Standard Diplomacy ─────────────────────────────────────────────────────────
 function handleDiploPlayPhase(faction, onComplete) {
   const hand = diplomacyHands[faction] || [];
-  const kingdoms = getNeutralKingdoms();
+  const kingdoms = getNeutralKingdoms().filter(k => !isAmbassadorBanned(faction, k));
+  const regularCards = hand.filter(c => c.type !== "specialMerc");
+  const mercCards    = hand.filter(c => c.type === "specialMerc");
+  const hasRegular   = regularCards.length > 0;
+  const hasKingdoms  = kingdoms.length > 0;
 
-  if (hand.length === 0 || kingdoms.length === 0) {
-    if (kingdoms.length === 0) {
-      alert(`${faction.toUpperCase()}: No neutral kingdoms on the map yet — diplomacy skipped.`);
-    } else {
-      alert(`${faction.toUpperCase()}: No diplomatic cards in hand — pass.`);
-    }
-    onComplete();
-    return;
-  }
+  const handDisplay = hand.map((c, i) => `  ${i}: ${c.label || `+${c.value}`}`).join('\n');
 
-  const handStr = hand.map((c, i) => `  ${i}: +${c.value}`).join('\n');
-  const kingdomStr = kingdoms.join(', ');
+  const options = [];
+  if (hasRegular && hasKingdoms) options.push("1. Play a diplomacy card on a neutral kingdom");
+  if (mercCards.length) options.push("2. Play a special mercenary card");
+  options.push("3. Recruit Barbarians (Advanced)");
+  options.push("0. Skip");
 
-  const cardChoice = prompt(
-    `${faction.toUpperCase()} — DIPLOMACY\n\nHand:\n${handStr}\n\nNeutral kingdoms: ${kingdomStr}\n\nEnter card number to play, or leave blank to skip:`
+  const choice = prompt(
+    `${faction.toUpperCase()} — DIPLOMACY\nHand:\n${handDisplay}\n\n` +
+    options.join('\n') + `\n\nEnter number:`
   );
+  const c = parseInt(choice?.trim(), 10);
 
-  if (!cardChoice || cardChoice.trim() === '') {
-    alert(`${faction} passes diplomacy this turn.`);
+  if (c === 1 && hasRegular && hasKingdoms) {
+    const regularDisplay = regularCards.map((c, i) => `  ${i}: ${c.label || `+${c.value}`}`).join('\n');
+    const cardIdx = parseInt(prompt(`Choose a card:\n${regularDisplay}\n\nEnter index:`), 10);
+    if (isNaN(cardIdx) || cardIdx < 0 || cardIdx >= regularCards.length) { alert("Invalid — passing."); onComplete(); return; }
+    const card = regularCards[cardIdx];
+    // Remove from hand by reference
+    hand.splice(hand.indexOf(card), 1);
+
+    const kingdomStr = kingdoms.join(', ');
+    const raw = prompt(`Which neutral kingdom?\n${kingdomStr}`);
+    const matched = kingdoms.find(k => k.toLowerCase() === (raw || '').trim().toLowerCase());
+    if (!matched) { alert('Invalid kingdom — passing.'); onComplete(); return; }
+    playDiplomaticCard(faction, card, matched, onComplete);
+
+  } else if (c === 2 && mercCards.length) {
+    const mercDisplay = mercCards.map((mc, i) => `  ${i}: ${mc.label} (entry: ${mc.entryName})`).join('\n');
+    const cardIdx = parseInt(prompt(`Choose a special merc card:\n${mercDisplay}\n\nEnter index:`), 10);
+    if (isNaN(cardIdx) || cardIdx < 0 || cardIdx >= mercCards.length) { onComplete(); return; }
+    const card = mercCards[cardIdx];
+    hand.splice(hand.indexOf(card), 1);
+    handleSpecialMercCard(faction, card, onComplete);
+
+  } else if (c === 3) {
+    handleBarbarianRecruiting(faction, onComplete);
+
+  } else {
+    if (c !== 0) alert(`${faction} passes diplomacy.`);
     onComplete();
-    return;
   }
-
-  const cardIndex = parseInt(cardChoice.trim(), 10);
-  if (isNaN(cardIndex) || cardIndex < 0 || cardIndex >= hand.length) {
-    alert('Invalid card selection — passing.');
-    onComplete();
-    return;
-  }
-
-  const kingdom = prompt(`Which kingdom?\n${kingdomStr}\n\nType kingdom name exactly:`);
-  if (!kingdom || !kingdoms.includes(kingdom.trim().toLowerCase())) {
-    // Try case-insensitive match
-    const matched = kingdoms.find(k => k.toLowerCase() === (kingdom || '').trim().toLowerCase());
-    if (!matched) {
-      alert('Invalid kingdom — passing.');
-      onComplete();
-      return;
-    }
-    playDiplomaticCard(faction, hand.splice(cardIndex, 1)[0], matched, onComplete);
-    return;
-  }
-
-  playDiplomaticCard(faction, hand.splice(cardIndex, 1)[0], kingdom.trim().toLowerCase(), onComplete);
 }
 
 function playDiplomaticCard(faction, card, kingdom, onComplete) {
-  if (!diplomaticInfluence[kingdom]) {
-    diplomaticInfluence[kingdom] = {};
-    for (const f of factionList) diplomaticInfluence[kingdom][f] = 0;
+  // Magicians: immune to cards, need unmodified roll of 6
+  if (kingdom === "eaters" || kingdom === "black_hand") {
+    const roll = Math.ceil(Math.random() * 6);
+    const name = kingdom === "eaters" ? "Eaters of Wisdom" : "Black Hand";
+    alert(`${faction.toUpperCase()} → ${name}\nCard discarded (Magicians ignore Diplomacy cards).\nRoll: ${roll}${roll === 6 ? "\n✓ Joins your alliance!" : "\n✗ No effect."}`);
+    if (roll === 6) formAlliance(faction, kingdom);
+    onComplete(); return;
   }
 
-  diplomaticInfluence[kingdom][faction] = (diplomaticInfluence[kingdom][faction] || 0) + card.value;
-  const score = diplomaticInfluence[kingdom][faction];
+  // Reveal personality card on first ambassador contact
+  const pCard = getPersonalityCard(kingdom);
+  const pCardNote = pCard ? `\n[Personality: ${pCard.name} — ${pCard.desc}]` : "";
 
-  alert(`${faction.toUpperCase()} plays +${card.value} on ${kingdom}.\nInfluence: ${score} / 10`);
+  // Personality card #11: bribeBonus when a bribe-type card is played
+  const bribeBonus = (pCard?.bribeBonus && card.isBribe) ? pCard.bribeBonus : 0;
 
-  if (score >= 10) {
+  const roll = Math.ceil(Math.random() * 6);
+  const total = roll + (card.value || 0) + bribeBonus;
+  const success = total >= 7;
+  const bonusNote = bribeBonus ? ` + bribe +${bribeBonus}` : "";
+
+  alert(
+    `${faction.toUpperCase()} plays "${card.label}" on ${kingdom.toUpperCase()}${pCardNote}\n` +
+    `Roll: ${roll} + ${card.value || 0}${bonusNote} = ${total} (need 7+)\n` +
+    (success ? `✓ ${kingdom} joins your alliance!` : `✗ Failed.`)
+  );
+
+  if (success) {
     formAlliance(faction, kingdom);
+  } else if (card.canBanish) {
+    // Crass bribe immunity from personality card #11
+    const immune = card.type === "crassBribe" && pCard?.crassBribeImmunity;
+    if (!immune) {
+      const banRoll = Math.ceil(Math.random() * 6);
+      if (banRoll <= 2) {
+        banAmbassador(faction, kingdom);
+      } else {
+        alert(`Close call — ambassador escapes banishment (roll: ${banRoll}).`);
+      }
+    }
   }
 
   onComplete();
@@ -83,21 +294,18 @@ function playDiplomaticCard(faction, card, kingdom, onComplete) {
 function formAlliance(faction, kingdom) {
   alert(`${kingdom.toUpperCase()} joins forces with ${faction.toUpperCase()}!`);
 
-  // Transfer fortress ownership so the new ally's castles show under the correct colour.
   for (const key in tileData) {
     const tile = tileData[key];
     if (tile.faction === kingdom && tile.isFortress) {
-      tile.allyOf = faction;  // track origin
+      tile.allyOf = faction;
       tile.faction = faction;
     }
   }
 
-  // Transfer any neutral kingdom units to the new ally.
   for (const u of units) {
     if (u.faction === kingdom) u.faction = faction;
   }
 
-  // Reward VP proportional to fortress strength.
   let vpGain = 0;
   for (const key in tileData) {
     const t = tileData[key];

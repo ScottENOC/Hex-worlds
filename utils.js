@@ -139,6 +139,7 @@ function continueEventPhase(currentFaction) {
   const advanceToDiplo = () => {
     currentPhase = "diplo-draw";
     updateTurnInfo();
+    if (typeof dispatchCPUIfNeeded === "function") dispatchCPUIfNeeded();
   };
 
   switch (total) {
@@ -631,6 +632,7 @@ function areAdjacent(row1, col1, row2, col2) {
 }
 
 // A fortress is under siege when at least one adjacent enemy unit carries siege strength.
+// Tiles with requiresMagicalSieger:true (Invisible School) also need a magical unit adjacent.
 function getBesiegedFortresses() {
   const besieged = new Set();
 
@@ -640,11 +642,17 @@ function getBesiegedFortresses() {
 
     const [row, col] = key.split(',').map(Number);
     const adjacents = getAdjacentCoords(row, col);
-    const hasAdjacentSieger = adjacents.some(([r, c]) =>
-      units.some(u => u.faction !== tile.faction && u.row === r && u.col === c && (u.siegeStrength || 0) > 0)
+
+    const adjacentEnemies = adjacents.flatMap(([r, c]) =>
+      units.filter(u => u.faction !== tile.faction && u.row === r && u.col === c && (u.siegeStrength || 0) > 0)
     );
 
-    if (hasAdjacentSieger) besieged.add(key);
+    if (adjacentEnemies.length === 0) continue;
+
+    // Special rule: the Invisible School requires at least one magical besieger
+    if (tile.requiresMagicalSieger && !adjacentEnemies.some(u => u.isMagical)) continue;
+
+    besieged.add(key);
   }
 
   return besieged;
@@ -664,6 +672,16 @@ function getTileCost(row, col, unit) {
   const key = `${row},${col}`;
   const data = tileData[key];
   if (!data) return Infinity; // off-map or undefined tile
+
+  // Barbarians may never enter a castle hex
+  if (unit?.isBarbarian && data.isFortress) return Infinity;
+
+  // Temple of Kings: only monarchs (leaders) may enter; no combat units
+  // Exceptions: Eaters of Wisdom (isEatersOfWisdom) count as a combined unit/leader
+  if (data.isTempleOfKings && !unit?.isLeader && !unit?.isEatersOfWisdom) return Infinity;
+
+  // The Bridge spell: Eaters treat all terrain as clear for this movement turn
+  if (unit?.isEatersOfWisdom && unit?.bridgeActive) return 1;
 
   if (unit?.isFleet) return 1; // Fleets ignore terrain penalties
 
@@ -713,6 +731,13 @@ function enemyAt(row, col, faction) {
 }
 
 function validMoves(unit) {
+  // Personality card #17: monarch cannot leave the royal castle
+  if (unit.isLeader && !unit.isEatersOfWisdom) {
+    const cardId = typeof personalityCards !== "undefined" && personalityCards[unit.faction];
+    const pCard = cardId != null && typeof PERSONALITY_CARDS !== "undefined" ? PERSONALITY_CARDS[cardId] : null;
+    if (pCard?.monarchCantLeave) return [];
+  }
+
   const visited = {};
   const result = [];
   const moveSpeed = unit.moveSpeed;
@@ -759,7 +784,15 @@ function dfs(r, c, mp, cameFromMountain = false) {
 
   // 6) Record as a valid move if it isn’t the start and has no enemy
   if (!(r === unit.row && c === unit.col) && !enemyAt(r, c, unit.faction)) {
-    result.push([r, c]);
+    // Barbarians may not stack with friendly non-Barbarian combat units
+    if (unit.isBarbarian) {
+      const hasFriendlyNonBarb = units.some(u => u.row === r && u.col === c && u.faction === unit.faction && !u.isBarbarian && (u.combatStrength || 0) > 0);
+      if (!hasFriendlyNonBarb) result.push([r, c]);
+    } else {
+      // Non-Barbarian units may not stack with Barbarians
+      const hasBarbHere = units.some(u => u.row === r && u.col === c && u.isBarbarian && u.faction === unit.faction);
+      if (!hasBarbHere) result.push([r, c]);
+    }
   }
 
   // 7) Explore neighbors (only called from here, i.e. only for actually entered tiles)
@@ -805,12 +838,8 @@ const factionText = turnOrder[currentTurnIndex];
 
   turnInfo.innerText = textToSet;
 
-  const button = document.querySelector("button");
-  if (currentPhase === "combat-resolve") {
-    button.innerText = "End Turn";
-  } else {
-    button.innerText = "End Phase";
-  }
+  const button = document.querySelector("#hud button");
+  if (button) button.innerText = currentPhase === "combat-resolve" ? "End Turn" : "End Phase";
 }
 
 function addVictoryPoints(faction, amount) {

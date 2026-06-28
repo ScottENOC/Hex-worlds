@@ -2,160 +2,285 @@
 <html>
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Divine Right Map</title>
 
-<link rel="manifest" href="manifest.json" />
-<meta name="theme-color" content="#222222">
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#222222">
 
   <style>
-    body {
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
       font-family: Arial, sans-serif;
+      font-size: 14px;
     }
- 
+
+    /* ── Top HUD bar ── */
+    #hud {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 6px 10px;
+      background: rgba(255, 255, 255, 0.95);
+      border-bottom: 1px solid #bbb;
+      flex-shrink: 0;
+      z-index: 20;
+    }
+
     #turnInfo {
-      margin-bottom: 10px;
       font-weight: bold;
+      flex: 1 1 auto;
+      min-width: 120px;
     }
- 
+
+    #vpInfo {
+      color: #444;
+      white-space: pre;
+      flex: 0 1 auto;
+    }
+
+    #hud button {
+      padding: 4px 10px;
+      font-size: 13px;
+      cursor: pointer;
+      border-radius: 4px;
+      border: 1px solid #888;
+      background: #f4f4f4;
+    }
+
+    #hud button:active { background: #ddd; }
+
+    /* ── Map fills remaining height ── */
+    #map-container {
+      flex: 1 1 auto;
+      overflow: hidden;
+      touch-action: none;          /* hand all touch to our JS */
+      -webkit-user-select: none;
+      user-select: none;
+      cursor: grab;
+      background: #e8dcc8;         /* parchment background visible outside map */
+    }
+
+    #map-container.panning { cursor: grabbing; }
+
+    #map {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* ── Floating info panel ── */
     #info {
-      margin-top: 10px;
-      padding: 10px;
-      border: 1px solid black;
-      width: 300px;
+      position: fixed;
+      bottom: 10px;
+      left: 10px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid #aaa;
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 12px;
+      max-width: min(260px, 45vw);
       white-space: pre-line;
+      z-index: 20;
+      pointer-events: none;
     }
- 
-    svg {
-      border: 1px solid #ccc;
+
+    /* ── Combat panel ── */
+    #combat-panel {
+      position: fixed;
+      top: 60px;
+      right: 10px;
+      background: white;
+      padding: 12px;
+      border: 1px solid black;
+      border-radius: 6px;
+      z-index: 30;
+      min-width: 200px;
+      max-width: 280px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     }
- 
+
+    #combat-panel button {
+      margin: 4px 4px 0 0;
+      padding: 4px 10px;
+      cursor: pointer;
+    }
+
+    /* ── SVG element styles ── */
     .hex {
       stroke: black;
       stroke-width: 1.5;
       cursor: pointer;
     }
-    .unit.faded {
-      opacity: 0.4;
+
+    .unit {
+      stroke: black;
+      stroke-width: 1;
+      cursor: pointer;
     }
-.attack-target {
-    outline: 3px solid red;
-    outline-offset: -3px;
-    cursor: pointer;
-}
- 
+
+    .unit.faded { opacity: 0.4; }
+
     .terrain-icon, .fortress-icon, .fortress-name, .fortress-number, .unit-label {
       pointer-events: none;
       text-anchor: middle;
     }
- 
-    .fortress-name {
-      font-size: 6px;
-      fill: white;
+
+    .fortress-name  { font-size: 6px;  fill: white; }
+    .fortress-number { font-size: 8px; fill: white; font-weight: bold; }
+    .unit-label      { font-size: 8px; fill: white; }
+    .tile-name       { pointer-events: none; }
+
+    .lake, .river { pointer-events: none; }
+
+    .valid-move  { stroke: yellow; stroke-width: 3; }
+    .valid-combat { stroke: red;   stroke-width: 3; }
+    .attack-target {
+      outline: 3px solid red;
+      outline-offset: -3px;
+      cursor: pointer;
     }
- 
-    .fortress-number {
-      font-size: 8px;
-      fill: white;
-      font-weight: bold;
+    .current-combat { stroke: blue; stroke-width: 3; }
+
+    @keyframes pulse-red {
+      0%   { stroke-opacity: 1; }
+      50%  { stroke-opacity: 0.3; }
+      100% { stroke-opacity: 1; }
     }
- 
-    .unit {
-      stroke: black;
-      stroke-width: 1;
-    }
- 
-    .unit-label {
-      font-size: 8px;
-      fill: white;
-    }
- 
-    .valid-move {
-      stroke: yellow;
-      stroke-width: 3;
+    .besieged-outline {
+      animation: pulse-red 1.5s infinite;
     }
 
-.valid-combat {
-  stroke: red;
-  stroke-width: 3;
-}
- 
-.lake, .river, .tile-name {
-  pointer-events: none;
-}
- 
-@keyframes pulse-red {
-  0% { stroke-opacity: 1; }
-  50% { stroke-opacity: 0.3; }
-  100% { stroke-opacity: 1; }
-}
+    .selectable-mutiny {
+      stroke: red;
+      stroke-width: 3px;
+      cursor: pointer;
+    }
 
-.besieged-outline {
-  animation: pulse-red 1.5s infinite;
-}
+    /* ── Responsive tweaks for small screens ── */
+    @media (max-width: 480px) {
+      #hud { font-size: 12px; }
+      #turnInfo { min-width: 0; }
+      #info { max-width: 90vw; bottom: 4px; left: 4px; }
+    }
 
-.selectable-mutiny {
-  stroke: red;
-  stroke-width: 3px;
-  cursor: pointer;
-}
- 
-.current-combat {
-  stroke: blue;
-  stroke-width: 3;
-}
+    /* ── Setup screen ── */
+    #setup-screen {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.82);
+      display: flex; align-items: center; justify-content: center; z-index: 100;
+    }
+    #setup-box {
+      background: #fff; border-radius: 10px; padding: 28px 32px;
+      max-width: 480px; width: 90vw; box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+    }
+    #setup-box h2 { margin: 0 0 16px; font-size: 22px; }
+    #setup-box label { display: block; margin-bottom: 12px; font-size: 14px; }
+    #setup-box select { margin-left: 8px; padding: 3px 6px; font-size: 14px; }
+    .setup-slot {
+      display: flex; align-items: center; gap: 10px;
+      padding: 6px 0; border-bottom: 1px solid #eee;
+    }
+    .setup-label { min-width: 60px; font-weight: bold; }
+    .setup-slot select { flex: 1; padding: 4px; font-size: 13px; }
+    #setup-start-btn {
+      margin-top: 20px; padding: 8px 24px; font-size: 15px;
+      background: #2a6; color: #fff; border: none; border-radius: 6px; cursor: pointer;
+    }
+    #setup-start-btn:hover { background: #1a5; }
 
-#map-container {
-  width: 100vw;
-  height: 90vh;
-  overflow: auto;
-}
-
-#map {
-width: 200vw;
-  height: 90vh;
-  display: block;
-}
-
-
+    /* ── Eaters spell panel ── */
+    #spell-panel {
+      position: fixed; top: 60px; left: 50%; transform: translateX(-50%);
+      background: #fff; border: 2px solid #888; border-radius: 8px;
+      padding: 14px 18px; z-index: 40; min-width: 300px; max-width: 380px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    }
+    #spell-panel button {
+      display: block; width: 100%; margin: 5px 0;
+      padding: 6px 10px; font-size: 13px; text-align: left;
+      cursor: pointer; border: 1px solid #aaa; border-radius: 4px;
+      background: #f8f8f8;
+    }
+    #spell-panel button:hover { background: #e8e8e8; }
   </style>
 </head>
-<body>
-  <h1>Divine Right Map</h1>
-<div id="combat-panel" style="display: none; position: absolute; top: 20px; right: 20px; background: white; padding: 10px; border: 1px solid black; z-index: 10;">
-  <div id="combat-info"></div>
-  <button id="resolve-button">Resolve Combat</button>
-  <button id="continue-button" style="display:none;">Continue</button>
-</div> 
 
-  <div id="turnInfo">Current Faction: </div>
-  <div id="vpInfo"></div>
-  <button onclick="endTurn()">End Turn</button>
-<div id="save-load-panel" style="position: absolute; top: 10px; right: 10px; background: #f0f0f0; padding: 8px; border: 1px solid #888;">
-  <h4>Save / Load</h4>
-  <button onclick="saveGameToLocalStorage()">Save</button>
-  <button onclick="loadGameFromLocalStorage()">Load</button>
-</div>
- 
+<body style="display:flex; flex-direction:column; height:100%;">
 
-<div id="map-container">
-  <svg id="map"></svg>
-</div>
-<div id="info">Click on a hex to see details.</div>
+  <!-- Setup screen (shown first; hidden when game starts) -->
+  <div id="setup-screen">
+    <div id="setup-box">
+      <h2>Divine Right — Game Setup</h2>
+      <label>Number of Players:
+        <select id="setup-count">
+          <option value="2" selected>2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+        </select>
+      </label>
+      <div id="setup-slots"></div>
+      <p style="font-size:12px;color:#666;margin:10px 0 0">
+        Unclaimed factions become neutral kingdoms — activatable through diplomacy.
+      </p>
+      <button id="setup-start-btn">Start Game</button>
+    </div>
+  </div>
 
- <script src="state.js"></script>
- <script src="utils.js"></script>
-<script src="drawing.js"></script>
-<script src="mapData.js"></script>
-<script src="unitData.js"></script>
+  <!-- Eaters of Wisdom spell panel -->
+  <div id="spell-panel" style="display:none;">
+    <div id="spell-panel-content"></div>
+  </div>
 
+  <!-- Combat panel -->
+  <div id="combat-panel" style="display:none;">
+    <div id="combat-info"></div>
+    <button id="resolve-button">Resolve Combat</button>
+    <button id="continue-button" style="display:none;">Continue</button>
+  </div>
 
-<script src="phase2DiploCards.js"></script>
-<script src="phase3diplomacy.js"></script>
-<script src="phase4siege.js"></script>
-<script src="phase5Movement.js"></script>
-<script src="phase6combatDeclaration.js"></script>
-<script src="phase7CombatResolution.js"></script>
-<script src="index.js"></script>
-<script src="phase1Event.js"></script>
+  <!-- HUD -->
+  <div id="hud">
+    <div id="turnInfo">Loading…</div>
+    <div id="vpInfo"></div>
+    <button onclick="endTurn()">End Phase</button>
+    <button onclick="saveGameToLocalStorage()">Save</button>
+    <button onclick="loadGameFromLocalStorage()">Load</button>
+  </div>
+
+  <!-- Map -->
+  <div id="map-container">
+    <svg id="map"></svg>
+  </div>
+
+  <!-- Floating info -->
+  <div id="info">Tap a hex to see details.</div>
+
+  <!-- Scripts -->
+  <script src="state.js"></script>
+  <script src="utils.js"></script>
+  <script src="drawing.js"></script>
+  <script src="mapData.js"></script>
+  <script src="unitData.js"></script>
+  <script src="phase2DiploCards.js"></script>
+  <script src="phase3diplomacy.js"></script>
+  <script src="phase4siege.js"></script>
+  <script src="phase5Movement.js"></script>
+  <script src="phase6combatDeclaration.js"></script>
+  <script src="phase7CombatResolution.js"></script>
+  <script src="eaterSpells.js"></script>
+  <script src="cpuAI.js"></script>
+  <script src="index.js"></script>
+  <script src="phase1Event.js"></script>
+  <script src="setup.js"></script>
+  <script src="panZoom.js"></script>
+
 </body>
 </html>

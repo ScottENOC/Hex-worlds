@@ -102,24 +102,31 @@ tileData["4,23"].name = "Shrieker's Scrub";
 
 paintTiles([[10,1]], "none", ["plains"]);
 tileData["10,1"].name = "Stump Hole";
+tileData["10,1"].isEntryHex = "ogsbogg";
 
 paintTiles([[5,11]], "none", ["plains"]);
 tileData["5,11"].name = "The Unknown Army";
+tileData["5,11"].isAncientBattlefield = true;
 
 paintTiles([[2,16]], "none", ["plains"]);
 tileData["2,16"].name = "The Temple of Kings";
+tileData["2,16"].isTempleOfKings = true;
 
 paintTiles([[15,5]], "none", ["plains"], [], [0,1,2,3,4,5]);
 tileData["15,5"].name = "Serpent Bay";
+tileData["15,5"].isEntryHex = "urmoff";
 
 paintTiles([[3,18]], "none", ["plains"]);
 tileData["3,18"].name = "Winter Rest";
+tileData["3,18"].isEntryHex = "hamahara";
 
 paintTiles([[1,8]], "none", ["forest"]);
 tileData["1,8"].name = "Sacred Stones";
+tileData["1,8"].isSacredStones = true;
 
 paintTiles([[7,22]], "none", ["plains"]);
 tileData["7,22"].name = "Ozerg Mountaineers";
+tileData["7,22"].isEntryHex = "ozergMtrs";
 
 paintTiles([[2,9]], "neuth", ["forest", "hills"]);
 
@@ -430,5 +437,224 @@ paintTiles([
 paintTiles([
   [19,7],[20,6]
 ], "mivior", "plains");
-  
+
+// Unclaimed terrain (no faction)
+paintTiles([
+  [11,5], [11,7], [11,8], [12,6], [12,7], [12,8], [13,10]
+], "none", ["hills"]);
+
+paintTiles([[11,6]], "none", ["hills"], [5, 2]); // rivers: upper-right, lower-left
+
+paintTiles([[10,6]], "none", ["hills"], [0, 2]); // rivers: right, lower-left
+
+paintTiles([[11,9]], "none", ["hills"], [4]); // river: upper-left
+
+paintTiles([[14,10]], "none", ["hills"], [5, 1]); // rivers: upper-right, lower-right
+
+paintTiles([[13,11]], "none", ["hills"], [2]); // river: lower-left
+
+paintTiles([
+  [11,10], [12,10], [14,9]
+], "none", ["hills"]);
+
+paintTiles([
+  [12,9], [13,9], [13,12]
+], "none", ["plains"]);
+
+paintTiles([[13,13]], "none", ["forest"]);
+
+// More unclaimed terrain
+paintTiles([[14,11]], "none", ["plains"]);
+paintTiles([[14,12]], "none", ["forest"]);
+
+// ── Eaters of Wisdom ──────────────────────────────────────────────────────────
+paintTiles([
+  [10,11], [11,11]
+], "eaters", ["plains"]);
+
+paintTiles([
+  [12,11]
+], "eaters", ["mountain"]);
+
+paintTiles([[12,12]], "eaters", ["mountain"], [], [5]); // lake: upper-right
+
+paintTiles([[11,12]], "eaters", ["plains"]);
+tileData["11,12"].name = "Invisible School of Thaumaturgy";
+tileData["11,12"].isFortress = true;
+tileData["11,12"].fortressStrength = 3;
+tileData["11,12"].requiresMagicalSieger = true; // only besiegeable by a magical unit
+
+paintTiles([[10,12]], "eaters", ["hills"], [], [0, 1]); // lakes: right, lower-right
+
+paintTiles([[10,13]], "eaters", ["hills"], [], [2, 3]); // lakes: lower-left, left
+
+paintTiles([[12,13]], "eaters", ["forest"], [1], [4]); // river: lower-right; lake: upper-left
+
+paintTiles([[11,13]], "eaters", ["plains"], [], [0, 1, 2, 3, 4, 5]); // lake all sides
+
+// Unclaimed, bordering Eaters territory
+paintTiles([[11,14]], "none", ["hills", "forest"], [], [3]); // lake: left
+
+// ── Hothior ───────────────────────────────────────────────────────────────────
+// Mountains
+paintTiles([
+  [15,7], [15,8]
+], "hothior", ["mountain"]);
+
+// Forest
+paintTiles([
+  [16,7], [16,8], [17,7], [17,8], [18,7]
+], "hothior", ["forest"]);
+
+// Port Lork — capital, strength 3, lake at lower-left (side 2), seaport
+paintTiles([[18,9]], "hothior", ["plains"], [], [2]);
+tileData["18,9"].name = "Port Lork";
+tileData["18,9"].isFortress = true;
+tileData["18,9"].fortressStrength = 3;
+tileData["18,9"].isPort = true;
+tileData["18,9"].isCapital = true;
+
+// Tadafot on the River — strength 2 castle
+paintTiles([[15,10]], "hothior", ["plains"]);
+tileData["15,10"].name = "Tadafot on the River";
+tileData["15,10"].isFortress = true;
+tileData["15,10"].fortressStrength = 2;
+
+// Farnot Seafolk — named Hothior tile
+paintTiles([[20,10]], "hothior", ["plains"]);
+tileData["20,10"].name = "Farnot Seafolk";
+
+paintTiles([
+  [15,9], [16,9], [17,9], [17,10], [19,11], [20,9],
+  [15,12], [15,14], [16,13], [16,14], [17,14], [17,15],
+  [18,11], [18,12], [18,13]
+], "hothior", ["plains"]);
+
+paintTiles([[19,8]], "hothior", ["forest"], [], [3, 2]); // lakes: left, lower-left
+paintTiles([[18,8]], "hothior", ["forest"], [], [2]);    // lake: lower-left
+paintTiles([[19,9]], "hothior", ["plains"], [0], [5, 4, 3, 2]); // river: right; lakes: upper-right, upper-left, left, lower-left
+paintTiles([[20,8]], "hothior", ["plains"], [], [5, 4, 3, 2]); // lakes: upper-right, upper-left, left, lower-left
+paintTiles([[19,10]], "hothior", ["plains"], [5, 3]);           // rivers: upper-right, left
+
+paintTiles([[21,9]],  "hothior", ["plains"], [], [1, 2]);          // lakes: lower-right, lower-left
+paintTiles([[21,8]],  "hothior", ["plains"], [], [5, 4, 3, 2, 1]); // lakes: upper-right, upper-left, left, lower-left, lower-right
+paintTiles([[21,10]], "hothior", ["plains"], [], [2, 1, 0]);        // lakes: lower-left, lower-right, right
+paintTiles([[20,11]], "hothior", ["plains"], [], [1, 2, 0]);        // lakes: lower-right, lower-left, right
+
+paintTiles([[19,12]], "hothior", ["plains"], [], [1]);         // lake: lower-right
+paintTiles([[18,10]], "hothior", ["plains"], [2, 5]);          // rivers: lower-left, upper-right
+paintTiles([[17,11]], "hothior", ["plains"], [4, 0, 2]);       // rivers: upper-left, right, lower-left
+paintTiles([[17,12]], "hothior", ["plains"], [5, 3]);          // rivers: upper-right, left
+paintTiles([[16,12]], "hothior", ["plains"], [2, 5]);          // rivers: lower-left, upper-right
+paintTiles([[15,13]], "hothior", ["plains"], [2, 5]);          // rivers: lower-left, upper-right
+paintTiles([[16,10]], "hothior", ["plains"], [1, 5]);          // rivers: lower-right, upper-right
+paintTiles([[15,11]], "hothior", ["hills"],  [4, 2]);          // rivers: upper-left, lower-left
+paintTiles([[19,14]], "hothior", ["plains"], [5], [2]);        // river: upper-right; lake: lower-left
+paintTiles([[18,14]], "hothior", ["plains"], [2, 0]);          // rivers: lower-left, right
+
+paintTiles([[16,11], [17,13]], "hothior", ["hills"]);
+
+paintTiles([[20,13]], "none", ["plains"], [], [5, 4]);        // lakes: upper-right, upper-left
+
+paintTiles([[20,14]], "none", ["plains"]);
+tileData["20,14"].name = "Huts of the Scum";
+tileData["20,14"].isEntryHex = "scum";
+
+// Stubstaff Keep — NOT a castle at setup; only activates when the Black Knight deploys.
+// isFortress remains false until activateStubstaffKeep(faction) is called.
+paintTiles([[19,20]], "none", ["plains"]);
+tileData["19,20"].name = "Stubstaff Keep";
+tileData["19,20"].isFortress = false;
+tileData["19,20"].fortressStrength = 2;
+tileData["19,20"].isStubstaffKeep = true;
+tileData["19,20"].stubstaffVP = 10;
+
+paintTiles([[22,13], [21,14], [21,15]], "none", ["hills"]);
+
+paintTiles([
+  [20,15], [20,16], [20,17], [20,18], [20,19],
+  [21,16], [21,17], [21,18], [21,19], [21,20],
+  [22,14], [22,16], [22,17]
+], "none", ["plains"]);
+
+paintTiles([[22,15]], "none", ["forest"]);
+
+paintTiles([
+  [19,15], [19,16], [19,17], [19,18], [19,19]
+], "none", ["plains"]);
+
+paintTiles([[18,15]], "none", ["plains"], [3, 5]); // rivers: left, upper-right
+
+paintTiles([
+  [19,21], [19,22], [20,20], [20,21]
+], "none", ["forest"]);
+
+paintTiles([
+  [20,22], [20,23], [20,24], [19,23], [19,24]
+], "none", ["plains"]);
+paintTiles([[21,12]], "none", ["forest"], [], [4]);           // lake: upper-left
+paintTiles([[21,13]], "none", ["hills"]);
+paintTiles([[20,12]], "none", ["plains"], [], [5, 4, 3]);     // lakes: upper-right, upper-left, left
+paintTiles([[21,11]], "none", ["plains"], [], [5, 4, 3]);     // lakes: upper-right, upper-left, left
+
+// Castle Lapspell — strength 3, lakes at lower-right (side 1) and lower-left (side 2)
+paintTiles([[19,13]], "hothior", ["plains"], [], [1, 2]);
+tileData["19,13"].name = "Castle Lapspell";
+tileData["19,13"].isFortress = true;
+tileData["19,13"].fortressStrength = 3;
+
+// Further unclaimed terrain
+paintTiles([[12,1]], "none", ["plains"]);
+
+paintTiles([[13,14]], "none", ["forest"], [4, 2]); // rivers: upper-left, lower-left
+paintTiles([[14,13]], "none", ["forest"], [5, 2]); // rivers: upper-right, lower-left
+
+paintTiles([
+  [14,14], [13,15], [12,14], [12,15], [11,15], [10,14], [10,15]
+], "none", ["forest"]);
+
+paintTiles([
+  [11,16], [12,16]
+], "none", ["plains"]);
+
+// ── Muetar ────────────────────────────────────────────────────────────────────
+// Pennol — capital, strength 4, plains (lake is on adjacent tiles, not this one)
+paintTiles([[12,19]], "muetar", ["plains"]);
+tileData["12,19"].name = "Pennol";
+tileData["12,19"].isFortress = true;
+tileData["12,19"].fortressStrength = 4;
+tileData["12,19"].isCapital = true;
+
+// Plibba — strength 2, plains
+paintTiles([[15,17]], "muetar", ["plains"]);
+tileData["15,17"].name = "Plibba";
+tileData["15,17"].isFortress = true;
+tileData["15,17"].fortressStrength = 2;
+
+// Beolon — strength 1, downs (plains)
+paintTiles([[17,21]], "muetar", ["plains"]);
+tileData["17,21"].name = "Beolon";
+tileData["17,21"].isFortress = true;
+tileData["17,21"].fortressStrength = 1;
+
+// Groat — strength 3, plains
+paintTiles([[16,23]], "muetar", ["plains"]);
+tileData["16,23"].name = "Groat";
+tileData["16,23"].isFortress = true;
+tileData["16,23"].fortressStrength = 3;
+
+// Basimar — strength 2, plains
+paintTiles([[10,24]], "muetar", ["plains"]);
+tileData["10,24"].name = "Basimar";
+tileData["10,24"].isFortress = true;
+tileData["10,24"].fortressStrength = 2;
+
+paintTiles([[28,24]], "none", ["plains"]);
+tileData["28,24"].name = "Spires to the Sun";
+tileData["28,24"].isEntryHex = "orderHippogriff";
+
+paintTiles([[20,33]], "none", ["plains"]);
+tileData["20,33"].name = "Lost City of Khos";
+tileData["20,33"].isEntryHex = "ghostRiders";
+
 }
