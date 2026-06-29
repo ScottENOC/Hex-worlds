@@ -2087,6 +2087,17 @@
   },
   {
     "row": 10,
+    "col": 21,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      2
+    ]
+  },
+  {
+    "row": 10,
     "col": 24,
     "faction": "muetar",
     "terrain": [
@@ -2257,6 +2268,68 @@
   },
   {
     "row": 11,
+    "col": 19,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      2,
+      3,
+      1
+    ]
+  },
+  {
+    "row": 11,
+    "col": 20,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      0,
+      3
+    ]
+  },
+  {
+    "row": 11,
+    "col": 21,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      0,
+      3,
+      5
+    ]
+  },
+  {
+    "row": 11,
+    "col": 22,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      0,
+      3
+    ]
+  },
+  {
+    "row": 11,
+    "col": 23,
+    "faction": "muetar",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [
+      3,
+      4
+    ]
+  },
+  {
+    "row": 11,
     "col": 33,
     "faction": "dwarfland",
     "terrain": [
@@ -2410,6 +2483,20 @@
       0,
       1,
       2,
+      5
+    ]
+  },
+  {
+    "row": 12,
+    "col": 18,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      2,
+      3,
+      4,
       5
     ]
   },
