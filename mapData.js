@@ -647,7 +647,7 @@ tileData["16,23"].fortressStrength = 3;
 paintTiles([[10,24]], "muetar", ["plains"]);
 tileData["10,24"].name = "Basimar";
 tileData["10,24"].isFortress = true;
-tileData["10,24"].fortressStrength = 2;
+tileData["10,24"].fortressStrength = 3;
 
 // Muetar plains
 paintTiles([
@@ -667,6 +667,26 @@ paintTiles([[17,17]], "muetar", ["hills"], [3, 0]);
 // Yando Rivermen — special named tile
 paintTiles([[17,18]], "muetar", ["plains"], [3, 5]);
 tileData["17,18"].name = "Yando Rivermen";
+
+// Muetar marsh
+paintTiles([[18,17]], "muetar", ["marsh"]);
+
+// Muetar forest
+paintTiles([[16,19]], "muetar", ["forest"]);
+paintTiles([[16,22]], "muetar", ["forest"], [3, 5, 1]);
+
+// Muetar plains (new)
+paintTiles([[17,22]], "muetar", ["plains"]);
+
+// Muetar hills (new)
+paintTiles([[17,20], [18,19], [18,20], [18,21]], "muetar", ["hills"]);
+
+// Muetar plains with rivers
+paintTiles([[16,18]], "muetar", ["plains"], [2, 5]);
+paintTiles([[15,19]], "muetar", ["plains"], [2, 0]);
+paintTiles([[15,20]], "muetar", ["plains"], [3, 5, 1]);
+paintTiles([[16,20]], "muetar", ["plains"], [4, 0]);
+paintTiles([[16,21]], "muetar", ["plains"], [3, 0]);
 
 paintTiles([[28,24]], "none", ["plains"]);
 tileData["28,24"].name = "Spires to the Sun";
