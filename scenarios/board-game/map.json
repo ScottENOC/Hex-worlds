@@ -1606,6 +1606,17 @@
   },
   {
     "row": 7,
+    "col": 24,
+    "faction": "zorn",
+    "terrain": [
+      "mountain_pass"
+    ],
+    "rivers": [],
+    "lakes": [],
+    "name": "The Mouth Pass"
+  },
+  {
+    "row": 7,
     "col": 25,
     "faction": "zorn",
     "terrain": [
@@ -2850,6 +2861,46 @@
   },
   {
     "row": 12,
+    "col": 26,
+    "faction": "pon",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 12,
+    "col": 27,
+    "faction": "pon",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 12,
+    "col": 28,
+    "faction": "pon",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 12,
+    "col": 29,
+    "faction": "pon",
+    "terrain": [
+      "mountain"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 12,
     "col": 32,
     "faction": "dwarfland",
     "terrain": [
@@ -3104,6 +3155,56 @@
   },
   {
     "row": 13,
+    "col": 26,
+    "faction": "pon",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 13,
+    "col": 27,
+    "faction": "pon",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 13,
+    "col": 28,
+    "faction": "pon",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 13,
+    "col": 29,
+    "faction": "pon",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 13,
+    "col": 30,
+    "faction": "pon",
+    "terrain": [
+      "mountain"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 13,
     "col": 33,
     "faction": "dwarfland",
     "terrain": [
@@ -3338,6 +3439,65 @@
     "terrain": [
       "hills"
     ]
+  },
+  {
+    "row": 14,
+    "col": 25,
+    "faction": "pon",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 14,
+    "col": 26,
+    "faction": "pon",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [],
+    "name": "Crow's Nest",
+    "isFortress": true,
+    "fortressStrength": 4,
+    "isCapital": true
+  },
+  {
+    "row": 14,
+    "col": 27,
+    "faction": "pon",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 14,
+    "col": 28,
+    "faction": "pon",
+    "terrain": [
+      "mountain"
+    ],
+    "rivers": [
+      0,
+      2
+    ],
+    "lakes": []
+  },
+  {
+    "row": 14,
+    "col": 29,
+    "faction": "pon",
+    "terrain": [
+      "mountain"
+    ],
+    "rivers": [
+      3
+    ],
+    "lakes": []
   },
   {
     "row": 15,
@@ -3599,6 +3759,62 @@
     ]
   },
   {
+    "row": 15,
+    "col": 25,
+    "faction": "pon",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 15,
+    "col": 26,
+    "faction": "pon",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 15,
+    "col": 27,
+    "faction": "pon",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [
+      0,
+      1
+    ],
+    "lakes": []
+  },
+  {
+    "row": 15,
+    "col": 28,
+    "faction": "pon",
+    "terrain": [
+      "mountain"
+    ],
+    "rivers": [
+      3,
+      5
+    ],
+    "lakes": []
+  },
+  {
+    "row": 15,
+    "col": 29,
+    "faction": "pon",
+    "terrain": [
+      "mountain"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
     "row": 16,
     "col": 1,
     "terrain": [
@@ -3856,6 +4072,52 @@
     "terrain": [
       "plains"
     ]
+  },
+  {
+    "row": 16,
+    "col": 26,
+    "faction": "pon",
+    "terrain": [
+      "hills"
+    ],
+    "rivers": [
+      0,
+      2
+    ],
+    "lakes": []
+  },
+  {
+    "row": 16,
+    "col": 27,
+    "faction": "pon",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      3,
+      4
+    ],
+    "lakes": []
+  },
+  {
+    "row": 16,
+    "col": 28,
+    "faction": "pon",
+    "terrain": [
+      "mountain"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 16,
+    "col": 29,
+    "faction": "pon",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [],
+    "lakes": []
   },
   {
     "row": 16,
@@ -4146,6 +4408,61 @@
   },
   {
     "row": 17,
+    "col": 26,
+    "faction": "pon",
+    "terrain": [
+      "hills"
+    ],
+    "rivers": [
+      1,
+      2,
+      5
+    ],
+    "lakes": []
+  },
+  {
+    "row": 17,
+    "col": 27,
+    "faction": "pon",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 17,
+    "col": 28,
+    "faction": "pon",
+    "terrain": [
+      "mountain_pass"
+    ],
+    "rivers": [],
+    "lakes": [],
+    "name": "Split Rock Pass"
+  },
+  {
+    "row": 17,
+    "col": 29,
+    "faction": "pon",
+    "terrain": [
+      "mountain"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 17,
+    "col": 30,
+    "faction": "pon",
+    "terrain": [
+      "mountain"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 17,
     "col": 33,
     "faction": "dwarfland",
     "terrain": [
@@ -4406,6 +4723,77 @@
     ]
   },
   {
+    "row": 18,
+    "col": 25,
+    "faction": "pon",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      0,
+      3,
+      5
+    ],
+    "lakes": []
+  },
+  {
+    "row": 18,
+    "col": 26,
+    "faction": "pon",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [
+      3,
+      4
+    ],
+    "lakes": []
+  },
+  {
+    "row": 18,
+    "col": 27,
+    "faction": "pon",
+    "terrain": [
+      "mountain"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 18,
+    "col": 28,
+    "faction": "pon",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [],
+    "name": "Fortress Marzarbol",
+    "isFortress": true,
+    "fortressStrength": 4,
+    "isCapital": true
+  },
+  {
+    "row": 18,
+    "col": 29,
+    "faction": "pon",
+    "terrain": [
+      "mountain"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 18,
+    "col": 30,
+    "faction": "pon",
+    "terrain": [
+      "hills"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
     "row": 19,
     "col": 1,
     "terrain": [
@@ -4629,7 +5017,6 @@
     ],
     "name": "Stubstaff Keep",
     "isStubstaffKeep": true,
-    "isFortress": false,
     "fortressStrength": 2,
     "stubstaffVP": 10
   },
@@ -4660,6 +5047,66 @@
     "terrain": [
       "plains"
     ]
+  },
+  {
+    "row": 19,
+    "col": 25,
+    "faction": "pon",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 19,
+    "col": 26,
+    "faction": "pon",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 19,
+    "col": 27,
+    "faction": "pon",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 19,
+    "col": 28,
+    "faction": "pon",
+    "terrain": [
+      "mountain"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 19,
+    "col": 29,
+    "faction": "pon",
+    "terrain": [
+      "mountain"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 19,
+    "col": 30,
+    "faction": "pon",
+    "terrain": [
+      "mountain"
+    ],
+    "rivers": [],
+    "lakes": []
   },
   {
     "row": 20,
@@ -4895,6 +5342,86 @@
   },
   {
     "row": 20,
+    "col": 25,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 20,
+    "col": 26,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 20,
+    "col": 27,
+    "faction": "pon",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 20,
+    "col": 28,
+    "faction": "pon",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 20,
+    "col": 29,
+    "faction": "pon",
+    "terrain": [
+      "mountain"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 20,
+    "col": 30,
+    "faction": "pon",
+    "terrain": [
+      "mountain"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 20,
+    "col": 31,
+    "faction": "pon",
+    "terrain": [
+      "mountain"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 20,
+    "col": 32,
+    "faction": "pon",
+    "terrain": [
+      "hills"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 20,
     "col": 33,
     "terrain": [
       "plains"
@@ -5070,6 +5597,130 @@
     ]
   },
   {
+    "row": 21,
+    "col": 21,
+    "faction": "shucasam",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 21,
+    "col": 22,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 21,
+    "col": 23,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 21,
+    "col": 24,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 21,
+    "col": 25,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 21,
+    "col": 26,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 21,
+    "col": 27,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 21,
+    "col": 28,
+    "faction": "pon",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 21,
+    "col": 29,
+    "faction": "pon",
+    "terrain": [
+      "mountain"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 21,
+    "col": 30,
+    "faction": "pon",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [],
+    "name": "Heap in the Hills",
+    "isFortress": true,
+    "fortressStrength": 2,
+    "isCapital": true
+  },
+  {
+    "row": 21,
+    "col": 31,
+    "faction": "pon",
+    "terrain": [
+      "hills"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 21,
+    "col": 32,
+    "faction": "pon",
+    "terrain": [
+      "hills"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
     "row": 22,
     "col": 3,
     "faction": "mivior",
@@ -5096,6 +5747,40 @@
     "name": "Colist",
     "isFortress": true,
     "fortressStrength": 4
+  },
+  {
+    "row": 22,
+    "col": 10,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 22,
+    "col": 11,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 22,
+    "col": 12,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
   },
   {
     "row": 22,
@@ -5133,6 +5818,136 @@
     ]
   },
   {
+    "row": 22,
+    "col": 18,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 22,
+    "col": 19,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 22,
+    "col": 20,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 22,
+    "col": 21,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 22,
+    "col": 22,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 22,
+    "col": 23,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 22,
+    "col": 24,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 22,
+    "col": 25,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 22,
+    "col": 26,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 22,
+    "col": 27,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 22,
+    "col": 28,
+    "faction": "pon",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 22,
+    "col": 29,
+    "faction": "pon",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 22,
+    "col": 30,
+    "faction": "pon",
+    "terrain": [
+      "hills"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
     "row": 23,
     "col": 4,
     "faction": "mivior",
@@ -5160,12 +5975,554 @@
   },
   {
     "row": 23,
+    "col": 10,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 23,
+    "col": 11,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      2
+    ],
+    "name": "Zefnar on the Sea",
+    "isFortress": true,
+    "fortressStrength": 3,
+    "isCapital": true
+  },
+  {
+    "row": 23,
+    "col": 12,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 23,
+    "col": 13,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 23,
+    "col": 14,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 23,
+    "col": 15,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 23,
+    "col": 16,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 23,
+    "col": 17,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 23,
+    "col": 18,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 23,
+    "col": 19,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 23,
+    "col": 20,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 23,
+    "col": 21,
+    "faction": "shucasam",
+    "terrain": [
+      "hills"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 23,
+    "col": 22,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 23,
+    "col": 23,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 23,
+    "col": 24,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 23,
+    "col": 25,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      1
+    ]
+  },
+  {
+    "row": 23,
+    "col": 26,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      2
+    ]
+  },
+  {
+    "row": 23,
+    "col": 27,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 23,
+    "col": 28,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 23,
     "col": 34,
     "faction": "trolls",
     "terrain": [
       "plains"
     ],
     "name": "The Gathering"
+  },
+  {
+    "row": 24,
+    "col": 11,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      0
+    ],
+    "lakes": [
+      3
+    ]
+  },
+  {
+    "row": 24,
+    "col": 12,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      0,
+      3
+    ],
+    "lakes": []
+  },
+  {
+    "row": 24,
+    "col": 18,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 24,
+    "col": 19,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [],
+    "name": "Khuzdul",
+    "isFortress": true,
+    "fortressStrength": 4,
+    "isCapital": true
+  },
+  {
+    "row": 24,
+    "col": 20,
+    "faction": "shucasam",
+    "terrain": [
+      "mountain"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 24,
+    "col": 21,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 24,
+    "col": 22,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 24,
+    "col": 23,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 24,
+    "col": 24,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [],
+    "name": "Walled City of Adeese",
+    "isFortress": true,
+    "fortressStrength": 3,
+    "isCapital": true
+  },
+  {
+    "row": 24,
+    "col": 25,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 24,
+    "col": 26,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  {
+    "row": 24,
+    "col": 27,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      3
+    ]
+  },
+  {
+    "row": 25,
+    "col": 11,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      3,
+      4
+    ]
+  },
+  {
+    "row": 25,
+    "col": 19,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 25,
+    "col": 20,
+    "faction": "shucasam",
+    "terrain": [
+      "mountain"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 25,
+    "col": 21,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 25,
+    "col": 22,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 25,
+    "col": 23,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0
+    ]
+  },
+  {
+    "row": 25,
+    "col": 24,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  {
+    "row": 25,
+    "col": 25,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 25,
+    "col": 26,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 25,
+    "col": 27,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      3,
+      4
+    ]
+  },
+  {
+    "row": 26,
+    "col": 10,
+    "faction": "rombune",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      3,
+      4
+    ]
+  },
+  {
+    "row": 26,
+    "col": 19,
+    "faction": "shucasam",
+    "terrain": [
+      "mountain"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 26,
+    "col": 20,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 27,
+    "col": 19,
+    "faction": "shucasam",
+    "terrain": [
+      "mountain"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 27,
+    "col": 20,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 28,
+    "col": 19,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
   },
   {
     "row": 28,
@@ -5184,5 +6541,41 @@
       "plains"
     ],
     "name": "The Shunned Vale"
+  },
+  {
+    "row": 29,
+    "col": 19,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [],
+    "name": "Jipols",
+    "isFortress": true,
+    "fortressStrength": 2,
+    "isCapital": true
+  },
+  {
+    "row": 29,
+    "col": 20,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 29,
+    "col": 28,
+    "faction": "shucasam",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [],
+    "name": "Haunt of the Lepers",
+    "isLepersHaunt": true
   }
 ]

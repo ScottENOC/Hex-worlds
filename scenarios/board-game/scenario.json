@@ -12,7 +12,7 @@
     "hothior":   { "color": "#E85025",    "playable": true,  "display": "Hothior" },
     "muetar":    { "color": "#FFD700",    "playable": true,  "display": "Muetar" },
     "pon":       { "color": "#4488CC",    "playable": false, "display": "Pon" },
-    "shucassam": { "color": "#9B4B1C",    "playable": false, "display": "Shucassam" },
+    "shucasam":  { "color": "#9B4B1C",    "playable": false, "display": "Shucassam" },
     "rombune":   { "color": "#CC22BB",    "playable": false, "display": "Rombune" },
     "wasteland": { "color": "#C4A265",    "playable": false, "display": "Wasteland" },
     "blackhand": { "color": "#1a0a2e",    "playable": true,  "display": "The Black Hand" }

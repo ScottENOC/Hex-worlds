@@ -138,6 +138,17 @@ function _applyUnits(startingUnits) {
     if (u.isUndead)  unit.isUndead = true;
     if (u.isColossus) unit.isColossus = true;
 
+    // Nomadic units (not placed on map at start)
+    if (u.isNomadic) {
+      unit.isNomadic = true;
+      unit.row = null;
+      unit.col = null;
+      unit.startCoords = null;
+    }
+
+    // Lepers
+    if (u.isLeper) unit.isLeper = true;
+
     if (unit.isLeader && !unit.isEatersOfWisdom) {
       unit.hasTakenAFateDieRoll = false;
     }
