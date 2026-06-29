@@ -9,6 +9,14 @@ const path = require("path");
 const ROWS = 40;
 const COLS = 60;
 
+// ── Target terrain distribution ───────────────────────────────────────────────
+const WATER_PCT   = 0.25;  // full lake tiles
+const MARSH_PCT   = 0.08;
+const PLAINS_PCT  = 0.30;
+const FOREST_PCT  = 0.15;
+const HILLS_PCT   = 0.14;
+// remainder → mountain
+
 // ── Simple FBM noise (no external deps) ─────────────────────────────────────
 function hash(x, y, seed) {
   let h = seed ^ (x * 374761393) ^ (y * 668265263);
@@ -39,50 +47,61 @@ function fbm(x, y, seed, octaves=5) {
   return v / max;
 }
 
-// ── Terrain from noise ────────────────────────────────────────────────────────
+// ── Generate noise values for all tiles ──────────────────────────────────────
 const SEED = Math.floor(Math.random() * 100000);
 console.log(`Seed: ${SEED}`);
 
-// Scale so map spans roughly 4 noise "periods"
 const SX = 4 / COLS;
 const SY = 4 / ROWS;
 
-function noiseAt(row, col) {
-  return fbm(col * SX, row * SY, SEED);
+// Collect all noise values then find percentile thresholds so we hit exact %s
+const rawNoise = {};
+const rawMoisture = {};
+const allNoise = [];
+
+for (let r = 1; r <= ROWS; r++) {
+  for (let c = 1; c <= COLS; c++) {
+    const n = fbm(c * SX, r * SY, SEED);
+    const m = fbm(c * SX, r * SY, SEED + 99999);
+    rawNoise[`${r},${c}`]    = n;
+    rawMoisture[`${r},${c}`] = m;
+    allNoise.push(n);
+  }
 }
 
-// Second noise for moisture / variation
-function moistureAt(row, col) {
-  return fbm(col * SX, row * SY, SEED + 99999);
-}
+// Sort to derive percentile thresholds
+const sorted = [...allNoise].sort((a, b) => a - b);
+const total = sorted.length;
+const tWater  = sorted[Math.floor(total * WATER_PCT) - 1];
+const tMarsh  = sorted[Math.floor(total * (WATER_PCT + MARSH_PCT)) - 1];
+const tPlains = sorted[Math.floor(total * (WATER_PCT + MARSH_PCT + PLAINS_PCT)) - 1];
+const tForest = sorted[Math.floor(total * (WATER_PCT + MARSH_PCT + PLAINS_PCT + FOREST_PCT)) - 1];
+const tHills  = sorted[Math.floor(total * (WATER_PCT + MARSH_PCT + PLAINS_PCT + FOREST_PCT + HILLS_PCT)) - 1];
 
 function classifyTerrain(n, m) {
-  if (n < 0.25)  return "water";   // ocean / lake — very clustered low values
-  if (n < 0.35)  return "marsh";
-  if (n < 0.50)  return "plains";
-  if (n < 0.63)  return m > 0.5 ? "forest" : "plains";
-  if (n < 0.75)  return "hills";
+  if (n <= tWater)  return "water";
+  if (n <= tMarsh)  return "marsh";
+  if (n <= tPlains) return "plains";
+  if (n <= tForest) return m > 0.5 ? "forest" : "plains";
+  if (n <= tHills)  return "hills";
   return "mountain";
 }
 
 // ── Build raw grid ────────────────────────────────────────────────────────────
-const grid = {}; // key "r,c" → { row, col, terrain, elevation }
+const grid = {};
 
 for (let r = 1; r <= ROWS; r++) {
   for (let c = 1; c <= COLS; c++) {
-    const n = noiseAt(r, c);
-    const m = moistureAt(r, c);
-    grid[`${r},${c}`] = {
-      row: r, col: c,
-      noise: n,
-      terrain: classifyTerrain(n, m),
-    };
+    const key = `${r},${c}`;
+    const n = rawNoise[key];
+    const m = rawMoisture[key];
+    grid[key] = { row: r, col: c, noise: n, terrain: classifyTerrain(n, m) };
   }
 }
 
 // ── Hex adjacency (1-indexed, even rows shifted right) ───────────────────────
-// Even row (r % 2 === 0): side→[dr,dc] = 0:(0,1) 1:(1,1) 2:(1,0) 3:(0,-1) 4:(-1,0) 5:(-1,1)
-// Odd  row (r % 2 === 1): side→[dr,dc] = 0:(0,1) 1:(1,0) 2:(1,-1) 3:(0,-1) 4:(-1,-1) 5:(-1,0)
+// Even row: side→[dr,dc] = 0:(0,1) 1:(1,1) 2:(1,0) 3:(0,-1) 4:(-1,0) 5:(-1,1)
+// Odd  row: side→[dr,dc] = 0:(0,1) 1:(1,0) 2:(1,-1) 3:(0,-1) 4:(-1,-1) 5:(-1,0)
 function neighbors(r, c) {
   const even = r % 2 === 0;
   const dirs = even
@@ -91,11 +110,46 @@ function neighbors(r, c) {
   return dirs.map(([dr,dc], side) => ({ r: r+dr, c: c+dc, side }));
 }
 
+function inBounds(r, c) {
+  return r >= 1 && r <= ROWS && c >= 1 && c <= COLS;
+}
+
+// ── Build lake-side sets: full water + coastal slices ─────────────────────────
+// lakeSides["r,c"] = Set of sides that have a lake edge on this tile
+const lakeSides = {};
+
+for (let r = 1; r <= ROWS; r++) {
+  for (let c = 1; c <= COLS; c++) {
+    const key = `${r},${c}`;
+    if (grid[key].terrain === "water") {
+      // Full water tile — all 6 sides are lake
+      lakeSides[key] = new Set([0,1,2,3,4,5]);
+    }
+  }
+}
+
+// For every non-water tile, add a lake slice on each side that faces a water tile
+for (let r = 1; r <= ROWS; r++) {
+  for (let c = 1; c <= COLS; c++) {
+    const key = `${r},${c}`;
+    if (grid[key].terrain === "water") continue;
+    for (const nb of neighbors(r, c)) {
+      if (!inBounds(nb.r, nb.c)) continue;
+      if (grid[`${nb.r},${nb.c}`]?.terrain === "water") {
+        if (!lakeSides[key]) lakeSides[key] = new Set();
+        lakeSides[key].add(nb.side);
+      }
+    }
+  }
+}
+
 // ── River tracing ─────────────────────────────────────────────────────────────
-// From each mountain/hill hex, trace downhill to water; mark river sides.
-const riverSides = {}; // "r,c" → Set of sides
+const riverSides = {};
 
 function addRiver(r, c, side) {
+  // Skip if this side is already a lake edge
+  const lk = lakeSides[`${r},${c}`];
+  if (lk && lk.has(side)) return;
   const k = `${r},${c}`;
   if (!riverSides[k]) riverSides[k] = new Set();
   riverSides[k].add(side);
@@ -104,22 +158,18 @@ function addRiver(r, c, side) {
 function traceRiver(startR, startC) {
   let r = startR, c = startC;
   const visited = new Set();
-  for (let step = 0; step < 40; step++) {
+  for (let step = 0; step < 60; step++) {
     const key = `${r},${c}`;
     if (visited.has(key)) break;
     visited.add(key);
     const t = grid[key]?.terrain;
     if (t === "water") break;
 
-    // Pick neighbor with lowest noise (steepest descent)
-    const nbs = neighbors(r, c).filter(n => {
-      const nk = `${n.r},${n.c}`;
-      return grid[nk] && n.r >= 1 && n.r <= ROWS && n.c >= 1 && n.c <= COLS;
-    });
+    const nbs = neighbors(r, c).filter(nb => inBounds(nb.r, nb.c));
     if (!nbs.length) break;
-    nbs.sort((a, b) => (grid[`${a.r},${a.c}`].noise) - (grid[`${b.r},${b.c}`].noise));
+    nbs.sort((a, b) => rawNoise[`${a.r},${a.c}`] - rawNoise[`${b.r},${b.c}`]);
     const best = nbs[0];
-    if (grid[`${best.r},${best.c}`].noise >= grid[key].noise && t !== "water") break;
+    if (rawNoise[`${best.r},${best.c}`] >= rawNoise[key]) break;
 
     const exitSide = best.side;
     const enterSide = (exitSide + 3) % 6;
@@ -129,8 +179,6 @@ function traceRiver(startR, startC) {
   }
 }
 
-// Start rivers from mountain and some hill tiles (≈ 30% of hills)
-const rng = () => hash(Math.random()*1e6|0, Math.random()*1e6|0, SEED);
 for (let r = 1; r <= ROWS; r++) {
   for (let c = 1; c <= COLS; c++) {
     const t = grid[`${r},${c}`].terrain;
@@ -140,8 +188,6 @@ for (let r = 1; r <= ROWS; r++) {
 }
 
 // ── Choose faction capitals ───────────────────────────────────────────────────
-// veldra in top-left quadrant, keth in bottom-right quadrant
-// Pick a plains/hills tile not on the border
 function pickCapital(rMin, rMax, cMin, cMax) {
   const candidates = [];
   for (let r = rMin; r <= rMax; r++) {
@@ -157,7 +203,6 @@ function pickCapital(rMin, rMax, cMin, cMax) {
 const [vR, vC] = pickCapital(2, Math.floor(ROWS*0.45), 2, Math.floor(COLS*0.45));
 const [kR, kC] = pickCapital(Math.floor(ROWS*0.55), ROWS-1, Math.floor(COLS*0.55), COLS-1);
 
-// Mark capitals as their faction's territory
 grid[`${vR},${vC}`].faction = "veldra";
 grid[`${vR},${vC}`].isCapital = true;
 grid[`${vR},${vC}`].isFortress = true;
@@ -172,23 +217,36 @@ grid[`${kR},${kC}`].name = "Keth Hold";
 
 // ── Assemble tile list ────────────────────────────────────────────────────────
 const tiles = [];
+let waterCount = 0, coastCount = 0;
+
 for (let r = 1; r <= ROWS; r++) {
   for (let c = 1; c <= COLS; c++) {
-    const g = grid[`${r},${c}`];
-    const rivers = riverSides[`${r},${c}`] ? [...riverSides[`${r},${c}`]] : [];
+    const key = `${r},${c}`;
+    const g = grid[key];
+    const isWater = g.terrain === "water";
+
+    const lakes = lakeSides[key] ? [...lakeSides[key]].sort() : [];
+    // Rivers: exclude any side that's a lake side
+    const lakeSet = lakeSides[key] || new Set();
+    const rivers = riverSides[key]
+      ? [...riverSides[key]].filter(s => !lakeSet.has(s))
+      : [];
 
     const tile = {
       row: r,
       col: c,
       faction: g.faction || "none",
-      terrain: g.terrain === "water" ? ["plains"] : [g.terrain],
+      terrain: isWater ? ["plains"] : [g.terrain],
       rivers,
     };
 
-    if (g.terrain === "water") tile.lakes = [0,1,2,3,4,5];
-    if (g.name)           tile.name = g.name;
-    if (g.isFortress)     { tile.isFortress = true; tile.fortressStrength = g.fortressStrength; }
-    if (g.isCapital)      tile.isCapital = true;
+    if (lakes.length) tile.lakes = lakes;
+    if (g.name)       tile.name = g.name;
+    if (g.isFortress) { tile.isFortress = true; tile.fortressStrength = g.fortressStrength; }
+    if (g.isCapital)  tile.isCapital = true;
+
+    if (isWater) waterCount++;
+    else if (lakes.length) coastCount++;
 
     tiles.push(tile);
   }
@@ -215,18 +273,10 @@ const scenario = {
   }
 };
 
-// ── units.json — leader at capital for each faction ──────────────────────────
+// ── units.json ────────────────────────────────────────────────────────────────
 const startingUnits = [
-  {
-    faction: "veldra", row: vR, col: vC,
-    moveSpeed: 7, isLeader: true,
-    combatStrength: 0, siegeStrength: 0
-  },
-  {
-    faction: "keth", row: kR, col: kC,
-    moveSpeed: 7, isLeader: true,
-    combatStrength: 0, siegeStrength: 0
-  }
+  { faction: "veldra", row: vR, col: vC, moveSpeed: 7, isLeader: true, combatStrength: 0, siegeStrength: 0 },
+  { faction: "keth",   row: kR, col: kC, moveSpeed: 7, isLeader: true, combatStrength: 0, siegeStrength: 0 }
 ];
 
 // ── Write files ───────────────────────────────────────────────────────────────
@@ -238,6 +288,8 @@ fs.writeFileSync(path.join(dir, "map.json"), JSON.stringify(tiles, null, 2));
 fs.writeFileSync(path.join(dir, "units.json"), JSON.stringify(startingUnits, null, 2));
 
 console.log(`Generated ${tiles.length} tiles`);
+console.log(`  Full water: ${waterCount} (${(waterCount/tiles.length*100).toFixed(1)}%)`);
+console.log(`  Coastal (partial lake slices): ${coastCount}`);
 console.log(`Veldra capital: ${vR},${vC}`);
 console.log(`Keth capital:   ${kR},${kC}`);
 console.log(`Written to ${dir}`);

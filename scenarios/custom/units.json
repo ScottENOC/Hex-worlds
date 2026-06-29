@@ -1,8 +1,8 @@
 [
   {
     "faction": "veldra",
-    "row": 4,
-    "col": 12,
+    "row": 12,
+    "col": 6,
     "moveSpeed": 7,
     "isLeader": true,
     "combatStrength": 0,
@@ -10,8 +10,8 @@
   },
   {
     "faction": "keth",
-    "row": 34,
-    "col": 44,
+    "row": 22,
+    "col": 49,
     "moveSpeed": 7,
     "isLeader": true,
     "combatStrength": 0,
