@@ -6504,6 +6504,25 @@
   },
   {
     "row": 26,
+    "col": 1,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "name": "Isle of Fright",
+    "isIsleOfFright": true
+  },
+  {
+    "row": 26,
     "col": 10,
     "faction": "rombune",
     "terrain": [
@@ -6580,6 +6599,33 @@
   },
   {
     "row": 27,
+    "col": 10,
+    "faction": "rombune",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "row": 27,
+    "col": 11,
+    "faction": "rombune",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      2
+    ]
+  },
+  {
+    "row": 27,
     "col": 19,
     "faction": "shucasam",
     "terrain": [
@@ -6646,6 +6692,73 @@
   },
   {
     "row": 28,
+    "col": 7,
+    "faction": "rombune",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 28,
+    "col": 8,
+    "faction": "rombune",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      4,
+      5
+    ]
+  },
+  {
+    "row": 28,
+    "col": 9,
+    "faction": "rombune",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [],
+    "lakes": [
+      4,
+      5
+    ]
+  },
+  {
+    "row": 28,
+    "col": 10,
+    "faction": "rombune",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 28,
+    "col": 11,
+    "faction": "rombune",
+    "terrain": [
+      "hills"
+    ],
+    "rivers": [],
+    "lakes": [
+      3
+    ]
+  },
+  {
+    "row": 28,
     "col": 19,
     "faction": "shucasam",
     "terrain": [
@@ -6703,6 +6816,36 @@
       1,
       5
     ]
+  },
+  {
+    "row": 29,
+    "col": 7,
+    "faction": "rombune",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      3,
+      4
+    ]
+  },
+  {
+    "row": 29,
+    "col": 11,
+    "faction": "rombune",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      4
+    ],
+    "name": "Sunken City of Parros",
+    "isFortress": true,
+    "fortressStrength": 2,
+    "isPort": true,
+    "isCapital": false
   },
   {
     "row": 29,
@@ -6773,6 +6916,32 @@
       1,
       2,
       3
+    ]
+  },
+  {
+    "row": 30,
+    "col": 6,
+    "faction": "rombune",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      3,
+      4
+    ]
+  },
+  {
+    "row": 31,
+    "col": 6,
+    "faction": "rombune",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      3,
+      4
     ]
   }
 ]

@@ -78,6 +78,8 @@ function _applyMap(tiles) {
     if (t.isTempleOfKings)     tileData[key].isTempleOfKings = true;
     if (t.isSacredStones)      tileData[key].isSacredStones = true;
     if (t.isAncientBattlefield) tileData[key].isAncientBattlefield = true;
+    if (t.isIsleOfFright)      tileData[key].isIsleOfFright = true;
+    if (t.isLepersHaunt)       tileData[key].isLepersHaunt = true;
     if (t.requiresMagicalSieger) tileData[key].requiresMagicalSieger = true;
     if (t.isStubstaffKeep) {
       tileData[key].isStubstaffKeep = true;
