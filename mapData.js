@@ -690,6 +690,15 @@ paintTiles([[16,21]], "muetar", ["plains"], [3, 0]);
 paintTiles([[17,23]], "muetar", ["plains"], [4, 0]);
 paintTiles([[17,24]], "muetar", ["plains"], [3, 5, 1]);
 
+// Muetar plains (new)
+paintTiles([
+  [18,23], [18,24], [16,25], [17,25], [15,22], [14,21], [14,22], [14,18]
+], "muetar", ["plains"]);
+
+// Muetar plains with rivers
+paintTiles([[16,24]], "muetar", ["plains"], [4, 2]);
+paintTiles([[15,24]], "muetar", ["plains"], [3, 1, 0, 2]);
+
 paintTiles([[28,24]], "none", ["plains"]);
 tileData["28,24"].name = "Spires to the Sun";
 tileData["28,24"].isEntryHex = "orderHippogriff";
