@@ -396,6 +396,16 @@
     ]
   },
   {
+    "row": 2,
+    "col": 28,
+    "faction": "blackhand",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
     "row": 3,
     "col": 1,
     "faction": "neuth",
@@ -644,6 +654,27 @@
   },
   {
     "row": 3,
+    "col": 28,
+    "faction": "blackhand",
+    "terrain": [
+      "mountain"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 3,
+    "col": 29,
+    "faction": "blackhand",
+    "terrain": [
+      "forest",
+      "mountain"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 3,
     "col": 30,
     "faction": "blackhand",
     "terrain": [
@@ -887,6 +918,16 @@
     "terrain": [
       "mountain"
     ]
+  },
+  {
+    "row": 4,
+    "col": 28,
+    "faction": "blackhand",
+    "terrain": [
+      "mountain"
+    ],
+    "rivers": [],
+    "lakes": []
   },
   {
     "row": 4,
@@ -6513,6 +6554,39 @@
     ],
     "rivers": [],
     "lakes": []
+  },
+  {
+    "row": 28,
+    "col": 5,
+    "faction": "rombune",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0
+    ],
+    "name": "Rombune",
+    "isFortress": true,
+    "fortressStrength": 3,
+    "isCapital": true
+  },
+  {
+    "row": 28,
+    "col": 6,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "row": 28,
