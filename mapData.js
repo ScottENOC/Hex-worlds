@@ -649,6 +649,25 @@ tileData["10,24"].name = "Basimar";
 tileData["10,24"].isFortress = true;
 tileData["10,24"].fortressStrength = 2;
 
+// Muetar plains
+paintTiles([
+  [14,16], [14,17], [15,16], [15,18], [16,16], [16,17], [13,16], [18,16], [18,18]
+], "muetar", ["plains"]);
+paintTiles([[17,19]], "muetar", ["plains"]);
+
+// Muetar hills
+paintTiles([[14,15], [15,15], [16,15]], "muetar", ["hills"]);
+
+// Muetar plains with rivers
+paintTiles([[17,16]], "muetar", ["plains"], [0, 2]);
+
+// Muetar hills with rivers
+paintTiles([[17,17]], "muetar", ["hills"], [3, 0]);
+
+// Yando Rivermen — special named tile
+paintTiles([[17,18]], "muetar", ["plains"], [3, 5]);
+tileData["17,18"].name = "Yando Rivermen";
+
 paintTiles([[28,24]], "none", ["plains"]);
 tileData["28,24"].name = "Spires to the Sun";
 tileData["28,24"].isEntryHex = "orderHippogriff";
