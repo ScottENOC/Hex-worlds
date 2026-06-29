@@ -2330,6 +2330,38 @@
   },
   {
     "row": 11,
+    "col": 24,
+    "faction": "muetar",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 11,
+    "col": 25,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 11,
+    "col": 26,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 11,
+    "col": 27,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 11,
     "col": 33,
     "faction": "dwarfland",
     "terrain": [
@@ -2511,6 +2543,54 @@
     "isFortress": true,
     "fortressStrength": 4,
     "isCapital": true
+  },
+  {
+    "row": 12,
+    "col": 20,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 12,
+    "col": 21,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 12,
+    "col": 22,
+    "faction": "muetar",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 12,
+    "col": 23,
+    "faction": "muetar",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 12,
+    "col": 24,
+    "faction": "muetar",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 12,
+    "col": 25,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ]
   },
   {
     "row": 12,
@@ -2720,6 +2800,54 @@
   },
   {
     "row": 13,
+    "col": 20,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 13,
+    "col": 21,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 13,
+    "col": 22,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 13,
+    "col": 23,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 13,
+    "col": 24,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 13,
+    "col": 25,
+    "faction": "muetar",
+    "terrain": [
+      "hills"
+    ]
+  },
+  {
+    "row": 13,
     "col": 33,
     "faction": "dwarfland",
     "terrain": [
@@ -2920,7 +3048,7 @@
     ],
     "rivers": [
       3,
-      1
+      2
     ]
   },
   {
@@ -2941,14 +3069,18 @@
   },
   {
     "row": 14,
-    "col": 29,
+    "col": 23,
     "faction": "muetar",
     "terrain": [
-      "plains"
-    ],
-    "rivers": [
-      3,
-      2
+      "hills"
+    ]
+  },
+  {
+    "row": 14,
+    "col": 24,
+    "faction": "muetar",
+    "terrain": [
+      "hills"
     ]
   },
   {
