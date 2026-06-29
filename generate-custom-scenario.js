@@ -6,8 +6,8 @@ const fs = require("fs");
 const path = require("path");
 
 // ── Grid dimensions ──────────────────────────────────────────────────────────
-const ROWS = 20;
-const COLS = 30;
+const ROWS = 40;
+const COLS = 60;
 
 // ── Simple FBM noise (no external deps) ─────────────────────────────────────
 function hash(x, y, seed) {
