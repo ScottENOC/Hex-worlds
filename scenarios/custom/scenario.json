@@ -1,0 +1,27 @@
+{
+  "id": "custom",
+  "name": "Custom (Procedural)",
+  "factions": {
+    "veldra": {
+      "color": "#CC3333",
+      "playable": true,
+      "display": "Veldra"
+    },
+    "keth": {
+      "color": "#3366CC",
+      "playable": true,
+      "display": "Keth"
+    }
+  },
+  "neutralColor": "#d2b48c",
+  "rules": {
+    "maxTurns": 20,
+    "mercenaryLandCount": 13,
+    "mercenaryFleetCount": 2,
+    "barbarianPoolSize": 43,
+    "canSeizeTerrain": false,
+    "tileUpgrades": false,
+    "resources": false,
+    "dynamicFortresses": false
+  }
+}
