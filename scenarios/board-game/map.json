@@ -2940,6 +2940,18 @@
     ]
   },
   {
+    "row": 14,
+    "col": 29,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      3,
+      2
+    ]
+  },
+  {
     "row": 15,
     "col": 1,
     "terrain": [
