@@ -6537,6 +6537,49 @@
   },
   {
     "row": 27,
+    "col": 4,
+    "faction": "rombune",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [],
+    "lakes": [
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 27,
+    "col": 5,
+    "faction": "rombune",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [],
+    "lakes": [
+      4,
+      5
+    ]
+  },
+  {
+    "row": 27,
+    "col": 6,
+    "faction": "rombune",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 27,
     "col": 19,
     "faction": "shucasam",
     "terrain": [
@@ -6554,6 +6597,19 @@
     ],
     "rivers": [],
     "lakes": []
+  },
+  {
+    "row": 28,
+    "col": 4,
+    "faction": "rombune",
+    "terrain": [
+      "forest",
+      "mountain"
+    ],
+    "rivers": [],
+    "lakes": [
+      3
+    ]
   },
   {
     "row": 28,
@@ -6609,6 +6665,47 @@
   },
   {
     "row": 29,
+    "col": 4,
+    "faction": "rombune",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "row": 29,
+    "col": 5,
+    "faction": "rombune",
+    "terrain": [
+      "mountain"
+    ],
+    "rivers": [],
+    "lakes": [
+      2
+    ]
+  },
+  {
+    "row": 29,
+    "col": 6,
+    "faction": "rombune",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      5
+    ]
+  },
+  {
+    "row": 29,
     "col": 17,
     "faction": "trolls",
     "terrain": [
@@ -6651,5 +6748,31 @@
     "lakes": [],
     "name": "Haunt of the Lepers",
     "isLepersHaunt": true
+  },
+  {
+    "row": 30,
+    "col": 4,
+    "faction": "rombune",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [],
+    "name": "Thores on the Rock"
+  },
+  {
+    "row": 30,
+    "col": 5,
+    "faction": "rombune",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3
+    ]
   }
 ]
