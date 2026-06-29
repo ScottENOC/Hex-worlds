@@ -687,6 +687,8 @@ paintTiles([[15,19]], "muetar", ["plains"], [2, 0]);
 paintTiles([[15,20]], "muetar", ["plains"], [3, 5, 1]);
 paintTiles([[16,20]], "muetar", ["plains"], [4, 0]);
 paintTiles([[16,21]], "muetar", ["plains"], [3, 0]);
+paintTiles([[17,23]], "muetar", ["plains"], [4, 0]);
+paintTiles([[17,24]], "muetar", ["plains"], [3, 5, 1]);
 
 paintTiles([[28,24]], "none", ["plains"]);
 tileData["28,24"].name = "Spires to the Sun";
