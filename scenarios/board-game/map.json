@@ -1907,6 +1907,78 @@
     ]
   },
   {
+    "row": 9,
+    "col": 22,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      1,
+      0
+    ]
+  },
+  {
+    "row": 9,
+    "col": 23,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      0,
+      3
+    ]
+  },
+  {
+    "row": 9,
+    "col": 24,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      0,
+      3
+    ]
+  },
+  {
+    "row": 9,
+    "col": 25,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      0,
+      3
+    ]
+  },
+  {
+    "row": 9,
+    "col": 26,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      0,
+      3
+    ]
+  },
+  {
+    "row": 9,
+    "col": 27,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      3,
+      2
+    ]
+  },
+  {
     "row": 10,
     "col": 1,
     "terrain": [
@@ -2098,6 +2170,26 @@
   },
   {
     "row": 10,
+    "col": 22,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      1,
+      4
+    ]
+  },
+  {
+    "row": 10,
+    "col": 23,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 10,
     "col": 24,
     "faction": "muetar",
     "terrain": [
@@ -2106,6 +2198,30 @@
     "name": "Basimar",
     "isFortress": true,
     "fortressStrength": 3
+  },
+  {
+    "row": 10,
+    "col": 26,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      5,
+      0
+    ]
+  },
+  {
+    "row": 10,
+    "col": 27,
+    "faction": "muetar",
+    "terrain": [
+      "marsh"
+    ],
+    "rivers": [
+      3,
+      1
+    ]
   },
   {
     "row": 11,
@@ -2358,6 +2474,30 @@
     "faction": "muetar",
     "terrain": [
       "plains"
+    ]
+  },
+  {
+    "row": 11,
+    "col": 28,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      4,
+      0
+    ]
+  },
+  {
+    "row": 11,
+    "col": 29,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      3,
+      0
     ]
   },
   {
@@ -4143,6 +4283,10 @@
     "faction": "muetar",
     "terrain": [
       "plains"
+    ],
+    "rivers": [
+      4,
+      0
     ]
   },
   {
