@@ -1,0 +1,463 @@
+[
+  {
+    "faction": "neuth",
+    "row": 6,
+    "col": 5,
+    "moveSpeed": 6,
+    "forestWalk": true
+  },
+  {
+    "faction": "neuth",
+    "row": 6,
+    "col": 5,
+    "moveSpeed": 6,
+    "forestWalk": true
+  },
+  {
+    "faction": "neuth",
+    "row": 6,
+    "col": 5,
+    "moveSpeed": 6,
+    "forestWalk": true
+  },
+  {
+    "faction": "neuth",
+    "row": 6,
+    "col": 5,
+    "moveSpeed": 6,
+    "forestWalk": true
+  },
+  {
+    "faction": "neuth",
+    "row": 6,
+    "col": 5,
+    "moveSpeed": 6,
+    "forestWalk": true
+  },
+  {
+    "faction": "neuth",
+    "row": 6,
+    "col": 5,
+    "moveSpeed": 6,
+    "forestWalk": true
+  },
+  {
+    "faction": "dwarfland",
+    "row": 2,
+    "col": 3,
+    "moveSpeed": 6,
+    "mountainWalk": true
+  },
+  {
+    "faction": "dwarfland",
+    "row": 2,
+    "col": 3,
+    "moveSpeed": 6,
+    "mountainWalk": true
+  },
+  {
+    "faction": "dwarfland",
+    "row": 11,
+    "col": 33,
+    "moveSpeed": 6,
+    "mountainWalk": true
+  },
+  {
+    "faction": "dwarfland",
+    "row": 11,
+    "col": 33,
+    "moveSpeed": 6,
+    "mountainWalk": true
+  },
+  {
+    "faction": "dwarfland",
+    "row": 11,
+    "col": 33,
+    "moveSpeed": 6,
+    "mountainWalk": true
+  },
+  {
+    "faction": "dwarfland",
+    "row": 16,
+    "col": 33,
+    "moveSpeed": 6,
+    "mountainWalk": true
+  },
+  {
+    "faction": "dwarfland",
+    "row": 16,
+    "col": 33,
+    "moveSpeed": 6,
+    "mountainWalk": true
+  },
+  {
+    "faction": "zorn",
+    "row": 3,
+    "col": 23,
+    "moveSpeed": 6,
+    "forestWalk": true,
+    "mountainWalk": true
+  },
+  {
+    "faction": "zorn",
+    "row": 3,
+    "col": 23,
+    "moveSpeed": 6,
+    "forestWalk": true,
+    "mountainWalk": true
+  },
+  {
+    "faction": "zorn",
+    "row": 3,
+    "col": 23,
+    "moveSpeed": 6,
+    "forestWalk": true,
+    "mountainWalk": true
+  },
+  {
+    "faction": "immer",
+    "row": 7,
+    "col": 14,
+    "moveSpeed": 5
+  },
+  {
+    "faction": "immer",
+    "row": 7,
+    "col": 14,
+    "moveSpeed": 5
+  },
+  {
+    "faction": "immer",
+    "row": 7,
+    "col": 14,
+    "moveSpeed": 5
+  },
+  {
+    "faction": "immer",
+    "row": 9,
+    "col": 16,
+    "moveSpeed": 5
+  },
+  {
+    "faction": "immer",
+    "row": 9,
+    "col": 16,
+    "moveSpeed": 5
+  },
+  {
+    "faction": "immer",
+    "row": 6,
+    "col": 18,
+    "moveSpeed": 5
+  },
+  {
+    "faction": "immer",
+    "row": 4,
+    "col": 12,
+    "moveSpeed": 5
+  },
+  {
+    "faction": "immer",
+    "row": 4,
+    "col": 12,
+    "moveSpeed": 5
+  },
+  {
+    "faction": "immer",
+    "row": 4,
+    "col": 15,
+    "moveSpeed": 5,
+    "forestWalk": true
+  },
+  {
+    "faction": "mivior",
+    "row": 13,
+    "col": 3,
+    "moveSpeed": 8,
+    "isFleet": true
+  },
+  {
+    "faction": "mivior",
+    "row": 19,
+    "col": 4,
+    "moveSpeed": 8,
+    "isFleet": true
+  },
+  {
+    "faction": "mivior",
+    "row": 22,
+    "col": 4,
+    "moveSpeed": 8,
+    "isFleet": true
+  },
+  {
+    "faction": "mivior",
+    "row": 17,
+    "col": 5,
+    "moveSpeed": 8,
+    "isFleet": true
+  },
+  {
+    "faction": "mivior",
+    "row": 13,
+    "col": 3,
+    "moveSpeed": 5
+  },
+  {
+    "faction": "mivior",
+    "row": 13,
+    "col": 3,
+    "moveSpeed": 5
+  },
+  {
+    "faction": "mivior",
+    "row": 13,
+    "col": 3,
+    "moveSpeed": 5
+  },
+  {
+    "faction": "mivior",
+    "row": 22,
+    "col": 4,
+    "moveSpeed": 5
+  },
+  {
+    "faction": "mivior",
+    "row": 22,
+    "col": 4,
+    "moveSpeed": 5
+  },
+  {
+    "faction": "mivior",
+    "row": 22,
+    "col": 4,
+    "moveSpeed": 5
+  },
+  {
+    "faction": "mivior",
+    "row": 22,
+    "col": 4,
+    "moveSpeed": 5
+  },
+  {
+    "faction": "mivior",
+    "row": 17,
+    "col": 5,
+    "moveSpeed": 5
+  },
+  {
+    "faction": "mivior",
+    "row": 19,
+    "col": 4,
+    "moveSpeed": 5
+  },
+  {
+    "faction": "trolls",
+    "row": 14,
+    "col": 6,
+    "moveSpeed": 4,
+    "forestWalk": true,
+    "mountainWalk": true
+  },
+  {
+    "faction": "trolls",
+    "row": 14,
+    "col": 6,
+    "moveSpeed": 4,
+    "forestWalk": true,
+    "mountainWalk": true
+  },
+  {
+    "faction": "trolls",
+    "row": 3,
+    "col": 27,
+    "moveSpeed": 4,
+    "forestWalk": true,
+    "mountainWalk": true
+  },
+  {
+    "faction": "trolls",
+    "row": 3,
+    "col": 27,
+    "moveSpeed": 4,
+    "forestWalk": true,
+    "mountainWalk": true
+  },
+  {
+    "faction": "trolls",
+    "row": 23,
+    "col": 34,
+    "moveSpeed": 4,
+    "forestWalk": true,
+    "mountainWalk": true
+  },
+  {
+    "faction": "trolls",
+    "row": 23,
+    "col": 34,
+    "moveSpeed": 4,
+    "forestWalk": true,
+    "mountainWalk": true
+  },
+  {
+    "faction": "trolls",
+    "row": 29,
+    "col": 17,
+    "moveSpeed": 4,
+    "forestWalk": true,
+    "mountainWalk": true
+  },
+  {
+    "faction": "trolls",
+    "row": 29,
+    "col": 17,
+    "moveSpeed": 4,
+    "forestWalk": true,
+    "mountainWalk": true
+  },
+  {
+    "faction": "hothior",
+    "row": 18,
+    "col": 9,
+    "moveSpeed": 8,
+    "isFleet": true
+  },
+  {
+    "faction": "hothior",
+    "row": 19,
+    "col": 13,
+    "moveSpeed": 8,
+    "isFleet": true
+  },
+  {
+    "faction": "hothior",
+    "row": 18,
+    "col": 9,
+    "moveSpeed": 7,
+    "isLeader": true,
+    "combatStrength": 0,
+    "siegeStrength": 0
+  },
+  {
+    "faction": "hothior",
+    "row": 20,
+    "col": 10,
+    "moveSpeed": 5
+  },
+  {
+    "faction": "hothior",
+    "row": 19,
+    "col": 13,
+    "moveSpeed": 5
+  },
+  {
+    "faction": "hothior",
+    "row": 19,
+    "col": 13,
+    "moveSpeed": 5
+  },
+  {
+    "faction": "hothior",
+    "row": 18,
+    "col": 9,
+    "moveSpeed": 5
+  },
+  {
+    "faction": "hothior",
+    "row": 18,
+    "col": 9,
+    "moveSpeed": 5
+  },
+  {
+    "faction": "hothior",
+    "row": 15,
+    "col": 10,
+    "moveSpeed": 5
+  },
+  {
+    "faction": "hothior",
+    "row": 15,
+    "col": 10,
+    "moveSpeed": 5
+  },
+  {
+    "faction": "eaters",
+    "row": 11,
+    "col": 12,
+    "moveSpeed": 8,
+    "forestWalk": true,
+    "mountainWalk": true,
+    "isLeader": true,
+    "combatStrength": 2,
+    "isMagical": true,
+    "isEatersOfWisdom": true,
+    "baseCombatStrength": 2,
+    "spells": {
+      "whirlingVortex": 0,
+      "reflector": 0,
+      "mistOfGroping": 0,
+      "theBridge": 0,
+      "enchantedCastle": 0
+    }
+  },
+  {
+    "faction": "neuth",
+    "row": 6,
+    "col": 5,
+    "moveSpeed": 8,
+    "forestWalk": true,
+    "isLeader": true,
+    "combatStrength": 0,
+    "siegeStrength": 0
+  },
+  {
+    "faction": "dwarfland",
+    "row": 11,
+    "col": 33,
+    "moveSpeed": 8,
+    "mountainWalk": true,
+    "isLeader": true,
+    "combatStrength": 0,
+    "siegeStrength": 0
+  },
+  {
+    "faction": "zorn",
+    "row": 3,
+    "col": 23,
+    "moveSpeed": 8,
+    "forestWalk": true,
+    "mountainWalk": true,
+    "isLeader": true,
+    "combatStrength": 0,
+    "siegeStrength": 0
+  },
+  {
+    "faction": "immer",
+    "row": 7,
+    "col": 14,
+    "moveSpeed": 7,
+    "isLeader": true,
+    "combatStrength": 0,
+    "siegeStrength": 0
+  },
+  {
+    "faction": "mivior",
+    "row": 22,
+    "col": 4,
+    "moveSpeed": 7,
+    "isLeader": true,
+    "combatStrength": 0,
+    "siegeStrength": 0
+  },
+  {
+    "faction": "trolls",
+    "row": 14,
+    "col": 6,
+    "moveSpeed": 6,
+    "forestWalk": true,
+    "mountainWalk": true,
+    "isLeader": true,
+    "combatStrength": 0,
+    "siegeStrength": 0
+  }
+]

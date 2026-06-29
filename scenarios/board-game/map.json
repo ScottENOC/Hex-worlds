@@ -1,0 +1,4609 @@
+[
+  {
+    "row": 1,
+    "col": 1,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 1,
+    "col": 2,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 1,
+    "col": 3,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 1,
+    "col": 4,
+    "faction": "dwarfland",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 1,
+    "col": 5,
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 1,
+    "col": 6,
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 1,
+    "col": 7,
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 1,
+    "col": 8,
+    "terrain": [
+      "forest"
+    ],
+    "name": "Sacred Stones",
+    "isSacredStones": true
+  },
+  {
+    "row": 1,
+    "col": 9,
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 1,
+    "col": 10,
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 1,
+    "col": 11,
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 1,
+    "col": 12,
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 1,
+    "col": 13,
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 1,
+    "col": 14,
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 1,
+    "col": 15,
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 1,
+    "col": 16,
+    "terrain": [
+      "mountain"
+    ],
+    "rivers": [
+      2
+    ]
+  },
+  {
+    "row": 1,
+    "col": 17,
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 1,
+    "col": 18,
+    "faction": "zorn",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 1,
+    "col": 19,
+    "faction": "zorn",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 1,
+    "col": 20,
+    "faction": "zorn",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 1,
+    "col": 21,
+    "faction": "zorn",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 1,
+    "col": 22,
+    "faction": "zorn",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 1,
+    "col": 23,
+    "faction": "zorn",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 1,
+    "col": 24,
+    "faction": "zorn",
+    "terrain": [
+      "hills"
+    ]
+  },
+  {
+    "row": 2,
+    "col": 1,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 2,
+    "col": 2,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 2,
+    "col": 3,
+    "faction": "dwarfland",
+    "terrain": [
+      "plains"
+    ],
+    "name": "Aws Noir",
+    "isFortress": true,
+    "fortressStrength": 4
+  },
+  {
+    "row": 2,
+    "col": 4,
+    "faction": "neuth",
+    "terrain": [
+      "forest",
+      "mountain"
+    ]
+  },
+  {
+    "row": 2,
+    "col": 5,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 2,
+    "col": 6,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 2,
+    "col": 7,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 2,
+    "col": 8,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 2,
+    "col": 9,
+    "faction": "neuth",
+    "terrain": [
+      "forest",
+      "hills"
+    ]
+  },
+  {
+    "row": 2,
+    "col": 10,
+    "terrain": [
+      "hills"
+    ]
+  },
+  {
+    "row": 2,
+    "col": 11,
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      0,
+      2
+    ]
+  },
+  {
+    "row": 2,
+    "col": 12,
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      1,
+      3
+    ]
+  },
+  {
+    "row": 2,
+    "col": 13,
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      0,
+      2
+    ]
+  },
+  {
+    "row": 2,
+    "col": 14,
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      0,
+      3
+    ]
+  },
+  {
+    "row": 2,
+    "col": 15,
+    "terrain": [
+      "mountain"
+    ],
+    "rivers": [
+      3,
+      5
+    ]
+  },
+  {
+    "row": 2,
+    "col": 16,
+    "terrain": [
+      "plains"
+    ],
+    "name": "The Temple of Kings",
+    "isTempleOfKings": true
+  },
+  {
+    "row": 2,
+    "col": 17,
+    "faction": "zorn",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 2,
+    "col": 18,
+    "faction": "zorn",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 2,
+    "col": 19,
+    "faction": "zorn",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 2,
+    "col": 20,
+    "faction": "zorn",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 2,
+    "col": 21,
+    "faction": "zorn",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 2,
+    "col": 22,
+    "faction": "zorn",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 2,
+    "col": 23,
+    "faction": "zorn",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 2,
+    "col": 24,
+    "faction": "zorn",
+    "terrain": [
+      "hills"
+    ]
+  },
+  {
+    "row": 3,
+    "col": 1,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 3,
+    "col": 2,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 3,
+    "col": 3,
+    "faction": "neuth",
+    "terrain": [
+      "forest",
+      "mountain"
+    ]
+  },
+  {
+    "row": 3,
+    "col": 4,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [
+      0,
+      4
+    ]
+  },
+  {
+    "row": 3,
+    "col": 5,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [
+      0,
+      3
+    ]
+  },
+  {
+    "row": 3,
+    "col": 6,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [
+      1,
+      2,
+      3
+    ]
+  },
+  {
+    "row": 3,
+    "col": 7,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 3,
+    "col": 8,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [
+      0,
+      2
+    ]
+  },
+  {
+    "row": 3,
+    "col": 9,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [
+      0,
+      3
+    ]
+  },
+  {
+    "row": 3,
+    "col": 10,
+    "faction": "neuth",
+    "terrain": [
+      "hills",
+      "forest"
+    ],
+    "rivers": [
+      0,
+      3
+    ]
+  },
+  {
+    "row": 3,
+    "col": 11,
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      3,
+      5
+    ]
+  },
+  {
+    "row": 3,
+    "col": 12,
+    "terrain": [
+      "hills"
+    ]
+  },
+  {
+    "row": 3,
+    "col": 13,
+    "faction": "immer",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      4,
+      5
+    ]
+  },
+  {
+    "row": 3,
+    "col": 14,
+    "faction": "immer",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 3,
+    "col": 15,
+    "faction": "immer",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 3,
+    "col": 16,
+    "faction": "immer",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 3,
+    "col": 17,
+    "faction": "zorn",
+    "terrain": [
+      "mountain",
+      "forest"
+    ]
+  },
+  {
+    "row": 3,
+    "col": 18,
+    "terrain": [
+      "plains"
+    ],
+    "name": "Winter Rest",
+    "isEntryHex": "hamahara"
+  },
+  {
+    "row": 3,
+    "col": 19,
+    "faction": "zorn",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 3,
+    "col": 20,
+    "faction": "zorn",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 3,
+    "col": 21,
+    "faction": "zorn",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 3,
+    "col": 22,
+    "faction": "zorn",
+    "terrain": [
+      "marsh"
+    ]
+  },
+  {
+    "row": 3,
+    "col": 23,
+    "faction": "zorn",
+    "terrain": [
+      "plains"
+    ],
+    "name": "The Pits",
+    "isFortress": true,
+    "fortressStrength": 4
+  },
+  {
+    "row": 3,
+    "col": 24,
+    "faction": "zorn",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 3,
+    "col": 25,
+    "faction": "zorn",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 3,
+    "col": 27,
+    "faction": "trolls",
+    "terrain": [
+      "plains"
+    ],
+    "name": "The Crag"
+  },
+  {
+    "row": 4,
+    "col": 1,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 4,
+    "col": 2,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 4,
+    "col": 3,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 4,
+    "col": 4,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 4,
+    "col": 5,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [
+      0,
+      5
+    ]
+  },
+  {
+    "row": 4,
+    "col": 6,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [
+      0,
+      1,
+      3,
+      4
+    ]
+  },
+  {
+    "row": 4,
+    "col": 7,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [
+      1,
+      3,
+      5
+    ]
+  },
+  {
+    "row": 4,
+    "col": 8,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 4,
+    "col": 9,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 4,
+    "col": 10,
+    "terrain": [
+      "hills"
+    ]
+  },
+  {
+    "row": 4,
+    "col": 11,
+    "terrain": [
+      "hills"
+    ]
+  },
+  {
+    "row": 4,
+    "col": 12,
+    "faction": "immer",
+    "terrain": [
+      "plains"
+    ],
+    "name": "Lone Wirzor",
+    "isFortress": true,
+    "fortressStrength": 2
+  },
+  {
+    "row": 4,
+    "col": 13,
+    "faction": "immer",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 4,
+    "col": 14,
+    "faction": "immer",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 4,
+    "col": 15,
+    "faction": "immer",
+    "terrain": [
+      "plains"
+    ],
+    "name": "Gorpin Woodsmen"
+  },
+  {
+    "row": 4,
+    "col": 16,
+    "faction": "immer",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 4,
+    "col": 17,
+    "faction": "zorn",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 4,
+    "col": 18,
+    "faction": "zorn",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 4,
+    "col": 19,
+    "faction": "zorn",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 4,
+    "col": 20,
+    "faction": "zorn",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 4,
+    "col": 21,
+    "faction": "zorn",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 4,
+    "col": 22,
+    "faction": "zorn",
+    "terrain": [
+      "forest"
+    ],
+    "name": "Shrieker's Scrub"
+  },
+  {
+    "row": 4,
+    "col": 23,
+    "faction": "zorn",
+    "terrain": [
+      "forest"
+    ],
+    "name": "Shrieker's Scrub"
+  },
+  {
+    "row": 4,
+    "col": 24,
+    "faction": "zorn",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 4,
+    "col": 25,
+    "faction": "zorn",
+    "terrain": [
+      "forest"
+    ],
+    "name": "Leeks"
+  },
+  {
+    "row": 4,
+    "col": 26,
+    "faction": "zorn",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 5,
+    "col": 1,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 5,
+    "col": 2,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 5,
+    "col": 3,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 5,
+    "col": 4,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 5,
+    "col": 5,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 5,
+    "col": 6,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ],
+    "name": "Mires of the Sinking Kind"
+  },
+  {
+    "row": 5,
+    "col": 7,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [
+      0,
+      1,
+      2,
+      4
+    ]
+  },
+  {
+    "row": 5,
+    "col": 8,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [
+      3,
+      4
+    ]
+  },
+  {
+    "row": 5,
+    "col": 9,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 5,
+    "col": 10,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 5,
+    "col": 11,
+    "terrain": [
+      "plains"
+    ],
+    "name": "The Unknown Army",
+    "isAncientBattlefield": true
+  },
+  {
+    "row": 5,
+    "col": 12,
+    "faction": "immer",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 5,
+    "col": 13,
+    "faction": "immer",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 5,
+    "col": 14,
+    "faction": "immer",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 5,
+    "col": 15,
+    "faction": "immer",
+    "terrain": [
+      "hills"
+    ]
+  },
+  {
+    "row": 5,
+    "col": 16,
+    "faction": "immer",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 5,
+    "col": 17,
+    "faction": "immer",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 5,
+    "col": 18,
+    "faction": "zorn",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 5,
+    "col": 19,
+    "faction": "zorn",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 5,
+    "col": 20,
+    "faction": "zorn",
+    "terrain": [
+      "mountain",
+      "forest"
+    ]
+  },
+  {
+    "row": 5,
+    "col": 21,
+    "faction": "zorn",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 5,
+    "col": 22,
+    "faction": "zorn",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 5,
+    "col": 23,
+    "faction": "zorn",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 5,
+    "col": 24,
+    "faction": "zorn",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 5,
+    "col": 25,
+    "faction": "zorn",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 5,
+    "col": 26,
+    "faction": "zorn",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 5,
+    "col": 27,
+    "faction": "zorn",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 6,
+    "col": 1,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 6,
+    "col": 2,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 6,
+    "col": 3,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 6,
+    "col": 4,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 6,
+    "col": 5,
+    "faction": "neuth",
+    "terrain": [
+      "plains"
+    ],
+    "name": "Ider Bolis",
+    "isFortress": true,
+    "fortressStrength": 5
+  },
+  {
+    "row": 6,
+    "col": 6,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [
+      0,
+      2,
+      5
+    ]
+  },
+  {
+    "row": 6,
+    "col": 7,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [
+      3,
+      4
+    ]
+  },
+  {
+    "row": 6,
+    "col": 8,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 6,
+    "col": 9,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 6,
+    "col": 10,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 6,
+    "col": 11,
+    "faction": "immer",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 6,
+    "col": 12,
+    "faction": "immer",
+    "terrain": [
+      "hills"
+    ]
+  },
+  {
+    "row": 6,
+    "col": 13,
+    "faction": "immer",
+    "terrain": [
+      "hills"
+    ]
+  },
+  {
+    "row": 6,
+    "col": 14,
+    "faction": "immer",
+    "terrain": [
+      "hills"
+    ]
+  },
+  {
+    "row": 6,
+    "col": 15,
+    "faction": "immer",
+    "terrain": [
+      "hills"
+    ]
+  },
+  {
+    "row": 6,
+    "col": 16,
+    "faction": "immer",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 6,
+    "col": 17,
+    "faction": "immer",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 6,
+    "col": 18,
+    "faction": "immer",
+    "terrain": [
+      "plains"
+    ],
+    "name": "The Gap Fortress",
+    "isFortress": true,
+    "fortressStrength": 2
+  },
+  {
+    "row": 6,
+    "col": 19,
+    "faction": "immer",
+    "terrain": [
+      "mountain_pass"
+    ],
+    "name": "Choked in Snow Pass"
+  },
+  {
+    "row": 6,
+    "col": 20,
+    "faction": "zorn",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 6,
+    "col": 21,
+    "faction": "zorn",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 6,
+    "col": 22,
+    "faction": "zorn",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 6,
+    "col": 23,
+    "faction": "zorn",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 6,
+    "col": 24,
+    "faction": "zorn",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 6,
+    "col": 25,
+    "faction": "zorn",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 6,
+    "col": 26,
+    "faction": "zorn",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 7,
+    "col": 1,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 7,
+    "col": 2,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 7,
+    "col": 3,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 7,
+    "col": 4,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ],
+    "lakes": [
+      0
+    ]
+  },
+  {
+    "row": 7,
+    "col": 5,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ],
+    "lakes": [
+      0,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 7,
+    "col": 6,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ],
+    "lakes": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "row": 7,
+    "col": 7,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [
+      0,
+      1
+    ],
+    "lakes": [
+      2
+    ]
+  },
+  {
+    "row": 7,
+    "col": 8,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [
+      3
+    ]
+  },
+  {
+    "row": 7,
+    "col": 9,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 7,
+    "col": 10,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 7,
+    "col": 11,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 7,
+    "col": 12,
+    "faction": "immer",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 7,
+    "col": 13,
+    "faction": "immer",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 7,
+    "col": 14,
+    "faction": "immer",
+    "terrain": [
+      "plains"
+    ],
+    "name": "Castle Altarr",
+    "isFortress": true,
+    "fortressStrength": 3
+  },
+  {
+    "row": 7,
+    "col": 15,
+    "faction": "immer",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 7,
+    "col": 16,
+    "faction": "immer",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 7,
+    "col": 17,
+    "faction": "immer",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 7,
+    "col": 18,
+    "faction": "immer",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 7,
+    "col": 19,
+    "faction": "immer",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 7,
+    "col": 20,
+    "faction": "zorn",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 7,
+    "col": 21,
+    "faction": "zorn",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 7,
+    "col": 22,
+    "terrain": [
+      "plains"
+    ],
+    "name": "Ozerg Mountaineers",
+    "isEntryHex": "ozergMtrs"
+  },
+  {
+    "row": 7,
+    "col": 23,
+    "faction": "zorn",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 7,
+    "col": 25,
+    "faction": "zorn",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 8,
+    "col": 1,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 8,
+    "col": 2,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 8,
+    "col": 3,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 8,
+    "col": 4,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 8,
+    "col": 5,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ],
+    "lakes": [
+      0,
+      5
+    ]
+  },
+  {
+    "row": 8,
+    "col": 6,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [
+      2
+    ],
+    "lakes": [
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 8,
+    "col": 7,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [
+      4
+    ]
+  },
+  {
+    "row": 8,
+    "col": 8,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 8,
+    "col": 9,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 8,
+    "col": 10,
+    "faction": "immer",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 8,
+    "col": 11,
+    "faction": "immer",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 8,
+    "col": 12,
+    "faction": "immer",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 8,
+    "col": 13,
+    "faction": "immer",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 8,
+    "col": 14,
+    "faction": "immer",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 8,
+    "col": 15,
+    "faction": "immer",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 8,
+    "col": 16,
+    "faction": "immer",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 8,
+    "col": 17,
+    "faction": "immer",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 8,
+    "col": 18,
+    "faction": "immer",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 8,
+    "col": 19,
+    "faction": "immer",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 8,
+    "col": 20,
+    "faction": "zorn",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 8,
+    "col": 21,
+    "faction": "zorn",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 9,
+    "col": 1,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 9,
+    "col": 2,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 9,
+    "col": 3,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 9,
+    "col": 4,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 9,
+    "col": 5,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 9,
+    "col": 6,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [
+      0,
+      5
+    ]
+  },
+  {
+    "row": 9,
+    "col": 7,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [
+      1,
+      3
+    ]
+  },
+  {
+    "row": 9,
+    "col": 8,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 9,
+    "col": 9,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 9,
+    "col": 10,
+    "faction": "immer",
+    "terrain": [
+      "hills"
+    ]
+  },
+  {
+    "row": 9,
+    "col": 11,
+    "faction": "immer",
+    "terrain": [
+      "marsh"
+    ]
+  },
+  {
+    "row": 9,
+    "col": 12,
+    "faction": "immer",
+    "terrain": [
+      "marsh"
+    ]
+  },
+  {
+    "row": 9,
+    "col": 13,
+    "faction": "immer",
+    "terrain": [
+      "marsh"
+    ]
+  },
+  {
+    "row": 9,
+    "col": 14,
+    "faction": "immer",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 9,
+    "col": 15,
+    "faction": "immer",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 9,
+    "col": 16,
+    "faction": "immer",
+    "terrain": [
+      "plains"
+    ],
+    "name": "Muscaster",
+    "isFortress": true,
+    "fortressStrength": 3
+  },
+  {
+    "row": 9,
+    "col": 17,
+    "faction": "immer",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 9,
+    "col": 18,
+    "faction": "immer",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 9,
+    "col": 19,
+    "faction": "immer",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 9,
+    "col": 20,
+    "faction": "immer",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 9,
+    "col": 21,
+    "faction": "zorn",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 10,
+    "col": 1,
+    "terrain": [
+      "plains"
+    ],
+    "name": "Stump Hole",
+    "isEntryHex": "ogsbogg"
+  },
+  {
+    "row": 10,
+    "col": 2,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 10,
+    "col": 3,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 10,
+    "col": 4,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 10,
+    "col": 5,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 10,
+    "col": 6,
+    "terrain": [
+      "hills"
+    ],
+    "rivers": [
+      0,
+      2
+    ]
+  },
+  {
+    "row": 10,
+    "col": 7,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [
+      0,
+      3,
+      4
+    ]
+  },
+  {
+    "row": 10,
+    "col": 8,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [
+      1,
+      3
+    ]
+  },
+  {
+    "row": 10,
+    "col": 9,
+    "faction": "neuth",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 10,
+    "col": 10,
+    "faction": "immer",
+    "terrain": [
+      "hills"
+    ]
+  },
+  {
+    "row": 10,
+    "col": 11,
+    "faction": "eaters",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 10,
+    "col": 12,
+    "faction": "eaters",
+    "terrain": [
+      "hills"
+    ],
+    "lakes": [
+      0,
+      1
+    ]
+  },
+  {
+    "row": 10,
+    "col": 13,
+    "faction": "eaters",
+    "terrain": [
+      "hills"
+    ],
+    "lakes": [
+      2,
+      3
+    ]
+  },
+  {
+    "row": 10,
+    "col": 14,
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 10,
+    "col": 15,
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 10,
+    "col": 16,
+    "faction": "immer",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 10,
+    "col": 17,
+    "faction": "immer",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 10,
+    "col": 18,
+    "faction": "immer",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 10,
+    "col": 19,
+    "faction": "immer",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 10,
+    "col": 20,
+    "faction": "immer",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 10,
+    "col": 24,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ],
+    "name": "Basimar",
+    "isFortress": true,
+    "fortressStrength": 3
+  },
+  {
+    "row": 11,
+    "col": 1,
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 11,
+    "col": 2,
+    "terrain": [
+      "hills"
+    ]
+  },
+  {
+    "row": 11,
+    "col": 3,
+    "terrain": [
+      "hills"
+    ]
+  },
+  {
+    "row": 11,
+    "col": 4,
+    "terrain": [
+      "hills"
+    ]
+  },
+  {
+    "row": 11,
+    "col": 5,
+    "terrain": [
+      "hills"
+    ]
+  },
+  {
+    "row": 11,
+    "col": 6,
+    "terrain": [
+      "hills"
+    ],
+    "rivers": [
+      5,
+      2
+    ]
+  },
+  {
+    "row": 11,
+    "col": 7,
+    "terrain": [
+      "hills"
+    ]
+  },
+  {
+    "row": 11,
+    "col": 8,
+    "terrain": [
+      "hills"
+    ]
+  },
+  {
+    "row": 11,
+    "col": 9,
+    "terrain": [
+      "hills"
+    ],
+    "rivers": [
+      4
+    ]
+  },
+  {
+    "row": 11,
+    "col": 10,
+    "terrain": [
+      "hills"
+    ]
+  },
+  {
+    "row": 11,
+    "col": 11,
+    "faction": "eaters",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 11,
+    "col": 12,
+    "faction": "eaters",
+    "terrain": [
+      "plains"
+    ],
+    "name": "Invisible School of Thaumaturgy",
+    "isFortress": true,
+    "fortressStrength": 3,
+    "requiresMagicalSieger": true
+  },
+  {
+    "row": 11,
+    "col": 13,
+    "faction": "eaters",
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 11,
+    "col": 14,
+    "terrain": [
+      "hills",
+      "forest"
+    ],
+    "lakes": [
+      3
+    ]
+  },
+  {
+    "row": 11,
+    "col": 15,
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 11,
+    "col": 16,
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 11,
+    "col": 17,
+    "faction": "immer",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 11,
+    "col": 33,
+    "faction": "dwarfland",
+    "terrain": [
+      "plains"
+    ],
+    "name": "Mines of Rozekgg",
+    "isFortress": true,
+    "fortressStrength": 5
+  },
+  {
+    "row": 12,
+    "col": 1,
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 12,
+    "col": 2,
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 12,
+    "col": 3,
+    "terrain": [
+      "hills"
+    ]
+  },
+  {
+    "row": 12,
+    "col": 4,
+    "faction": "mivior",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      2
+    ]
+  },
+  {
+    "row": 12,
+    "col": 5,
+    "faction": "mivior",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      2,
+      5
+    ]
+  },
+  {
+    "row": 12,
+    "col": 6,
+    "terrain": [
+      "hills"
+    ]
+  },
+  {
+    "row": 12,
+    "col": 7,
+    "terrain": [
+      "hills"
+    ]
+  },
+  {
+    "row": 12,
+    "col": 8,
+    "terrain": [
+      "hills"
+    ]
+  },
+  {
+    "row": 12,
+    "col": 9,
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 12,
+    "col": 10,
+    "terrain": [
+      "hills"
+    ]
+  },
+  {
+    "row": 12,
+    "col": 11,
+    "faction": "eaters",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 12,
+    "col": 12,
+    "faction": "eaters",
+    "terrain": [
+      "mountain"
+    ],
+    "lakes": [
+      5
+    ]
+  },
+  {
+    "row": 12,
+    "col": 13,
+    "faction": "eaters",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [
+      1
+    ],
+    "lakes": [
+      4
+    ]
+  },
+  {
+    "row": 12,
+    "col": 14,
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 12,
+    "col": 15,
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 12,
+    "col": 16,
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 12,
+    "col": 19,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ],
+    "name": "Pennol",
+    "isFortress": true,
+    "fortressStrength": 4,
+    "isCapital": true
+  },
+  {
+    "row": 12,
+    "col": 32,
+    "faction": "dwarfland",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 12,
+    "col": 33,
+    "faction": "dwarfland",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 13,
+    "col": 1,
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      1,
+      2
+    ]
+  },
+  {
+    "row": 13,
+    "col": 2,
+    "faction": "mivior",
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      1,
+      2
+    ]
+  },
+  {
+    "row": 13,
+    "col": 3,
+    "faction": "mivior",
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      1,
+      2
+    ],
+    "name": "Addat",
+    "isFortress": true,
+    "fortressStrength": 2
+  },
+  {
+    "row": 13,
+    "col": 4,
+    "faction": "mivior",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      0,
+      5
+    ],
+    "lakes": [
+      2
+    ]
+  },
+  {
+    "row": 13,
+    "col": 5,
+    "faction": "mivior",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      3,
+      5
+    ]
+  },
+  {
+    "row": 13,
+    "col": 6,
+    "faction": "trolls",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 13,
+    "col": 7,
+    "faction": "trolls",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 13,
+    "col": 8,
+    "faction": "trolls",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 13,
+    "col": 9,
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 13,
+    "col": 10,
+    "terrain": [
+      "hills"
+    ]
+  },
+  {
+    "row": 13,
+    "col": 11,
+    "terrain": [
+      "hills"
+    ],
+    "rivers": [
+      2
+    ]
+  },
+  {
+    "row": 13,
+    "col": 12,
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 13,
+    "col": 13,
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 13,
+    "col": 14,
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [
+      4,
+      2
+    ]
+  },
+  {
+    "row": 13,
+    "col": 15,
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 13,
+    "col": 16,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 13,
+    "col": 33,
+    "faction": "dwarfland",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 14,
+    "col": 1,
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 14,
+    "col": 2,
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 14,
+    "col": 3,
+    "faction": "mivior",
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 14,
+    "col": 4,
+    "faction": "mivior",
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      1
+    ]
+  },
+  {
+    "row": 14,
+    "col": 5,
+    "faction": "trolls",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 14,
+    "col": 6,
+    "faction": "trolls",
+    "terrain": [
+      "plains"
+    ],
+    "name": "The Stone Face",
+    "isFortress": true,
+    "fortressStrength": 1
+  },
+  {
+    "row": 14,
+    "col": 7,
+    "faction": "trolls",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 14,
+    "col": 8,
+    "faction": "trolls",
+    "terrain": [
+      "forest",
+      "mountain"
+    ]
+  },
+  {
+    "row": 14,
+    "col": 9,
+    "terrain": [
+      "hills"
+    ]
+  },
+  {
+    "row": 14,
+    "col": 10,
+    "terrain": [
+      "hills"
+    ],
+    "rivers": [
+      5,
+      1
+    ]
+  },
+  {
+    "row": 14,
+    "col": 11,
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 14,
+    "col": 12,
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 14,
+    "col": 13,
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [
+      5,
+      2
+    ]
+  },
+  {
+    "row": 14,
+    "col": 14,
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 14,
+    "col": 15,
+    "faction": "muetar",
+    "terrain": [
+      "hills"
+    ]
+  },
+  {
+    "row": 14,
+    "col": 16,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 14,
+    "col": 17,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 14,
+    "col": 18,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 14,
+    "col": 21,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 14,
+    "col": 22,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 15,
+    "col": 1,
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 15,
+    "col": 2,
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 15,
+    "col": 3,
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 15,
+    "col": 4,
+    "faction": "mivior",
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  {
+    "row": 15,
+    "col": 5,
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "name": "Serpent Bay",
+    "isEntryHex": "urmoff"
+  },
+  {
+    "row": 15,
+    "col": 6,
+    "faction": "trolls",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 15,
+    "col": 7,
+    "faction": "hothior",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 15,
+    "col": 8,
+    "faction": "hothior",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 15,
+    "col": 9,
+    "faction": "hothior",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 15,
+    "col": 10,
+    "faction": "hothior",
+    "terrain": [
+      "plains"
+    ],
+    "name": "Tadafot on the River",
+    "isFortress": true,
+    "fortressStrength": 2
+  },
+  {
+    "row": 15,
+    "col": 11,
+    "faction": "hothior",
+    "terrain": [
+      "hills"
+    ],
+    "rivers": [
+      4,
+      2
+    ]
+  },
+  {
+    "row": 15,
+    "col": 12,
+    "faction": "hothior",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 15,
+    "col": 13,
+    "faction": "hothior",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      2,
+      5
+    ]
+  },
+  {
+    "row": 15,
+    "col": 14,
+    "faction": "hothior",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 15,
+    "col": 15,
+    "faction": "muetar",
+    "terrain": [
+      "hills"
+    ]
+  },
+  {
+    "row": 15,
+    "col": 16,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 15,
+    "col": 17,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ],
+    "name": "Plibba",
+    "isFortress": true,
+    "fortressStrength": 2
+  },
+  {
+    "row": 15,
+    "col": 18,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 15,
+    "col": 19,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      2,
+      0
+    ]
+  },
+  {
+    "row": 15,
+    "col": 20,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      3,
+      5,
+      1
+    ]
+  },
+  {
+    "row": 15,
+    "col": 21,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 15,
+    "col": 22,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 15,
+    "col": 23,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      0,
+      2
+    ]
+  },
+  {
+    "row": 15,
+    "col": 24,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      3,
+      1
+    ]
+  },
+  {
+    "row": 16,
+    "col": 1,
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 16,
+    "col": 2,
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 16,
+    "col": 3,
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 16,
+    "col": 4,
+    "faction": "mivior",
+    "terrain": [
+      "forest"
+    ],
+    "lakes": [
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 16,
+    "col": 5,
+    "faction": "mivior",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 16,
+    "col": 6,
+    "faction": "mivior",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 16,
+    "col": 7,
+    "faction": "hothior",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 16,
+    "col": 8,
+    "faction": "hothior",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 16,
+    "col": 9,
+    "faction": "hothior",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 16,
+    "col": 10,
+    "faction": "hothior",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      1,
+      5
+    ]
+  },
+  {
+    "row": 16,
+    "col": 11,
+    "faction": "hothior",
+    "terrain": [
+      "hills"
+    ]
+  },
+  {
+    "row": 16,
+    "col": 12,
+    "faction": "hothior",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      2,
+      5
+    ]
+  },
+  {
+    "row": 16,
+    "col": 13,
+    "faction": "hothior",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 16,
+    "col": 14,
+    "faction": "hothior",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 16,
+    "col": 15,
+    "faction": "muetar",
+    "terrain": [
+      "hills"
+    ]
+  },
+  {
+    "row": 16,
+    "col": 16,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 16,
+    "col": 17,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 16,
+    "col": 18,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      2,
+      5
+    ]
+  },
+  {
+    "row": 16,
+    "col": 19,
+    "faction": "muetar",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 16,
+    "col": 20,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      4,
+      0
+    ]
+  },
+  {
+    "row": 16,
+    "col": 21,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      3,
+      0
+    ]
+  },
+  {
+    "row": 16,
+    "col": 22,
+    "faction": "muetar",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [
+      3,
+      5,
+      1
+    ]
+  },
+  {
+    "row": 16,
+    "col": 23,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ],
+    "name": "Groat",
+    "isFortress": true,
+    "fortressStrength": 3
+  },
+  {
+    "row": 16,
+    "col": 24,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      4,
+      2
+    ]
+  },
+  {
+    "row": 16,
+    "col": 25,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 16,
+    "col": 32,
+    "faction": "dwarfland",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 16,
+    "col": 33,
+    "faction": "dwarfland",
+    "terrain": [
+      "plains"
+    ],
+    "name": "Alzak",
+    "isFortress": true,
+    "fortressStrength": 4
+  },
+  {
+    "row": 17,
+    "col": 1,
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 17,
+    "col": 2,
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 17,
+    "col": 3,
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 17,
+    "col": 4,
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 17,
+    "col": 5,
+    "faction": "mivior",
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      3
+    ],
+    "name": "Boran Moor",
+    "isFortress": true,
+    "fortressStrength": 1
+  },
+  {
+    "row": 17,
+    "col": 6,
+    "faction": "mivior",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 17,
+    "col": 7,
+    "faction": "hothior",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 17,
+    "col": 8,
+    "faction": "hothior",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 17,
+    "col": 9,
+    "faction": "hothior",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 17,
+    "col": 10,
+    "faction": "hothior",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 17,
+    "col": 11,
+    "faction": "hothior",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      4,
+      0,
+      2
+    ]
+  },
+  {
+    "row": 17,
+    "col": 12,
+    "faction": "hothior",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      5,
+      3
+    ]
+  },
+  {
+    "row": 17,
+    "col": 13,
+    "faction": "hothior",
+    "terrain": [
+      "hills"
+    ]
+  },
+  {
+    "row": 17,
+    "col": 14,
+    "faction": "hothior",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 17,
+    "col": 15,
+    "faction": "hothior",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 17,
+    "col": 16,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      0,
+      2
+    ]
+  },
+  {
+    "row": 17,
+    "col": 17,
+    "faction": "muetar",
+    "terrain": [
+      "hills"
+    ],
+    "rivers": [
+      3,
+      0
+    ]
+  },
+  {
+    "row": 17,
+    "col": 18,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      3,
+      5
+    ],
+    "name": "Yando Rivermen"
+  },
+  {
+    "row": 17,
+    "col": 19,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 17,
+    "col": 20,
+    "faction": "muetar",
+    "terrain": [
+      "hills"
+    ]
+  },
+  {
+    "row": 17,
+    "col": 21,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ],
+    "name": "Beolon",
+    "isFortress": true,
+    "fortressStrength": 1
+  },
+  {
+    "row": 17,
+    "col": 22,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 17,
+    "col": 23,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      4,
+      0
+    ]
+  },
+  {
+    "row": 17,
+    "col": 24,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      3,
+      5,
+      1
+    ]
+  },
+  {
+    "row": 17,
+    "col": 25,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 17,
+    "col": 33,
+    "faction": "dwarfland",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 17,
+    "col": 34,
+    "faction": "dwarfland",
+    "terrain": [
+      "hills"
+    ]
+  },
+  {
+    "row": 18,
+    "col": 1,
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 18,
+    "col": 2,
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 18,
+    "col": 3,
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 18,
+    "col": 4,
+    "faction": "mivior",
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "row": 18,
+    "col": 5,
+    "faction": "mivior",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 18,
+    "col": 6,
+    "faction": "mivior",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 18,
+    "col": 7,
+    "faction": "hothior",
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 18,
+    "col": 8,
+    "faction": "hothior",
+    "terrain": [
+      "forest"
+    ],
+    "lakes": [
+      2
+    ]
+  },
+  {
+    "row": 18,
+    "col": 9,
+    "faction": "hothior",
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      2
+    ],
+    "name": "Port Lork",
+    "isFortress": true,
+    "fortressStrength": 3,
+    "isCapital": true,
+    "isPort": true
+  },
+  {
+    "row": 18,
+    "col": 10,
+    "faction": "hothior",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      2,
+      5
+    ]
+  },
+  {
+    "row": 18,
+    "col": 11,
+    "faction": "hothior",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 18,
+    "col": 12,
+    "faction": "hothior",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 18,
+    "col": 13,
+    "faction": "hothior",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 18,
+    "col": 14,
+    "faction": "hothior",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      2,
+      0
+    ]
+  },
+  {
+    "row": 18,
+    "col": 15,
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      3,
+      5
+    ]
+  },
+  {
+    "row": 18,
+    "col": 16,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 18,
+    "col": 17,
+    "faction": "muetar",
+    "terrain": [
+      "marsh"
+    ]
+  },
+  {
+    "row": 18,
+    "col": 18,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 18,
+    "col": 19,
+    "faction": "muetar",
+    "terrain": [
+      "hills"
+    ]
+  },
+  {
+    "row": 18,
+    "col": 20,
+    "faction": "muetar",
+    "terrain": [
+      "hills"
+    ]
+  },
+  {
+    "row": 18,
+    "col": 21,
+    "faction": "muetar",
+    "terrain": [
+      "hills"
+    ]
+  },
+  {
+    "row": 18,
+    "col": 22,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 18,
+    "col": 23,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 18,
+    "col": 24,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 19,
+    "col": 1,
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 19,
+    "col": 2,
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 19,
+    "col": 3,
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 19,
+    "col": 4,
+    "faction": "mivior",
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "name": "The Shining Isle",
+    "isFortress": true,
+    "fortressStrength": 3
+  },
+  {
+    "row": 19,
+    "col": 5,
+    "faction": "mivior",
+    "terrain": [
+      "mountain"
+    ],
+    "lakes": [
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "row": 19,
+    "col": 6,
+    "faction": "mivior",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 19,
+    "col": 7,
+    "faction": "mivior",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 19,
+    "col": 8,
+    "faction": "hothior",
+    "terrain": [
+      "forest"
+    ],
+    "lakes": [
+      3,
+      2
+    ]
+  },
+  {
+    "row": 19,
+    "col": 9,
+    "faction": "hothior",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      0
+    ],
+    "lakes": [
+      5,
+      4,
+      3,
+      2
+    ]
+  },
+  {
+    "row": 19,
+    "col": 10,
+    "faction": "hothior",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      5,
+      3
+    ]
+  },
+  {
+    "row": 19,
+    "col": 11,
+    "faction": "hothior",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 19,
+    "col": 12,
+    "faction": "hothior",
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      1
+    ]
+  },
+  {
+    "row": 19,
+    "col": 13,
+    "faction": "hothior",
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      1,
+      2
+    ],
+    "name": "Castle Lapspell",
+    "isFortress": true,
+    "fortressStrength": 3
+  },
+  {
+    "row": 19,
+    "col": 14,
+    "faction": "hothior",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [
+      5
+    ],
+    "lakes": [
+      2
+    ]
+  },
+  {
+    "row": 19,
+    "col": 15,
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 19,
+    "col": 16,
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 19,
+    "col": 17,
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 19,
+    "col": 18,
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 19,
+    "col": 19,
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 19,
+    "col": 20,
+    "terrain": [
+      "plains"
+    ],
+    "name": "Stubstaff Keep",
+    "isStubstaffKeep": true,
+    "isFortress": false,
+    "fortressStrength": 2,
+    "stubstaffVP": 10
+  },
+  {
+    "row": 19,
+    "col": 21,
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 19,
+    "col": 22,
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 19,
+    "col": 23,
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 19,
+    "col": 24,
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 20,
+    "col": 1,
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 20,
+    "col": 2,
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 20,
+    "col": 3,
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 20,
+    "col": 4,
+    "faction": "mivior",
+    "terrain": [
+      "forest"
+    ],
+    "lakes": [
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 20,
+    "col": 5,
+    "faction": "mivior",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 20,
+    "col": 6,
+    "faction": "mivior",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 20,
+    "col": 7,
+    "faction": "mivior",
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      0,
+      1
+    ]
+  },
+  {
+    "row": 20,
+    "col": 8,
+    "faction": "hothior",
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      5,
+      4,
+      3,
+      2
+    ]
+  },
+  {
+    "row": 20,
+    "col": 9,
+    "faction": "hothior",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 20,
+    "col": 10,
+    "faction": "hothior",
+    "terrain": [
+      "plains"
+    ],
+    "name": "Farnot Seafolk"
+  },
+  {
+    "row": 20,
+    "col": 11,
+    "faction": "hothior",
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      1,
+      2,
+      0
+    ]
+  },
+  {
+    "row": 20,
+    "col": 12,
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      5,
+      4,
+      3
+    ]
+  },
+  {
+    "row": 20,
+    "col": 13,
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      5,
+      4
+    ]
+  },
+  {
+    "row": 20,
+    "col": 14,
+    "terrain": [
+      "plains"
+    ],
+    "name": "Huts of the Scum",
+    "isEntryHex": "scum"
+  },
+  {
+    "row": 20,
+    "col": 15,
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 20,
+    "col": 16,
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 20,
+    "col": 17,
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 20,
+    "col": 18,
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 20,
+    "col": 19,
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 20,
+    "col": 20,
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 20,
+    "col": 21,
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 20,
+    "col": 22,
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 20,
+    "col": 23,
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 20,
+    "col": 24,
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 20,
+    "col": 33,
+    "terrain": [
+      "plains"
+    ],
+    "name": "Lost City of Khos",
+    "isEntryHex": "ghostRiders"
+  },
+  {
+    "row": 21,
+    "col": 4,
+    "faction": "mivior",
+    "terrain": [
+      "forest"
+    ],
+    "lakes": [
+      3,
+      4
+    ]
+  },
+  {
+    "row": 21,
+    "col": 5,
+    "faction": "mivior",
+    "terrain": [
+      "mountain"
+    ],
+    "lakes": [
+      1,
+      2
+    ]
+  },
+  {
+    "row": 21,
+    "col": 6,
+    "faction": "mivior",
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      1,
+      2
+    ]
+  },
+  {
+    "row": 21,
+    "col": 7,
+    "faction": "mivior",
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      0,
+      1,
+      2
+    ]
+  },
+  {
+    "row": 21,
+    "col": 8,
+    "faction": "hothior",
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      5,
+      4,
+      3,
+      2,
+      1
+    ]
+  },
+  {
+    "row": 21,
+    "col": 9,
+    "faction": "hothior",
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      1,
+      2
+    ]
+  },
+  {
+    "row": 21,
+    "col": 10,
+    "faction": "hothior",
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      2,
+      1,
+      0
+    ]
+  },
+  {
+    "row": 21,
+    "col": 11,
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      5,
+      4,
+      3
+    ]
+  },
+  {
+    "row": 21,
+    "col": 12,
+    "terrain": [
+      "forest"
+    ],
+    "lakes": [
+      4
+    ]
+  },
+  {
+    "row": 21,
+    "col": 13,
+    "terrain": [
+      "hills"
+    ]
+  },
+  {
+    "row": 21,
+    "col": 14,
+    "terrain": [
+      "hills"
+    ]
+  },
+  {
+    "row": 21,
+    "col": 15,
+    "terrain": [
+      "hills"
+    ]
+  },
+  {
+    "row": 21,
+    "col": 16,
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 21,
+    "col": 17,
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 21,
+    "col": 18,
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 21,
+    "col": 19,
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 21,
+    "col": 20,
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 22,
+    "col": 3,
+    "faction": "mivior",
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "row": 22,
+    "col": 4,
+    "faction": "mivior",
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      0,
+      5
+    ],
+    "name": "Colist",
+    "isFortress": true,
+    "fortressStrength": 4
+  },
+  {
+    "row": 22,
+    "col": 13,
+    "terrain": [
+      "hills"
+    ]
+  },
+  {
+    "row": 22,
+    "col": 14,
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 22,
+    "col": 15,
+    "terrain": [
+      "forest"
+    ]
+  },
+  {
+    "row": 22,
+    "col": 16,
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 22,
+    "col": 17,
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 23,
+    "col": 4,
+    "faction": "mivior",
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      1,
+      2,
+      3
+    ]
+  },
+  {
+    "row": 23,
+    "col": 5,
+    "faction": "mivior",
+    "terrain": [
+      "plains"
+    ],
+    "lakes": [
+      0,
+      1,
+      2
+    ]
+  },
+  {
+    "row": 23,
+    "col": 34,
+    "faction": "trolls",
+    "terrain": [
+      "plains"
+    ],
+    "name": "The Gathering"
+  },
+  {
+    "row": 28,
+    "col": 24,
+    "terrain": [
+      "plains"
+    ],
+    "name": "Spires to the Sun",
+    "isEntryHex": "orderHippogriff"
+  },
+  {
+    "row": 29,
+    "col": 17,
+    "faction": "trolls",
+    "terrain": [
+      "plains"
+    ],
+    "name": "The Shunned Vale"
+  }
+]

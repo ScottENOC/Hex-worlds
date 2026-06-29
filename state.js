@@ -1,32 +1,10 @@
-const factions = {
-  "none": "#d2b48c",
-  "neuth": "darkgreen",
-  "zorn": "#66CDAA",
-  "dwarfland": "lightgreen",
-  "hothior": "#E85025",
-  "immer": "#e25822",
-  "mivior": "#C8A2C8",
-  "trolls": "#8eae4a",
-  "muetar": "#FFD700"
-};
- 
-const reserves = {
-  neuth: [],
-  immer: [],
-  zorn:  [],
-  dwarfland:  [],
-  mivior:   [],
-  trolls:   []
-};
+// factions, reserves, victoryPoints, gold, and kingdomColors are populated
+// at game start by scenarioLoader.js from scenarios/<id>/scenario.json.
+const factions = {};
+const reserves = {};
+const victoryPoints = {};
+const gold = {};
 
-const victoryPoints = {
-  neuth: 0,
-  immer: 0,
-  zorn:  0,
-  dwarfland:  0,
-  mivior:   0,
-  trolls:   0
-};
 
 /*const factions = {
   "none": "#d2b48c",           // neutral
@@ -225,21 +203,13 @@ const PERSONALITY_CARDS = {
 // Populated by assignPersonalityCards() called from initGame.
 const personalityCards = {};
  
-const factionList = Object.keys(factions).filter(f => f !== "none");
+// factionList is rebuilt by scenarioLoader after factions are populated.
+let factionList = [];
 
-// Colours for neutral kingdoms that appear on the map but aren't player-controlled.
-// Drawing code uses kingdomColors so new kingdoms just need an entry here.
-const neutralKingdomColors = {
-  "pon":       "#4488CC",
-  "shucassam": "#9B4B1C",
-  "rombune":   "#CC22BB",
-  "wasteland": "#C4A265",
-  "eaters":    "#888888",   // Eaters of Wisdom — dark grey
-};
-const kingdomColors = { ...factions, ...neutralKingdomColors };
-
-// Gold treasury per player faction
-const gold = { neuth: 5, immer: 5, zorn: 5, dwarfland: 5, mivior: 5, trolls: 5 };
+// neutralKingdomColors and kingdomColors are populated by scenarioLoader.js.
+// kingdomColors is the single source of truth used by drawing code.
+const neutralKingdomColors = {};
+const kingdomColors = {};
 
 // Diplomatic influence: { kingdomName: { factionName: score } }
 const diplomaticInfluence = {};

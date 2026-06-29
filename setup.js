@@ -1,26 +1,20 @@
 // setup.js — pre-game configuration screen
 // Runs after all other scripts have loaded.
 (function () {
-  const PLAYABLE = ["neuth","immer","zorn","dwarfland","mivior","trolls","eaters","hothior","muetar"];
-  const DISPLAY = {
-    neuth:"Neuth (Elves)", immer:"Immer", zorn:"Zorn (Goblins)",
-    dwarfland:"Ghem (Dwarves)", mivior:"Mivior", trolls:"Trolls",
-    eaters:"Eaters of Wisdom", hothior:"Hothior", muetar:"Muetar"
-  };
+  const SCENARIO_ID = "board-game";
 
-  function buildSlots() {
+  function buildSlots(playableFactions, displayNames) {
     const n = +document.getElementById("setup-count").value;
     const box = document.getElementById("setup-slots");
     box.innerHTML = "";
     for (let i = 0; i < n; i++) {
       const div = document.createElement("div");
       div.className = "setup-slot";
-      // Default each slot to a different faction
-      const defaultFaction = PLAYABLE[i] || PLAYABLE[0];
+      const defaultFaction = playableFactions[i] || playableFactions[0];
       div.innerHTML = `
         <span class="setup-label">Player ${i + 1}</span>
         <select class="setup-faction">
-          ${PLAYABLE.map(f => `<option value="${f}"${f === defaultFaction ? " selected" : ""}>${DISPLAY[f]}</option>`).join("")}
+          ${playableFactions.map(f => `<option value="${f}"${f === defaultFaction ? " selected" : ""}>${displayNames[f]}</option>`).join("")}
         </select>
         <select class="setup-control">
           <option value="human">Human</option>
@@ -30,13 +24,13 @@
     }
   }
 
-  function startGame() {
+  async function startGame(playableFactions, displayNames, allFactions) {
     const slots = [...document.querySelectorAll(".setup-slot")];
     const chosen = new Map();
     for (const slot of slots) {
       const f = slot.querySelector(".setup-faction").value;
       const c = slot.querySelector(".setup-control").value;
-      if (chosen.has(f)) { alert(`${DISPLAY[f]} is already taken by another player.`); return; }
+      if (chosen.has(f)) { alert(`${displayNames[f]} is already taken by another player.`); return; }
       chosen.set(f, c);
     }
 
@@ -44,19 +38,41 @@
     for (const [f, c] of chosen) controlTypes[f] = c;
 
     // Unclaimed playable factions → neutral
-    for (const f of PLAYABLE) {
+    for (const f of playableFactions) {
       if (!chosen.has(f)) { controlTypes[f] = "neutral"; neutralFactions.add(f); }
     }
-    // NPC kingdoms always neutral
-    for (const k of Object.keys(neutralKingdomColors)) {
-      controlTypes[k] = "neutral"; neutralFactions.add(k);
+    // NPC (non-playable) kingdoms always neutral
+    for (const f of allFactions) {
+      if (!chosen.has(f) && !controlTypes[f]) {
+        controlTypes[f] = "neutral"; neutralFactions.add(f);
+      }
     }
 
     document.getElementById("setup-screen").style.display = "none";
+
+    await loadScenario(SCENARIO_ID);
     initGame({ players: [...chosen.entries()].map(([faction, control]) => ({ faction, control })) });
   }
 
-  document.getElementById("setup-count").addEventListener("change", buildSlots);
-  document.getElementById("setup-start-btn").addEventListener("click", startGame);
-  buildSlots(); // initial render with default count
+  // Load scenario metadata to populate the setup screen, then wire up events
+  fetch(`scenarios/${SCENARIO_ID}/scenario.json`)
+    .then(r => r.json())
+    .then(data => {
+      const playableFactions = Object.entries(data.factions)
+        .filter(([, f]) => f.playable)
+        .map(([id]) => id);
+      const displayNames = Object.fromEntries(
+        Object.entries(data.factions).map(([id, f]) => [id, f.display])
+      );
+      const allFactions = Object.keys(data.factions);
+
+      buildSlots(playableFactions, displayNames);
+
+      document.getElementById("setup-count").addEventListener("change", () =>
+        buildSlots(playableFactions, displayNames)
+      );
+      document.getElementById("setup-start-btn").addEventListener("click", () =>
+        startGame(playableFactions, displayNames, allFactions)
+      );
+    });
 })();

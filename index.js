@@ -49,7 +49,6 @@ function initGame({ players } = {}) {
   diploDeck = buildDiploDeck();
   initDiplomaticInfluence();
   assignPersonalityCards();
-  initializeMap();
   drawMap();
   updateTurnInfo();
   updateVPInfo();
