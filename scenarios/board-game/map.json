@@ -1728,6 +1728,22 @@
     ]
   },
   {
+    "row": 8,
+    "col": 27,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 8,
+    "col": 28,
+    "faction": "muetar",
+    "terrain": [
+      "hills"
+    ]
+  },
+  {
     "row": 9,
     "col": 1,
     "faction": "neuth",
@@ -1979,6 +1995,22 @@
     ]
   },
   {
+    "row": 9,
+    "col": 28,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 9,
+    "col": 29,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
     "row": 10,
     "col": 1,
     "terrain": [
@@ -2201,6 +2233,14 @@
   },
   {
     "row": 10,
+    "col": 25,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
+    ]
+  },
+  {
+    "row": 10,
     "col": 26,
     "faction": "muetar",
     "terrain": [
@@ -2221,6 +2261,14 @@
     "rivers": [
       3,
       1
+    ]
+  },
+  {
+    "row": 10,
+    "col": 28,
+    "faction": "muetar",
+    "terrain": [
+      "plains"
     ]
   },
   {
