@@ -643,6 +643,24 @@
     "name": "The Crag"
   },
   {
+    "row": 3,
+    "col": 30,
+    "faction": "blackhand",
+    "terrain": [
+      "mountain"
+    ],
+    "rivers": []
+  },
+  {
+    "row": 3,
+    "col": 31,
+    "faction": "blackhand",
+    "terrain": [
+      "mountain"
+    ],
+    "rivers": []
+  },
+  {
     "row": 4,
     "col": 1,
     "faction": "neuth",
@@ -869,6 +887,38 @@
     "terrain": [
       "mountain"
     ]
+  },
+  {
+    "row": 4,
+    "col": 29,
+    "faction": "blackhand",
+    "terrain": [
+      "mountain"
+    ],
+    "rivers": []
+  },
+  {
+    "row": 4,
+    "col": 30,
+    "faction": "blackhand",
+    "terrain": [
+      "mountain"
+    ],
+    "rivers": [],
+    "name": "Tower of Zards",
+    "isFortress": true,
+    "fortressStrength": 6,
+    "isCapital": true,
+    "requiresMagicalSieger": true
+  },
+  {
+    "row": 4,
+    "col": 31,
+    "faction": "blackhand",
+    "terrain": [
+      "mountain"
+    ],
+    "rivers": []
   },
   {
     "row": 5,
@@ -1098,6 +1148,24 @@
     "terrain": [
       "mountain"
     ]
+  },
+  {
+    "row": 5,
+    "col": 30,
+    "faction": "blackhand",
+    "terrain": [
+      "mountain"
+    ],
+    "rivers": []
+  },
+  {
+    "row": 5,
+    "col": 31,
+    "faction": "blackhand",
+    "terrain": [
+      "mountain"
+    ],
+    "rivers": []
   },
   {
     "row": 6,

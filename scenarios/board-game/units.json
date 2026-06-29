@@ -459,5 +459,37 @@
     "isLeader": true,
     "combatStrength": 0,
     "siegeStrength": 0
+  },
+  {
+    "faction": "blackhand",
+    "row": 4,
+    "col": 30,
+    "moveSpeed": 7,
+    "isLeader": true,
+    "isMagical": true,
+    "isBlackHand": true,
+    "combatStrength": 0,
+    "siegeStrength": 0
+  },
+  {
+    "faction": "blackhand",
+    "row": 4,
+    "col": 30,
+    "moveSpeed": 0,
+    "isGuardian": true,
+    "isBlackHand": true,
+    "combatStrength": 0,
+    "siegeStrength": 0
+  },
+  {
+    "faction": "blackhand",
+    "row": 4,
+    "col": 30,
+    "moveSpeed": 5,
+    "isTheDead": true,
+    "isBlackHand": true,
+    "combatStrength": 5,
+    "siegeStrength": 1,
+    "isMagical": true
   }
 ]

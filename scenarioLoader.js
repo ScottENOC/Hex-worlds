@@ -123,6 +123,21 @@ function _applyUnits(startingUnits) {
       unit.bridgeActive = false;
     }
 
+    // Black Hand special props
+    if (u.isBlackHand) {
+      unit.isBlackHand = true;
+      unit.wraithsUsedTurn = 0;
+      unit.wingsUsedTurn = 0;
+    }
+    if (u.isGuardian) {
+      unit.isGuardian = true;
+      unit.guardianActive = true;
+      unit.isImmovable = true;
+    }
+    if (u.isTheDead) unit.isTheDead = true;
+    if (u.isUndead)  unit.isUndead = true;
+    if (u.isColossus) unit.isColossus = true;
+
     if (unit.isLeader && !unit.isEatersOfWisdom) {
       unit.hasTakenAFateDieRoll = false;
     }

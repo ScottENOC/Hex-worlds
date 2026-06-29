@@ -54,8 +54,9 @@ function drawHex(row, col, besiegedFortresses = new Set()) {
  
   // Handle clicks...
   hex.addEventListener("click", () => {
-    // Spell targeting intercepts first (Vortex, Reflector target selection)
+    // Spell/ability targeting intercepts first
     if (typeof handleSpellClick === "function" && handleSpellClick(row, col)) return;
+    if (typeof handleBlackHandClick === "function" && handleBlackHandClick(row, col)) return;
 
     const clickedHex = `${row},${col}`;
 

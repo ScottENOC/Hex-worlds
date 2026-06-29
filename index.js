@@ -134,6 +134,7 @@ function endTurn() {
   // ── EVENT ─────────────────────────────────────────────────────────────────
   if (currentPhase === "event") {
     resetEatersSpellsForTurn();
+    resetBlackHandTurnState();
     if (controlTypes[currentFaction] === "cpu") {
       cpuEvent(currentFaction);
       return;
@@ -183,6 +184,12 @@ function endTurn() {
       const tile = tileData[tileKey];
       if (!tile?.isFortress) continue;
       if (tile.faction === currentFaction) continue;
+
+      // Guardian blocks all sieges on the Tower of Zards
+      if (typeof guardianBlocksSiege === "function" && guardianBlocksSiege(row, col)) {
+        alert(`Siege at (${row},${col}): The Guardian prevents any siege on the Tower of Zards!`);
+        continue;
+      }
 
       const adjacentCoords = getAdjacentCoords(row, col);
       const adjacentAttackers = units.filter(u =>
@@ -244,8 +251,19 @@ function endTurn() {
   // ── MOVEMENT ──────────────────────────────────────────────────────────────
   if (currentPhase === "movement") {
     currentPhase = "combat-declare";
-    // Offer Vortex/Reflector at start of combat-declare
-    if (eatersOwnedByCurrentFaction && eatersOwnedByCurrentFaction()) {
+    // Offer Black Hand creature abilities after movement
+    const offerBH = typeof blackHandOwnedByCurrentFaction === "function" && blackHandOwnedByCurrentFaction();
+    // Offer Eaters Vortex/Reflector at start of combat-declare
+    const offerEaters = typeof eatersOwnedByCurrentFaction === "function" && eatersOwnedByCurrentFaction();
+    if (offerBH) {
+      showBlackHandPanel("aftermovement", () => {
+        if (offerEaters) {
+          showSpellPanel("combat", () => { updateTurnInfo(); dispatchCPUIfNeeded(); });
+        } else {
+          updateTurnInfo(); dispatchCPUIfNeeded();
+        }
+      });
+    } else if (offerEaters) {
       showSpellPanel("combat", () => { updateTurnInfo(); dispatchCPUIfNeeded(); });
     } else {
       updateTurnInfo(); dispatchCPUIfNeeded();
@@ -281,6 +299,10 @@ function offerEndOfTurnSpells(faction, onDone) {
   } else {
     onDone();
   }
+}
+
+function resetBlackHandTurnState() {
+  if (typeof resetBlackHandForTurn === "function") resetBlackHandForTurn();
 }
 
 function advanceTurn() {
