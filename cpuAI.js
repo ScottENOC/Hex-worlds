@@ -1,4 +1,4 @@
-// cpuAI.js — basic CPU player logic
+// cpuAI.js — CPU player logic
 
 function dispatchCPUIfNeeded() {
   const faction = turnOrder[currentTurnIndex];
@@ -10,13 +10,13 @@ function dispatchCPUIfNeeded() {
 function handleCPUPhase(faction) {
   info.innerText = `CPU — ${faction.toUpperCase()}: auto-playing ${currentPhase}…`;
   switch (currentPhase) {
-    case "event":          cpuEvent(faction);     break;
-    case "diplo-draw":     cpuDiploDrawAuto();    break;
-    case "diplo-play":     endTurn();             break; // skip diplomacy for now
-    case "siege":          endTurn();             break;
-    case "movement":       cpuMovement(faction);  break;
-    case "combat-declare": endTurn();             break;
-    case "combat-resolve": cpuCombatResolve();    break;
+    case "event":          cpuEvent(faction);       break;
+    case "diplo-draw":     cpuDiploDrawAuto();      break;
+    case "diplo-play":     cpuDiplomacy(faction);   break;
+    case "siege":          endTurn();               break;
+    case "movement":       cpuMovement(faction);    break;
+    case "combat-declare": endTurn();               break;
+    case "combat-resolve": cpuCombatResolve();      break;
   }
 }
 
@@ -56,7 +56,6 @@ function cpuEvent(faction) {
     drawMap(); updateTurnInfo(); dispatchCPUIfNeeded();
   };
 
-  // Events that remove a unit
   const removeFilters = {
     3: u => u.faction === faction && u.isFleet && !u.isLeader,
     4: u => u.faction === faction && !u.isLeader,
@@ -73,7 +72,6 @@ function cpuEvent(faction) {
     advance(); return;
   }
 
-  // Events that deploy units
   const deployCount = { 6: 2, 8: 2, 10: 1 };
   const deployPredicate = {
     6: u => !u.isMercenary,
@@ -104,12 +102,195 @@ function cpuEvent(faction) {
   advance();
 }
 
-// ── Movement phase ────────────────────────────────────────────────────────────
-function cpuMovement(faction) {
-  // Mark all units as moved — CPU skips movement entirely for now
-  for (const u of units) {
-    if (u.faction === faction) u.hasMoved = true;
+// ── BFS hex distance (ignores terrain and rivers, just counts map hops) ───────
+function hexBFSDistance(r1, c1, r2, c2) {
+  if (r1 === r2 && c1 === c2) return 0;
+  const visited = new Set([`${r1},${c1}`]);
+  const queue = [[r1, c1, 0]];
+  while (queue.length) {
+    const [r, c, d] = queue.shift();
+    for (const [nr, nc] of getAdjacentCoords(r, c)) {
+      if (nr === r2 && nc === c2) return d + 1;
+      const k = `${nr},${nc}`;
+      if (!visited.has(k) && tileData[k]) {
+        visited.add(k);
+        queue.push([nr, nc, d + 1]);
+      }
+    }
   }
+  return Infinity;
+}
+
+// ── Returns aggression level 0–1 based on relative VP standing ───────────────
+// Winning → more aggressive; losing → more defensive
+function cpuAggression(faction) {
+  const myVP = victoryPoints[faction] || 0;
+  const others = Object.entries(victoryPoints)
+    .filter(([f]) => f !== faction)
+    .map(([, v]) => v);
+  if (!others.length) return 0.6;
+  const avgOther = others.reduce((a, b) => a + b, 0) / others.length;
+  return Math.max(0.2, Math.min(0.9, 0.55 + (myVP - avgOther) * 0.04));
+}
+
+// ── Diplomacy phase ───────────────────────────────────────────────────────────
+// Strategy: target the neutral kingdom whose capital is closest to the nearest
+// opponent capital (contest it before opponents can). Play highest-value card.
+function cpuDiplomacy(faction) {
+  const advance = () => {
+    currentPhase = "siege";
+    updateTurnInfo();
+    dispatchCPUIfNeeded();
+  };
+
+  const hand = diplomacyHands[faction] || [];
+  const regularCards = hand.filter(c => c.type !== "specialMerc");
+  if (!regularCards.length) { advance(); return; }
+
+  const kingdoms = getNeutralKingdoms().filter(k => !isAmbassadorBanned(faction, k));
+  if (!kingdoms.length) { advance(); return; }
+
+  // Locate my capital
+  const myCapEntry = Object.entries(tileData).find(([, t]) => t.isCapital && t.faction === faction);
+  const [myCapR, myCapC] = myCapEntry ? myCapEntry[0].split(",").map(Number) : [15, 17];
+
+  // Find nearest opponent capital to my capital
+  const opponentFactions = Object.keys(factions).filter(f => f !== "none" && f !== faction);
+  let nearestOppR = myCapR, nearestOppC = myCapC, nearestOppDist = Infinity;
+  for (const opp of opponentFactions) {
+    const capEntry = Object.entries(tileData).find(([, t]) => t.isCapital && t.faction === opp);
+    if (!capEntry) continue;
+    const [r, c] = capEntry[0].split(",").map(Number);
+    const d = hexBFSDistance(myCapR, myCapC, r, c);
+    if (d < nearestOppDist) { nearestOppDist = d; nearestOppR = r; nearestOppC = c; }
+  }
+
+  // Score each neutral kingdom: prefer ones close to the nearest opponent threat
+  // (intercept them before opponents do), with a secondary pull toward our own capital
+  let bestKingdom = null, bestScore = Infinity;
+  for (const k of kingdoms) {
+    const capEntry = Object.entries(tileData).find(([, t]) => t.isCapital && t.faction === k);
+    if (!capEntry) continue;
+    const [r, c] = capEntry[0].split(",").map(Number);
+    const toOpp = hexBFSDistance(r, c, nearestOppR, nearestOppC);
+    const toMe  = hexBFSDistance(r, c, myCapR, myCapC);
+    // Lower score = better target (close to threat, reachable from us)
+    const score = toOpp * 1.5 + toMe * 0.5;
+    if (score < bestScore) { bestScore = score; bestKingdom = k; }
+  }
+
+  if (!bestKingdom) { advance(); return; }
+
+  // Play the highest-value regular card
+  const card = regularCards.reduce((best, c) => (c.value || 0) > (best.value || 0) ? c : best, regularCards[0]);
+  hand.splice(hand.indexOf(card), 1);
+
+  playDiplomaticCard(faction, card, bestKingdom, advance);
+}
+
+// ── Movement phase ────────────────────────────────────────────────────────────
+// Fear vs greed: aggression (VP-based) toggles between taking enemy cities
+// and defending threatened own assets. Leaders move first.
+function cpuMovement(faction) {
+  const aggression = cpuAggression(faction);
+
+  // Gather strategic landscape
+  const enemyFortresses = Object.entries(tileData)
+    .filter(([, t]) => t.isFortress && t.faction !== faction && t.faction !== "none")
+    .map(([k, t]) => {
+      const [r, c] = k.split(",").map(Number);
+      return { row: r, col: c, strength: t.fortressStrength || 1 };
+    });
+
+  const myFortresses = Object.entries(tileData)
+    .filter(([, t]) => t.isFortress && t.faction === faction)
+    .map(([k]) => { const [r, c] = k.split(",").map(Number); return { row: r, col: c }; });
+
+  const myCapEntry = Object.entries(tileData).find(([, t]) => t.isCapital && t.faction === faction);
+  const myAssets = [...myFortresses];
+  if (myCapEntry) {
+    const [r, c] = myCapEntry[0].split(",").map(Number);
+    myAssets.push({ row: r, col: c });
+  }
+
+  // Fear: how much enemy strength is near my assets?
+  let totalThreat = 0;
+  const myUnitsOnMap = units.filter(u => u.faction === faction);
+  const myStrength = myUnitsOnMap.reduce((s, u) => s + (u.combatStrength || 0), 0) || 1;
+  for (const asset of myAssets) {
+    const nearby = units.filter(u => u.faction !== faction && (u.combatStrength || 0) > 0 &&
+      hexBFSDistance(u.row, u.col, asset.row, asset.col) <= 4);
+    totalThreat += nearby.reduce((s, u) => s + (u.combatStrength || 0), 0);
+  }
+  const fearLevel = Math.min(1, totalThreat / myStrength);
+
+  // Blend attack vs defend weights
+  const attackWeight = aggression * (1 - fearLevel * 0.6);
+  const defendWeight = 1 - attackWeight;
+
+  // Score a candidate destination for this unit
+  function scoreMove(unit, r, c) {
+    let score = 0;
+
+    // Attack: move toward enemy fortresses (siege opportunities)
+    if (attackWeight > 0 && enemyFortresses.length) {
+      const minDist = Math.min(...enemyFortresses.map(f => hexBFSDistance(r, c, f.row, f.col)));
+      score += attackWeight * (20 - minDist);
+      // Bonus for being adjacent and able to siege
+      const adjacentFort = enemyFortresses.find(f => hexBFSDistance(r, c, f.row, f.col) === 1);
+      if (adjacentFort && (unit.siegeStrength || 0) > 0) score += attackWeight * 12;
+    }
+
+    // Defend: move toward threatened own assets
+    if (defendWeight > 0 && myAssets.length) {
+      let closestThreatenedDist = Infinity;
+      for (const asset of myAssets) {
+        const threat = units.filter(u => u.faction !== faction &&
+          hexBFSDistance(u.row, u.col, asset.row, asset.col) <= 4).length;
+        if (threat > 0) {
+          const d = hexBFSDistance(r, c, asset.row, asset.col);
+          if (d < closestThreatenedDist) closestThreatenedDist = d;
+        }
+      }
+      if (closestThreatenedDist < Infinity) {
+        score += defendWeight * (15 - closestThreatenedDist);
+      }
+    }
+
+    // Small bonus for stacking with friendlies (concentration of force)
+    const friendlies = units.filter(u => u.faction === faction && u.row === r && u.col === c).length;
+    if (friendlies > 0 && friendlies < 3) score += 1.5;
+
+    // Slight penalty for staying put (prefer forward movement)
+    if (r === unit.row && c === unit.col) score -= 3;
+
+    return score;
+  }
+
+  // Move leaders first (they provide stacking bonuses), then strongest units
+  const movable = units
+    .filter(u => u.faction === faction && !u.hasMoved && !u.isImmovable && u.row != null)
+    .sort((a, b) => {
+      if (a.isLeader !== b.isLeader) return a.isLeader ? -1 : 1;
+      return (b.combatStrength || 0) - (a.combatStrength || 0);
+    });
+
+  for (const unit of movable) {
+    if (unit.hasMoved) continue;
+    const moves = validMoves(unit);
+    if (!moves.length) { unit.hasMoved = true; continue; }
+
+    let bestMove = null, bestScore = -Infinity;
+    for (const [r, c] of moves) {
+      const s = scoreMove(unit, r, c);
+      if (s > bestScore) { bestScore = s; bestMove = [r, c]; }
+    }
+
+    if (bestMove) { unit.row = bestMove[0]; unit.col = bestMove[1]; }
+    unit.hasMoved = true;
+  }
+
+  drawMap();
   endTurn();
 }
 
