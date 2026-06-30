@@ -197,6 +197,7 @@ function handleDiploPlayPhase(faction, onComplete) {
   const kingdoms = getNeutralKingdoms().filter(k => !isAmbassadorBanned(faction, k));
   const regularCards = hand.filter(c => c.type !== "specialMerc");
   const mercCards    = hand.filter(c => c.type === "specialMerc");
+  const wizardKingdoms = kingdoms.filter(k => k === "eaters" || k === "black_hand");
   const hasRegular   = regularCards.length > 0;
   const hasKingdoms  = kingdoms.length > 0;
 
@@ -206,6 +207,7 @@ function handleDiploPlayPhase(faction, onComplete) {
   if (hasRegular && hasKingdoms) options.push("1. Play a diplomacy card on a neutral kingdom");
   if (mercCards.length) options.push("2. Play a special mercenary card");
   options.push("3. Recruit Barbarians (Advanced)");
+  if (wizardKingdoms.length) options.push("4. Attempt wizard diplomacy (no card — need roll of 6)");
   options.push("0. Skip");
 
   const choice = prompt(
@@ -228,6 +230,13 @@ function handleDiploPlayPhase(faction, onComplete) {
     if (!matched) { alert('Invalid kingdom — passing.'); onComplete(); return; }
     playDiplomaticCard(faction, card, matched, onComplete);
 
+  } else if (c === 4 && wizardKingdoms.length) {
+    const wizStr = wizardKingdoms.join(', ');
+    const raw = prompt(`Choose wizard faction:\n${wizStr}`);
+    const matched = wizardKingdoms.find(k => k.toLowerCase() === (raw || '').trim().toLowerCase());
+    if (!matched) { alert('Invalid — passing.'); onComplete(); return; }
+    rollWizardDiplomacy(faction, matched, onComplete);
+
   } else if (c === 2 && mercCards.length) {
     const mercDisplay = mercCards.map((mc, i) => `  ${i}: ${mc.label} (entry: ${mc.entryName})`).join('\n');
     const cardIdx = parseInt(prompt(`Choose a special merc card:\n${mercDisplay}\n\nEnter index:`), 10);
@@ -245,8 +254,17 @@ function handleDiploPlayPhase(faction, onComplete) {
   }
 }
 
+// Bare d6 roll on a wizard faction — no card consumed, needs 6 to succeed.
+function rollWizardDiplomacy(faction, kingdom, onComplete) {
+  const roll = Math.ceil(Math.random() * 6);
+  const name = kingdom === "eaters" ? "Eaters of Wisdom" : "Black Hand";
+  alert(`${faction.toUpperCase()} → ${name} (bare roll — no card)\nRoll: ${roll}${roll === 6 ? "\n✓ Joins your alliance!" : "\n✗ No effect."}`);
+  if (roll === 6) formAlliance(faction, kingdom);
+  onComplete();
+}
+
 function playDiplomaticCard(faction, card, kingdom, onComplete) {
-  // Magicians: immune to cards, need unmodified roll of 6
+  // Magicians: immune to cards, need unmodified roll of 6; card is still consumed
   if (kingdom === "eaters" || kingdom === "black_hand") {
     const roll = Math.ceil(Math.random() * 6);
     const name = kingdom === "eaters" ? "Eaters of Wisdom" : "Black Hand";

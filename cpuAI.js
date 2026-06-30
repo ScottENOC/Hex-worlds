@@ -134,8 +134,11 @@ function cpuAggression(faction) {
 }
 
 // ── Diplomacy phase ───────────────────────────────────────────────────────────
-// Strategy: target the neutral kingdom whose capital is closest to the nearest
-// opponent capital (contest it before opponents can). Play highest-value card.
+// Strategy:
+//   1. Always take a free bare roll on any accessible wizard faction (eaters/black_hand).
+//      Cards are wasted on wizards (they ignore card value), so save them for regulars.
+//   2. For regular kingdoms, target the one whose capital is closest to the nearest
+//      opponent capital (contest it before opponents do). Play highest-value card.
 function cpuDiplomacy(faction) {
   const advance = () => {
     currentPhase = "siege";
@@ -144,17 +147,27 @@ function cpuDiplomacy(faction) {
   };
 
   const hand = diplomacyHands[faction] || [];
-  const regularCards = hand.filter(c => c.type !== "specialMerc");
-  if (!regularCards.length) { advance(); return; }
-
   const kingdoms = getNeutralKingdoms().filter(k => !isAmbassadorBanned(faction, k));
-  if (!kingdoms.length) { advance(); return; }
+
+  // --- Step 1: free bare roll on wizard factions ---
+  const wizardKingdoms = kingdoms.filter(k => k === "eaters" || k === "black_hand");
+  if (wizardKingdoms.length) {
+    // Pick one wizard faction and roll (no card consumed)
+    const target = wizardKingdoms[0];
+    rollWizardDiplomacy(faction, target, advance);
+    return;
+  }
+
+  // --- Step 2: play a card on the best regular neutral kingdom ---
+  const regularCards = hand.filter(c => c.type !== "specialMerc");
+  const regularKingdoms = kingdoms.filter(k => k !== "eaters" && k !== "black_hand");
+  if (!regularCards.length || !regularKingdoms.length) { advance(); return; }
 
   // Locate my capital
   const myCapEntry = Object.entries(tileData).find(([, t]) => t.isCapital && t.faction === faction);
   const [myCapR, myCapC] = myCapEntry ? myCapEntry[0].split(",").map(Number) : [15, 17];
 
-  // Find nearest opponent capital to my capital
+  // Find nearest opponent capital
   const opponentFactions = Object.keys(factions).filter(f => f !== "none" && f !== faction);
   let nearestOppR = myCapR, nearestOppC = myCapC, nearestOppDist = Infinity;
   for (const opp of opponentFactions) {
@@ -165,23 +178,21 @@ function cpuDiplomacy(faction) {
     if (d < nearestOppDist) { nearestOppDist = d; nearestOppR = r; nearestOppC = c; }
   }
 
-  // Score each neutral kingdom: prefer ones close to the nearest opponent threat
-  // (intercept them before opponents do), with a secondary pull toward our own capital
+  // Score each regular neutral kingdom: close to opponent threat = high priority
   let bestKingdom = null, bestScore = Infinity;
-  for (const k of kingdoms) {
+  for (const k of regularKingdoms) {
     const capEntry = Object.entries(tileData).find(([, t]) => t.isCapital && t.faction === k);
     if (!capEntry) continue;
     const [r, c] = capEntry[0].split(",").map(Number);
     const toOpp = hexBFSDistance(r, c, nearestOppR, nearestOppC);
     const toMe  = hexBFSDistance(r, c, myCapR, myCapC);
-    // Lower score = better target (close to threat, reachable from us)
     const score = toOpp * 1.5 + toMe * 0.5;
     if (score < bestScore) { bestScore = score; bestKingdom = k; }
   }
 
   if (!bestKingdom) { advance(); return; }
 
-  // Play the highest-value regular card
+  // Play highest-value card (card value matters for regular kingdoms)
   const card = regularCards.reduce((best, c) => (c.value || 0) > (best.value || 0) ? c : best, regularCards[0]);
   hand.splice(hand.indexOf(card), 1);
 
