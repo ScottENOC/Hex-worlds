@@ -504,7 +504,6 @@
     // ── Refresh faction grid from Firestore data ───────────────────────────
     function refreshGrid(data) {
       if (!data) return;
-      const myFaction = _pendingFaction || MP.myFaction();
       const claims    = data.factionClaims || {};
       const players   = data.players || {};
 
