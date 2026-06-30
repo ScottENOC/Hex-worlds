@@ -2755,7 +2755,7 @@
     "col": 32,
     "faction": "none",
     "terrain": [
-      "plains"
+      "mountain"
     ],
     "rivers": [],
     "lakes": []
@@ -2765,7 +2765,7 @@
     "col": 33,
     "faction": "none",
     "terrain": [
-      "plains"
+      "mountain"
     ],
     "rivers": [],
     "lakes": []
@@ -2775,7 +2775,7 @@
     "col": 34,
     "faction": "none",
     "terrain": [
-      "plains"
+      "hills"
     ],
     "rivers": [],
     "lakes": []
@@ -3066,7 +3066,7 @@
     "col": 31,
     "faction": "none",
     "terrain": [
-      "plains"
+      "mountain"
     ],
     "rivers": [],
     "lakes": []
@@ -3074,12 +3074,13 @@
   {
     "row": 10,
     "col": 32,
-    "faction": "none",
+    "faction": "dwarfland",
     "terrain": [
-      "mountain"
+      "plains"
     ],
-    "rivers": [],
-    "lakes": []
+    "name": "Mines of Rozekgg",
+    "isFortress": true,
+    "fortressStrength": 5
   },
   {
     "row": 10,
@@ -3096,7 +3097,7 @@
     "col": 34,
     "faction": "none",
     "terrain": [
-      "hills"
+      "mountain"
     ],
     "rivers": [],
     "lakes": []
@@ -3393,16 +3394,6 @@
     "col": 31,
     "faction": "none",
     "terrain": [
-      "plains"
-    ],
-    "rivers": [],
-    "lakes": []
-  },
-  {
-    "row": 11,
-    "col": 32,
-    "faction": "none",
-    "terrain": [
       "mountain"
     ],
     "rivers": [],
@@ -3410,14 +3401,19 @@
   },
   {
     "row": 11,
+    "col": 32,
+    "faction": "dwarfland",
+    "terrain": [
+      "mountain"
+    ]
+  },
+  {
+    "row": 11,
     "col": 33,
     "faction": "dwarfland",
     "terrain": [
-      "plains"
-    ],
-    "name": "Mines of Rozekgg",
-    "isFortress": true,
-    "fortressStrength": 5
+      "mountain"
+    ]
   },
   {
     "row": 11,
@@ -3434,7 +3430,7 @@
     "col": 35,
     "faction": "none",
     "terrain": [
-      "mountain"
+      "plains"
     ],
     "rivers": [],
     "lakes": []
@@ -3731,17 +3727,19 @@
   {
     "row": 12,
     "col": 33,
-    "faction": "dwarfland",
+    "faction": "none",
     "terrain": [
       "mountain"
-    ]
+    ],
+    "rivers": [],
+    "lakes": []
   },
   {
     "row": 12,
     "col": 34,
     "faction": "none",
     "terrain": [
-      "mountain"
+      "plains"
     ],
     "rivers": [],
     "lakes": []
@@ -4050,7 +4048,7 @@
     "col": 32,
     "faction": "none",
     "terrain": [
-      "mountain"
+      "hills"
     ],
     "rivers": [],
     "lakes": []
@@ -4058,17 +4056,19 @@
   {
     "row": 13,
     "col": 33,
-    "faction": "dwarfland",
+    "faction": "none",
     "terrain": [
-      "mountain"
-    ]
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
   },
   {
     "row": 13,
     "col": 34,
     "faction": "none",
     "terrain": [
-      "mountain"
+      "plains"
     ],
     "rivers": [],
     "lakes": []
@@ -4376,7 +4376,7 @@
     "col": 31,
     "faction": "none",
     "terrain": [
-      "plains"
+      "forest"
     ],
     "rivers": [],
     "lakes": []
@@ -4386,7 +4386,7 @@
     "col": 32,
     "faction": "none",
     "terrain": [
-      "hills"
+      "mountain"
     ],
     "rivers": [],
     "lakes": []
@@ -4396,7 +4396,7 @@
     "col": 33,
     "faction": "none",
     "terrain": [
-      "plains"
+      "mountain"
     ],
     "rivers": [],
     "lakes": []
@@ -4406,7 +4406,7 @@
     "col": 34,
     "faction": "none",
     "terrain": [
-      "plains"
+      "hills"
     ],
     "rivers": [],
     "lakes": []
@@ -4749,29 +4749,28 @@
   {
     "row": 15,
     "col": 32,
-    "faction": "none",
+    "faction": "dwarfland",
     "terrain": [
-      "forest"
-    ],
-    "rivers": [],
-    "lakes": []
+      "mountain"
+    ]
   },
   {
     "row": 15,
     "col": 33,
-    "faction": "none",
+    "faction": "dwarfland",
     "terrain": [
-      "mountain"
+      "plains"
     ],
-    "rivers": [],
-    "lakes": []
+    "name": "Alzak",
+    "isFortress": true,
+    "fortressStrength": 4
   },
   {
     "row": 15,
     "col": 34,
     "faction": "none",
     "terrain": [
-      "mountain"
+      "hills"
     ],
     "rivers": [],
     "lakes": []
@@ -4781,7 +4780,7 @@
     "col": 35,
     "faction": "none",
     "terrain": [
-      "hills"
+      "plains"
     ],
     "rivers": [],
     "lakes": []
@@ -5124,18 +5123,15 @@
     "col": 33,
     "faction": "dwarfland",
     "terrain": [
-      "plains"
-    ],
-    "name": "Alzak",
-    "isFortress": true,
-    "fortressStrength": 4
+      "hills"
+    ]
   },
   {
     "row": 16,
     "col": 34,
     "faction": "none",
     "terrain": [
-      "hills"
+      "plains"
     ],
     "rivers": [],
     "lakes": []
@@ -5487,18 +5483,22 @@
   {
     "row": 17,
     "col": 33,
-    "faction": "dwarfland",
+    "faction": "none",
     "terrain": [
-      "mountain"
-    ]
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
   },
   {
     "row": 17,
     "col": 34,
-    "faction": "dwarfland",
+    "faction": "none",
     "terrain": [
-      "hills"
-    ]
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
   },
   {
     "row": 18,
@@ -6196,12 +6196,11 @@
   {
     "row": 19,
     "col": 33,
-    "faction": "none",
     "terrain": [
-      "hills"
+      "plains"
     ],
-    "rivers": [],
-    "lakes": []
+    "name": "Lost City of Khos",
+    "isEntryHex": "ghostRiders"
   },
   {
     "row": 19,
@@ -6528,11 +6527,12 @@
   {
     "row": 20,
     "col": 33,
+    "faction": "none",
     "terrain": [
       "plains"
     ],
-    "name": "Lost City of Khos",
-    "isEntryHex": "ghostRiders"
+    "rivers": [],
+    "lakes": []
   },
   {
     "row": 20,
@@ -9947,13 +9947,12 @@
   {
     "row": 29,
     "col": 12,
-    "faction": "none",
+    "faction": "rombune",
     "terrain": [
       "hills"
     ],
     "rivers": [],
-    "lakes": [],
-    "name": "Robin's Hills"
+    "lakes": []
   },
   {
     "row": 29,
@@ -10305,9 +10304,9 @@
   {
     "row": 30,
     "col": 10,
-    "faction": "none",
+    "faction": "rombune",
     "terrain": [
-      "plains"
+      "hills"
     ],
     "rivers": [],
     "lakes": []
@@ -10315,13 +10314,12 @@
   {
     "row": 30,
     "col": 11,
-    "faction": "none",
+    "faction": "rombune",
     "terrain": [
       "hills"
     ],
     "rivers": [],
-    "lakes": [],
-    "name": "Robin's Hills"
+    "lakes": []
   },
   {
     "row": 30,

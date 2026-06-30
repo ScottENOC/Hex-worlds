@@ -57,35 +57,35 @@
   },
   {
     "faction": "dwarfland",
-    "row": 11,
+    "row": 10,
+    "col": 32,
+    "moveSpeed": 6,
+    "mountainWalk": true
+  },
+  {
+    "faction": "dwarfland",
+    "row": 10,
+    "col": 32,
+    "moveSpeed": 6,
+    "mountainWalk": true
+  },
+  {
+    "faction": "dwarfland",
+    "row": 10,
+    "col": 32,
+    "moveSpeed": 6,
+    "mountainWalk": true
+  },
+  {
+    "faction": "dwarfland",
+    "row": 15,
     "col": 33,
     "moveSpeed": 6,
     "mountainWalk": true
   },
   {
     "faction": "dwarfland",
-    "row": 11,
-    "col": 33,
-    "moveSpeed": 6,
-    "mountainWalk": true
-  },
-  {
-    "faction": "dwarfland",
-    "row": 11,
-    "col": 33,
-    "moveSpeed": 6,
-    "mountainWalk": true
-  },
-  {
-    "faction": "dwarfland",
-    "row": 16,
-    "col": 33,
-    "moveSpeed": 6,
-    "mountainWalk": true
-  },
-  {
-    "faction": "dwarfland",
-    "row": 16,
+    "row": 15,
     "col": 33,
     "moveSpeed": 6,
     "mountainWalk": true
@@ -412,8 +412,8 @@
   },
   {
     "faction": "dwarfland",
-    "row": 11,
-    "col": 33,
+    "row": 10,
+    "col": 32,
     "moveSpeed": 8,
     "mountainWalk": true,
     "isLeader": true,
