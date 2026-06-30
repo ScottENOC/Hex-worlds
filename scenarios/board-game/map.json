@@ -5476,6 +5476,57 @@
   },
   {
     "row": 21,
+    "col": 1,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 21,
+    "col": 2,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 21,
+    "col": 3,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 21,
     "col": 4,
     "faction": "mivior",
     "terrain": [
@@ -5830,6 +5881,91 @@
   },
   {
     "row": 22,
+    "col": 5,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 22,
+    "col": 6,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 22,
+    "col": 7,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 22,
+    "col": 8,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 22,
+    "col": 9,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 22,
     "col": 10,
     "faction": "shucasam",
     "terrain": [
@@ -6102,6 +6238,74 @@
       0,
       1,
       2
+    ]
+  },
+  {
+    "row": 23,
+    "col": 6,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 23,
+    "col": 7,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 23,
+    "col": 8,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 23,
+    "col": 9,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
     ]
   },
   {
@@ -6390,6 +6594,108 @@
   },
   {
     "row": 24,
+    "col": 5,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 24,
+    "col": 6,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 24,
+    "col": 7,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 24,
+    "col": 8,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 24,
+    "col": 9,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 24,
+    "col": 10,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 24,
     "col": 11,
     "faction": "shucasam",
     "terrain": [
@@ -6606,6 +6912,108 @@
   },
   {
     "row": 25,
+    "col": 5,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 25,
+    "col": 6,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 25,
+    "col": 7,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 25,
+    "col": 8,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 25,
+    "col": 9,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 25,
+    "col": 10,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 25,
     "col": 11,
     "faction": "none",
     "terrain": [
@@ -6801,6 +7209,91 @@
   },
   {
     "row": 26,
+    "col": 5,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 26,
+    "col": 6,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 26,
+    "col": 7,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 26,
+    "col": 8,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 26,
+    "col": 9,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 26,
     "col": 10,
     "faction": "rombune",
     "terrain": [
@@ -6922,6 +7415,57 @@
     "lakes": [
       0,
       1,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 27,
+    "col": 7,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 27,
+    "col": 8,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 27,
+    "col": 9,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
       4,
       5
     ]
