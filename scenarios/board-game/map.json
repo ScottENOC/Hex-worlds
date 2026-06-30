@@ -2992,7 +2992,8 @@
     ],
     "name": "Addat",
     "isFortress": true,
-    "fortressStrength": 2
+    "fortressStrength": 2,
+    "isPort": true
   },
   {
     "row": 13,
@@ -4251,7 +4252,8 @@
     ],
     "name": "Boran Moor",
     "isFortress": true,
-    "fortressStrength": 1
+    "fortressStrength": 1,
+    "isPort": true
   },
   {
     "row": 17,
@@ -4895,7 +4897,8 @@
     ],
     "name": "The Shining Isle",
     "isFortress": true,
-    "fortressStrength": 3
+    "fortressStrength": 3,
+    "isPort": true
   },
   {
     "row": 19,
@@ -4999,7 +5002,8 @@
     ],
     "name": "Castle Lapspell",
     "isFortress": true,
-    "fortressStrength": 3
+    "fortressStrength": 3,
+    "isPort": true
   },
   {
     "row": 19,
@@ -5763,6 +5767,40 @@
   },
   {
     "row": 22,
+    "col": 1,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 22,
+    "col": 2,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 22,
     "col": 3,
     "faction": "mivior",
     "terrain": [
@@ -5787,7 +5825,8 @@
     ],
     "name": "Colist",
     "isFortress": true,
-    "fortressStrength": 4
+    "fortressStrength": 4,
+    "isPort": true
   },
   {
     "row": 22,
@@ -5990,6 +6029,57 @@
   },
   {
     "row": 23,
+    "col": 1,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 23,
+    "col": 2,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 23,
+    "col": 3,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 23,
     "col": 4,
     "faction": "mivior",
     "terrain": [
@@ -6044,7 +6134,8 @@
     "name": "Zefnar on the Sea",
     "isFortress": true,
     "fortressStrength": 3,
-    "isCapital": true
+    "isCapital": true,
+    "isPort": true
   },
   {
     "row": 23,
@@ -6231,6 +6322,74 @@
   },
   {
     "row": 24,
+    "col": 1,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 24,
+    "col": 2,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 24,
+    "col": 3,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 24,
+    "col": 4,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 24,
     "col": 11,
     "faction": "shucasam",
     "terrain": [
@@ -6379,6 +6538,74 @@
   },
   {
     "row": 25,
+    "col": 1,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 25,
+    "col": 2,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 25,
+    "col": 3,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 25,
+    "col": 4,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 25,
     "col": 11,
     "faction": "none",
     "terrain": [
@@ -6523,6 +6750,57 @@
   },
   {
     "row": 26,
+    "col": 2,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 26,
+    "col": 3,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 26,
+    "col": 4,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 26,
     "col": 10,
     "faction": "rombune",
     "terrain": [
@@ -6553,6 +6831,57 @@
     ],
     "rivers": [],
     "lakes": []
+  },
+  {
+    "row": 27,
+    "col": 1,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 27,
+    "col": 2,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 27,
+    "col": 3,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "row": 27,
@@ -6646,6 +6975,57 @@
   },
   {
     "row": 28,
+    "col": 1,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 28,
+    "col": 2,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 28,
+    "col": 3,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 28,
     "col": 4,
     "faction": "rombune",
     "terrain": [
@@ -6671,7 +7051,8 @@
     "name": "Rombune",
     "isFortress": true,
     "fortressStrength": 3,
-    "isCapital": true
+    "isCapital": true,
+    "isPort": true
   },
   {
     "row": 28,
@@ -6775,6 +7156,57 @@
     ],
     "name": "Spires to the Sun",
     "isEntryHex": "orderHippogriff"
+  },
+  {
+    "row": 29,
+    "col": 1,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 29,
+    "col": 2,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 29,
+    "col": 3,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "row": 29,
@@ -6894,6 +7326,57 @@
   },
   {
     "row": 30,
+    "col": 1,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 30,
+    "col": 2,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 30,
+    "col": 3,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 30,
     "col": 4,
     "faction": "rombune",
     "terrain": [
@@ -6933,6 +7416,74 @@
   },
   {
     "row": 31,
+    "col": 1,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 31,
+    "col": 2,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 31,
+    "col": 3,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 31,
+    "col": 4,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 31,
     "col": 6,
     "faction": "rombune",
     "terrain": [
@@ -6942,6 +7493,74 @@
     "lakes": [
       3,
       4
+    ]
+  },
+  {
+    "row": 32,
+    "col": 1,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 32,
+    "col": 2,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 32,
+    "col": 3,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 32,
+    "col": 4,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
     ]
   }
 ]
