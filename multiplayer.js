@@ -1,30 +1,29 @@
 // multiplayer.js — Firebase Firestore async multiplayer
 //
-// Setup: add your Firebase config to index.html (see comment there).
-// If window.FIREBASE_CONFIG is not set the game runs fully offline.
-//
 // Room lifecycle:
-//   Create  → 6-char code generated, creator picks faction, others join by code
-//   Lobby   → each player picks faction + clicks Ready
-//   Start   → host clicks Start once everyone ready; game state written to Firestore
-//   In-game → only the player whose faction matches currentFaction can act;
-//              after endTurn() state is pushed; all others receive it via listener
-//   Offline → falls back to single-device mode with no Firestore calls
+//   Create  → host enters name, gets 6-char code
+//   Pick    → each player picks faction from synced grid; server resolves conflicts
+//   Playing → host clicks Start; state pushed; others receive via listener
+//   Offline → falls back to single-device mode
 
 const MP = (() => {
-  let _db       = null;
-  let _gameId   = null;     // Firestore document id (= room code)
-  let _myFaction = null;    // which faction I control in this session
-  let _isHost   = false;
-  let _unsubscribe = null;  // Firestore listener cleanup
-  let _onRemoteState = null; // callback(state) when remote pushes a new state
+  let _db         = null;
+  let _gameId     = null;
+  let _playerId   = null;
+  let _playerName = null;
+  let _myFaction  = null;
+  let _isHost     = false;
+  let _unsubscribe     = null;
+  let _onRemoteState   = null;
+  let _onFactionUpdate = null;
+  let _onGameStart     = null;
+  let _lastRoomData    = null;
 
   // ── Init ────────────────────────────────────────────────────────────────────
-  // Called lazily on first online action so Firebase SDK has time to load.
   function _ensureInit() {
     if (_db) return true;
     if (!window.FIREBASE_CONFIG) return false;
-    if (typeof firebase === "undefined") return false; // SDK not loaded yet
+    if (typeof firebase === "undefined") return false;
     try {
       if (!firebase.apps.length) firebase.initializeApp(window.FIREBASE_CONFIG);
       _db = firebase.firestore();
@@ -36,26 +35,18 @@ const MP = (() => {
     }
   }
 
-  function init() { /* no-op — init is lazy now */ }
+  function init() {}
+  function _online()   { return _ensureInit(); }
+  function _gameRef()  { return _db.collection("games").doc(_gameId); }
+  function _makeCode() { return Math.random().toString(36).substring(2, 8).toUpperCase(); }
+  function _makeId()   { return Math.random().toString(36).substring(2, 10) + Date.now().toString(36); }
 
-  // ── Helpers ─────────────────────────────────────────────────────────────────
-  function _online() { return _ensureInit(); }
-
-  function _gameRef() { return _db.collection("games").doc(_gameId); }
-
-  function _makeCode() {
-    return Math.random().toString(36).substring(2, 8).toUpperCase();
-  }
-
-  // Serialize the full game state (superset of localStorage save)
+  // ── Serialize / Deserialize ──────────────────────────────────────────────────
   function _serialize() {
     return {
       units:            JSON.parse(JSON.stringify(units)),
       tileData:         JSON.parse(JSON.stringify(tileData)),
-      turnOrder,
-      currentTurnIndex,
-      currentPhase,
-      turnNumber,
+      turnOrder,        currentTurnIndex, currentPhase, turnNumber,
       reserves:         JSON.parse(JSON.stringify(reserves)),
       victoryPoints:    JSON.parse(JSON.stringify(victoryPoints)),
       gold:             JSON.parse(JSON.stringify(gold)),
@@ -69,38 +60,29 @@ const MP = (() => {
   }
 
   function _deserialize(state) {
-    // units is a mutable global array — splice in place
     units.length = 0;
     units.push(...state.units);
-
-    // tileData: clear and repopulate
     for (const k of Object.keys(tileData)) delete tileData[k];
     Object.assign(tileData, state.tileData);
-
     turnOrder.length = 0;
     turnOrder.push(...state.turnOrder);
-
     currentTurnIndex = state.currentTurnIndex;
     currentPhase     = state.currentPhase;
     turnNumber       = state.turnNumber;
-
-    for (const k of Object.keys(reserves))       delete reserves[k];
-    for (const k of Object.keys(victoryPoints))  delete victoryPoints[k];
-    for (const k of Object.keys(gold))           delete gold[k];
-    for (const k of Object.keys(diplomacyHands)) delete diplomacyHands[k];
+    for (const k of Object.keys(reserves))         delete reserves[k];
+    for (const k of Object.keys(victoryPoints))    delete victoryPoints[k];
+    for (const k of Object.keys(gold))             delete gold[k];
+    for (const k of Object.keys(diplomacyHands))   delete diplomacyHands[k];
     for (const k of Object.keys(personalityCards)) delete personalityCards[k];
-    for (const k of Object.keys(controlTypes))   delete controlTypes[k];
-
+    for (const k of Object.keys(controlTypes))     delete controlTypes[k];
     Object.assign(reserves,         state.reserves         || {});
     Object.assign(victoryPoints,    state.victoryPoints    || {});
     Object.assign(gold,             state.gold             || {});
     Object.assign(diplomacyHands,   state.diplomacyHands   || {});
     Object.assign(personalityCards, state.personalityCards || {});
     Object.assign(controlTypes,     state.controlTypes     || {});
-
     declaredCombats.length = 0;
     declaredCombats.push(...(state.declaredCombats || []));
-
     if (state.diploDeck) {
       diploDeck.length = 0;
       diploDeck.push(...state.diploDeck);
@@ -108,9 +90,10 @@ const MP = (() => {
   }
 
   // ── Create game ─────────────────────────────────────────────────────────────
-  async function createGame(myFaction) {
-    _myFaction = myFaction;
-    _isHost    = true;
+  async function createGame(playerName) {
+    _playerName = playerName;
+    _playerId   = _makeId();
+    _isHost     = true;
 
     if (!_online()) {
       console.log("[MP] Offline — no room created");
@@ -118,40 +101,91 @@ const MP = (() => {
     }
 
     _gameId = _makeCode();
-    const doc = {
-      host:      myFaction,
-      status:    "lobby",   // lobby | playing | finished
-      players:   { [myFaction]: { ready: false } },
-      createdAt: Date.now(),
-    };
-    await _gameRef().set(doc);
-    _listenLobby();
+    await _gameRef().set({
+      host:          _playerId,
+      status:        "faction-pick",
+      players:       { [_playerId]: { name: playerName, faction: null, ready: false } },
+      factionClaims: {},
+      createdAt:     Date.now(),
+    });
+    _listenFactionPicker();
     return _gameId;
   }
 
   // ── Join game ────────────────────────────────────────────────────────────────
-  async function joinGame(code, myFaction) {
+  async function joinGame(code, playerName) {
     if (!_online()) return false;
-    _gameId    = code.toUpperCase();
-    _myFaction = myFaction;
-    _isHost    = false;
+    _gameId     = code.toUpperCase();
+    _playerName = playerName;
+    _playerId   = _makeId();
+    _isHost     = false;
 
     const snap = await _gameRef().get();
     if (!snap.exists) { alert("Room not found: " + _gameId); return false; }
     const data = snap.data();
-    if (data.status !== "lobby") { alert("Game already started."); return false; }
+    if (data.status === "playing") { alert("Game already started."); return false; }
 
     await _gameRef().update({
-      [`players.${myFaction}`]: { ready: false }
+      [`players.${_playerId}`]: { name: playerName, faction: null, ready: false }
     });
-    _listenLobby();
+    _listenFactionPicker();
     return true;
+  }
+
+  // ── Auto-assign a random unclaimed faction ───────────────────────────────────
+  async function autoAssign(playableFactions) {
+    const snap = await _gameRef().get();
+    if (!snap.exists) return;
+    const data     = snap.data();
+    const claimed  = new Set(Object.keys(data.factionClaims || {}));
+    const available = playableFactions.filter(f => !claimed.has(f));
+    if (!available.length) return;
+    const pick = available[Math.floor(Math.random() * available.length)];
+    await claimFaction(pick);
+  }
+
+  // ── Claim a faction (atomic — server wins on conflict) ───────────────────────
+  // Returns true if claim succeeded, false if the faction was already taken.
+  async function claimFaction(factionId) {
+    if (!_online() || !_gameId) return false;
+    try {
+      const ok = await _db.runTransaction(async tx => {
+        const doc = await tx.get(_gameRef());
+        if (!doc.exists) return false;
+        const data   = doc.data();
+        const claims = { ...(data.factionClaims || {}) };
+
+        // Release any existing claim by this player first
+        for (const [fId, pId] of Object.entries(claims)) {
+          if (pId === _playerId) delete claims[fId];
+        }
+
+        // Attempt claim (null = release only)
+        if (factionId) {
+          if (claims[factionId]) return false; // taken by someone else
+          claims[factionId] = _playerId;
+        }
+
+        tx.update(_gameRef(), {
+          factionClaims: claims,
+          [`players.${_playerId}.faction`]: factionId || null,
+          [`players.${_playerId}.ready`]:   false,
+        });
+        return true;
+      });
+
+      if (ok) _myFaction = factionId || null;
+      return ok;
+    } catch (e) {
+      console.warn("[MP] claimFaction failed", e);
+      return false;
+    }
   }
 
   // ── Ready up ─────────────────────────────────────────────────────────────────
   async function setReady(ready = true) {
     if (!_online() || !_gameId) return;
-    await _gameRef().update({ [`players.${_myFaction}.ready`]: ready });
+    await _gameRef().update({ [`players.${_playerId}.ready`]: ready });
   }
 
   // ── Start game (host only) ───────────────────────────────────────────────────
@@ -172,35 +206,37 @@ const MP = (() => {
     }
   }
 
-  // ── Listeners ────────────────────────────────────────────────────────────────
-  function _listenLobby() {
+  // ── Faction picker listener ──────────────────────────────────────────────────
+  function _listenFactionPicker() {
     if (_unsubscribe) { _unsubscribe(); _unsubscribe = null; }
     _unsubscribe = _gameRef().onSnapshot(snap => {
       if (!snap.exists) return;
       const data = snap.data();
-      _updateLobbyUI(data);
+      _lastRoomData = data;
+
+      // Server is authoritative — sync my faction from the snapshot
+      const myEntry = data.players?.[_playerId];
+      if (myEntry) _myFaction = myEntry.faction || null;
+
+      if (typeof _onFactionUpdate === "function") _onFactionUpdate(data, _playerId);
+
       if (data.status === "playing") {
-        // Host already pushed initial state; others receive it here
-        if (!_isHost && data.gameState) {
-          _deserialize(data.gameState);
-        }
+        if (!_isHost && data.gameState) _deserialize(data.gameState);
         _listenGameState();
-        _hideLobbyUI();
+        if (typeof _onGameStart === "function") _onGameStart(data);
       }
     });
   }
 
+  // ── In-game listener ─────────────────────────────────────────────────────────
   function _listenGameState() {
     if (_unsubscribe) { _unsubscribe(); _unsubscribe = null; }
     _unsubscribe = _gameRef().onSnapshot(snap => {
       if (!snap.exists) return;
       const data = snap.data();
       if (!data.gameState) return;
-
       const myTurn = turnOrder[currentTurnIndex] === _myFaction;
-      if (myTurn) return; // ignore — I'm the one pushing
-
-      // Remote player finished their turn — pull state
+      if (myTurn) return;
       if (data.gameState.updatedAt !== (window._lastStateTimestamp || 0)) {
         window._lastStateTimestamp = data.gameState.updatedAt;
         _deserialize(data.gameState);
@@ -212,45 +248,26 @@ const MP = (() => {
     });
   }
 
-  // ── Lobby UI ─────────────────────────────────────────────────────────────────
-  function _updateLobbyUI(data) {
-    const el = document.getElementById("mp-lobby-players");
-    if (!el) return;
-    const entries = Object.entries(data.players || {});
-    el.innerHTML = entries.map(([f, p]) =>
-      `<div class="mp-player ${p.ready ? 'mp-ready' : ''}">
-        <span>${f}</span>
-        <span>${p.ready ? "✓ Ready" : "Waiting…"}</span>
-       </div>`
-    ).join("");
-
-    const startBtn = document.getElementById("mp-start-btn");
-    if (startBtn) {
-      const allReady = entries.length > 0 && entries.every(([, p]) => p.ready);
-      startBtn.disabled = !_isHost || !allReady;
-      startBtn.textContent = _isHost ? (allReady ? "Start Game" : "Waiting for players…") : "Waiting for host…";
-    }
-
-    const codeEl = document.getElementById("mp-room-code");
-    if (codeEl && _gameId) codeEl.textContent = "Room: " + _gameId;
-  }
-
-  function _hideLobbyUI() {
-    const el = document.getElementById("mp-lobby");
-    if (el) el.style.display = "none";
-  }
-
   // ── Public API ────────────────────────────────────────────────────────────────
   function isMyTurn() {
-    if (!_myFaction) return true; // offline — always your turn
+    if (!_myFaction) return true;
     return turnOrder[currentTurnIndex] === _myFaction;
   }
 
-  function myFaction() { return _myFaction; }
-  function gameId()    { return _gameId; }
-  function online()    { return _online(); }
+  function myFaction()   { return _myFaction; }
+  function gameId()      { return _gameId; }
+  function online()      { return _online(); }
+  function isHost()      { return _isHost; }
+  function playerId()    { return _playerId; }
+  function getRoomData() { return _lastRoomData; }
 
-  function onRemoteState(cb) { _onRemoteState = cb; }
+  function onRemoteState(cb)   { _onRemoteState   = cb; }
+  function onFactionUpdate(cb) { _onFactionUpdate = cb; }
+  function onGameStart(cb)     { _onGameStart     = cb; }
 
-  return { init, createGame, joinGame, setReady, startGame, pushState, isMyTurn, myFaction, gameId, online, onRemoteState };
+  return {
+    init, createGame, joinGame, claimFaction, autoAssign, setReady, startGame, pushState,
+    isMyTurn, myFaction, gameId, online, isHost, playerId, getRoomData,
+    onRemoteState, onFactionUpdate, onGameStart,
+  };
 })();

@@ -204,22 +204,54 @@
       max-width: 440px; width: 90vw; box-shadow: 0 4px 24px rgba(0,0,0,0.5);
     }
     #mp-lobby-box h2 { margin: 0 0 16px; font-size: 20px; }
-    #mp-room-code { font-size: 28px; font-weight: bold; letter-spacing: 4px;
-      text-align: center; padding: 10px; background: #f4f4f4;
-      border-radius: 6px; margin: 12px 0; }
-    .mp-player { display: flex; justify-content: space-between; padding: 6px 0;
-      border-bottom: 1px solid #eee; font-size: 14px; }
-    .mp-player.mp-ready { color: #2a6; }
     #mp-lobby-box input { padding: 6px 10px; font-size: 14px; border: 1px solid #ccc;
       border-radius: 4px; width: 100%; box-sizing: border-box; margin: 4px 0 10px; }
     #mp-lobby-box button { padding: 8px 18px; font-size: 14px; border-radius: 5px;
       border: none; cursor: pointer; margin: 4px 4px 0 0; }
     #mp-create-btn  { background: #2a6; color: #fff; }
     #mp-join-btn    { background: #46a; color: #fff; }
-    #mp-ready-btn   { background: #e80; color: #fff; }
-    #mp-start-btn   { background: #2a6; color: #fff; }
-    #mp-start-btn:disabled { background: #aaa; cursor: default; }
     #mp-offline-btn { background: #888; color: #fff; }
+
+    /* ── Faction picker ── */
+    #mp-faction-picker {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.88);
+      display: none; align-items: center; justify-content: center; z-index: 115;
+    }
+    #mp-fp-box {
+      background: #fff; border-radius: 10px; padding: 24px 28px;
+      max-width: 600px; width: 95vw; max-height: 90vh; overflow-y: auto;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+    }
+    #mp-fp-box h2 { margin: 0 0 4px; font-size: 20px; }
+    #mp-fp-room-code { font-size: 22px; font-weight: bold; letter-spacing: 4px;
+      text-align: center; padding: 8px; background: #f4f4f4; border-radius: 6px; margin: 8px 0 12px; }
+    #mp-fp-players { border-bottom: 1px solid #eee; margin-bottom: 12px; padding-bottom: 8px; }
+    .fp-player { font-size: 13px; padding: 3px 0; color: #555; }
+    .fp-player-ready { color: #2a6; font-weight: bold; }
+    #mp-fp-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px;
+      margin-bottom: 14px;
+    }
+    .fp-card {
+      border: 2px solid #ccc; border-radius: 8px; padding: 10px 8px;
+      text-align: center; cursor: pointer; transition: border-color .15s, background .15s;
+      background: #f9f9f9;
+    }
+    .fp-card:hover { border-color: #888; background: #f0f0f0; }
+    .fp-card.fp-mine   { border-color: #2a6; background: #e8f5ee; }
+    .fp-card.fp-taken  { border-color: #ccc; background: #f0f0f0; opacity: 0.55; cursor: default; }
+    .fp-card.fp-pending { border-color: #e80; background: #fff8e8; }
+    .fp-card-name   { font-weight: bold; font-size: 13px; margin-bottom: 4px; }
+    .fp-card-status { font-size: 11px; color: #666; min-height: 14px; }
+    .fp-card.fp-mine .fp-card-status   { color: #2a6; }
+    .fp-card.fp-pending .fp-card-status { color: #e80; }
+    #mp-fp-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    #mp-fp-ready-btn  { padding: 8px 20px; font-size: 14px; border-radius: 5px; border: none;
+      cursor: pointer; background: #e80; color: #fff; }
+    #mp-fp-ready-btn:disabled { background: #aaa; cursor: default; }
+    #mp-fp-start-btn  { padding: 8px 20px; font-size: 14px; border-radius: 5px; border: none;
+      cursor: pointer; background: #2a6; color: #fff; }
+    #mp-fp-start-btn:disabled { background: #aaa; cursor: default; }
 
     /* ── Eaters spell panel ── */
     #spell-panel {
@@ -269,38 +301,37 @@
     _loadFirebase();
   </script>
 
-  <!-- Multiplayer lobby (shown before setup screen) -->
+  <!-- Multiplayer lobby (shown first) -->
   <div id="mp-lobby">
     <div id="mp-lobby-box">
       <h2>Divine Right — Multiplayer</h2>
-
-      <!-- Mode picker -->
-      <div id="mp-mode-picker">
-        <p style="color:#555;font-size:13px;margin:0 0 12px">
-          Play online with friends (async — take turns when ready) or offline locally.
-        </p>
-        <input id="mp-faction-input" placeholder="Your faction name (e.g. muetar)" />
-        <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <button id="mp-create-btn">Create Room</button>
-          <button id="mp-join-btn">Join Room</button>
-          <button id="mp-offline-btn">Play Offline</button>
-        </div>
-        <div id="mp-join-row" style="display:none;margin-top:10px">
-          <input id="mp-code-input" placeholder="Enter 6-letter room code" maxlength="6"
-                 style="text-transform:uppercase" />
-          <button id="mp-join-confirm-btn" style="background:#46a;color:#fff;padding:6px 14px;border:none;border-radius:4px;cursor:pointer">Join</button>
-        </div>
+      <p style="color:#555;font-size:13px;margin:0 0 12px">
+        Play online with friends (async — take turns when ready) or offline locally.
+      </p>
+      <input id="mp-name-input" placeholder="Your name (e.g. Scott)" autocomplete="off" />
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button id="mp-create-btn">Create Room</button>
+        <button id="mp-join-btn">Join Room</button>
+        <button id="mp-offline-btn">Play Offline</button>
       </div>
+      <div id="mp-join-row" style="display:none;margin-top:10px">
+        <input id="mp-code-input" placeholder="Enter 6-letter room code" maxlength="6"
+               style="text-transform:uppercase" autocomplete="off" />
+        <button id="mp-join-confirm-btn" style="background:#46a;color:#fff;padding:6px 14px;border:none;border-radius:4px;cursor:pointer;margin-top:6px">Join</button>
+      </div>
+    </div>
+  </div>
 
-      <!-- Lobby waiting room -->
-      <div id="mp-waiting-room" style="display:none">
-        <div id="mp-room-code">------</div>
-        <p style="font-size:12px;color:#666;text-align:center;margin:0 0 12px">Share this code with your friends</p>
-        <div id="mp-lobby-players"></div>
-        <div style="margin-top:14px;display:flex;gap:8px">
-          <button id="mp-ready-btn">Ready</button>
-          <button id="mp-start-btn" disabled>Waiting for players…</button>
-        </div>
+  <!-- Faction picker (shown after joining, synced via Firestore) -->
+  <div id="mp-faction-picker">
+    <div id="mp-fp-box">
+      <h2>Choose Your Faction</h2>
+      <div id="mp-fp-room-code"></div>
+      <div id="mp-fp-players"></div>
+      <div id="mp-fp-grid"></div>
+      <div id="mp-fp-actions">
+        <button id="mp-fp-ready-btn" disabled>Ready</button>
+        <button id="mp-fp-start-btn" disabled style="display:none">Waiting for players…</button>
       </div>
     </div>
   </div>
@@ -381,97 +412,243 @@
   <script src="panZoom.js"></script>
 
   <script>
-  // ── Multiplayer lobby wiring ────────────────────────────────────────────────
+  // ── Multiplayer wiring ──────────────────────────────────────────────────────
   (function() {
     MP.init();
 
-    const lobbyEl       = document.getElementById("mp-lobby");
-    const modeEl        = document.getElementById("mp-mode-picker");
-    const waitingEl     = document.getElementById("mp-waiting-room");
-    const joinRowEl     = document.getElementById("mp-join-row");
-    const factionInput  = document.getElementById("mp-faction-input");
-    const codeInput     = document.getElementById("mp-code-input");
+    const lobbyEl = document.getElementById("mp-lobby");
+    const fpEl    = document.getElementById("mp-faction-picker");
+    const setupEl = document.getElementById("setup-screen");
 
-    function getFaction() {
-      return (factionInput.value || "").trim().toLowerCase();
+    let _playableFactions = [];
+    let _displayNames     = {};
+    let _pendingFaction   = null; // optimistic before transaction resolves
+
+    // ── Load playable factions from scenario.json ──────────────────────────
+    async function loadFactions() {
+      const r    = await fetch("scenarios/board-game/scenario.json");
+      const data = await r.json();
+      _playableFactions = Object.entries(data.factions)
+        .filter(([, f]) => f.playable)
+        .map(([id]) => id);
+      _displayNames = Object.fromEntries(
+        Object.entries(data.factions).map(([id, f]) => [id, f.display || id])
+      );
     }
 
-    // Play offline — skip lobby, go straight to setup screen
+    // ── Show faction picker ────────────────────────────────────────────────
+    function showFactionPicker() {
+      lobbyEl.style.display = "none";
+      setupEl.style.display = "none";
+      fpEl.style.display    = "flex";
+
+      document.getElementById("mp-fp-room-code").textContent = "Room: " + MP.gameId();
+
+      // Build faction card grid
+      const grid = document.getElementById("mp-fp-grid");
+      grid.innerHTML = "";
+      for (const fId of _playableFactions) {
+        const card = document.createElement("div");
+        card.className = "fp-card";
+        card.dataset.faction = fId;
+        card.innerHTML = `<div class="fp-card-name">${_displayNames[fId] || fId}</div><div class="fp-card-status"></div>`;
+        card.addEventListener("click", () => handleFactionClick(fId));
+        grid.appendChild(card);
+      }
+
+      // Host sees Start button; others don't
+      const startBtn = document.getElementById("mp-fp-start-btn");
+      if (MP.isHost()) startBtn.style.display = "inline-block";
+      else startBtn.style.display = "none";
+
+      // Auto-assign a random faction immediately
+      MP.autoAssign(_playableFactions);
+    }
+
+    // ── Handle clicking a faction card ─────────────────────────────────────
+    async function handleFactionClick(fId) {
+      if (fId === MP.myFaction()) return; // already mine
+
+      // Optimistic update
+      _pendingFaction = fId;
+      refreshGrid(MP.getRoomData());
+
+      const ok = await MP.claimFaction(fId);
+      _pendingFaction = null;
+
+      if (!ok) {
+        // Faction was taken — server has already reverted us; auto-assign a new one
+        await MP.autoAssign(_playableFactions);
+      }
+      // Firestore listener will refresh the grid with authoritative state
+    }
+
+    // ── Refresh faction grid from Firestore data ───────────────────────────
+    function refreshGrid(data) {
+      if (!data) return;
+      const myFaction = _pendingFaction || MP.myFaction();
+      const claims    = data.factionClaims || {};
+      const players   = data.players || {};
+
+      // factionId → claimant display name
+      const claimNames = {};
+      for (const [fId, pId] of Object.entries(claims)) {
+        claimNames[fId] = players[pId]?.name || "?";
+      }
+
+      for (const card of document.querySelectorAll(".fp-card")) {
+        const fId      = card.dataset.faction;
+        const statusEl = card.querySelector(".fp-card-status");
+        card.className = "fp-card";
+
+        if (fId === _pendingFaction) {
+          card.classList.add("fp-pending");
+          statusEl.textContent = "Confirming…";
+        } else if (fId === MP.myFaction() && !_pendingFaction) {
+          card.classList.add("fp-mine");
+          statusEl.textContent = "✓ Your pick";
+        } else if (claimNames[fId] && claimNames[fId] !== (players[MP.playerId()]?.name)) {
+          card.classList.add("fp-taken");
+          statusEl.textContent = claimNames[fId];
+        } else {
+          statusEl.textContent = "";
+        }
+      }
+
+      refreshPlayerList(data);
+      refreshStartBtn(data);
+
+      // Enable ready button only once a faction is confirmed
+      const readyBtn = document.getElementById("mp-fp-ready-btn");
+      if (readyBtn && !readyBtn.disabled) {
+        readyBtn.disabled = !MP.myFaction();
+      }
+    }
+
+    function refreshPlayerList(data) {
+      const el = document.getElementById("mp-fp-players");
+      if (!el) return;
+      const players = data.players || {};
+      const myId    = MP.playerId();
+      el.innerHTML  = Object.entries(players).map(([pId, p]) => {
+        const you     = pId === myId ? " (you)" : "";
+        const faction = p.faction ? (_displayNames[p.faction] || p.faction) : "choosing…";
+        const ready   = p.ready ? " ✓" : "";
+        return `<div class="fp-player${p.ready ? " fp-player-ready" : ""}">${p.name}${you}: ${faction}${ready}</div>`;
+      }).join("");
+    }
+
+    function refreshStartBtn(data) {
+      const btn = document.getElementById("mp-fp-start-btn");
+      if (!btn || !MP.isHost()) return;
+      const players = Object.values(data.players || {});
+      const allReady = players.length > 0 && players.every(p => p.ready && p.faction);
+      btn.disabled    = !allReady;
+      btn.textContent = allReady ? "Start Game" : "Waiting for players…";
+    }
+
+    // ── Firestore updates → refresh UI ─────────────────────────────────────
+    MP.onFactionUpdate((data) => {
+      if (fpEl.style.display !== "none") refreshGrid(data);
+    });
+
+    // ── Game started (non-host receives this) ──────────────────────────────
+    MP.onGameStart(() => {
+      fpEl.style.display = "none";
+      drawMap();
+      updateTurnInfo();
+      updateVPInfo();
+    });
+
+    // ── Lobby buttons ──────────────────────────────────────────────────────
     document.getElementById("mp-offline-btn").addEventListener("click", () => {
       lobbyEl.style.display = "none";
+      // setup-screen is already visible
     });
 
-    // Show join row
     document.getElementById("mp-join-btn").addEventListener("click", () => {
-      joinRowEl.style.display = joinRowEl.style.display === "none" ? "block" : "none";
+      const row = document.getElementById("mp-join-row");
+      row.style.display = row.style.display === "none" ? "block" : "none";
     });
 
-    // Create room
     document.getElementById("mp-create-btn").addEventListener("click", async () => {
-      const faction = getFaction();
-      if (!faction) { alert("Enter your faction name first."); return; }
-      if (!MP.online()) { alert("No Firebase config set — running offline."); lobbyEl.style.display = "none"; return; }
-      const code = await MP.createGame(faction);
-      modeEl.style.display = "none";
-      waitingEl.style.display = "block";
-      document.getElementById("mp-room-code").textContent = code;
-    });
-
-    // Confirm join
-    document.getElementById("mp-join-confirm-btn").addEventListener("click", async () => {
-      const faction = getFaction();
-      const code    = codeInput.value.trim().toUpperCase();
-      if (!faction) { alert("Enter your faction name first."); return; }
-      if (!code)    { alert("Enter a room code."); return; }
-      const ok = await MP.joinGame(code, faction);
-      if (!ok) return;
-      modeEl.style.display = "none";
-      waitingEl.style.display = "block";
-      document.getElementById("mp-room-code").textContent = code;
-      // Hide start button for non-host
-      document.getElementById("mp-start-btn").style.display = "none";
-    });
-
-    // Ready
-    document.getElementById("mp-ready-btn").addEventListener("click", async () => {
-      await MP.setReady(true);
-      document.getElementById("mp-ready-btn").textContent = "✓ Ready";
-      document.getElementById("mp-ready-btn").disabled = true;
-    });
-
-    // Start (host only)
-    document.getElementById("mp-start-btn").addEventListener("click", async () => {
-      // The setup screen will run first (offline) then we push state once initGame fires
-      lobbyEl.style.display = "none";
-      window._mpStartPending = true;
-    });
-
-    // After initGame() runs, if we came from multiplayer, push initial state
-    const _origInitGame = window.initGame;
-    window.initGame = function(opts) {
-      _origInitGame(opts);
-      if (window._mpStartPending) {
-        window._mpStartPending = false;
-        MP.startGame();
+      const name = (document.getElementById("mp-name-input").value || "").trim();
+      if (!name) { alert("Enter your name first."); return; }
+      if (!MP.online()) { alert("No Firebase connection — playing offline."); lobbyEl.style.display = "none"; return; }
+      try {
+        await loadFactions();
+        const code = await MP.createGame(name);
+        if (!code) { lobbyEl.style.display = "none"; return; }
+        showFactionPicker();
+      } catch (e) {
+        console.error("[MP] createGame error", e);
+        alert("Could not create room. Playing offline.");
+        lobbyEl.style.display = "none";
       }
-    };
+    });
 
-    // Auto-push state after every endTurn()
+    document.getElementById("mp-join-confirm-btn").addEventListener("click", async () => {
+      const name = (document.getElementById("mp-name-input").value || "").trim();
+      const code = (document.getElementById("mp-code-input").value || "").trim().toUpperCase();
+      if (!name) { alert("Enter your name."); return; }
+      if (!code) { alert("Enter a room code."); return; }
+      try {
+        await loadFactions();
+        const ok = await MP.joinGame(code, name);
+        if (!ok) return;
+        showFactionPicker();
+      } catch (e) {
+        console.error("[MP] joinGame error", e);
+        alert("Could not join room.");
+      }
+    });
+
+    // ── Faction picker buttons ─────────────────────────────────────────────
+    document.getElementById("mp-fp-ready-btn").addEventListener("click", async function() {
+      this.disabled    = true;
+      this.textContent = "✓ Ready";
+      await MP.setReady(true);
+    });
+
+    document.getElementById("mp-fp-start-btn").addEventListener("click", async () => {
+      const data = MP.getRoomData();
+      if (!data) return;
+
+      // Build controlTypes: claimed factions = human; rest = neutral/cpu
+      const claims = data.factionClaims || {};
+      for (const f of _playableFactions) {
+        controlTypes[f] = claims[f] ? "human" : "neutral";
+      }
+      for (const f of _playableFactions) {
+        if (!claims[f]) neutralFactions.add(f);
+      }
+
+      fpEl.style.display = "none";
+
+      await loadScenario("board-game");
+
+      const players = Object.values(data.players)
+        .filter(p => p.faction)
+        .map(p => ({ faction: p.faction, control: "human" }));
+
+      initGame({ players });
+      await MP.startGame();
+    });
+
+    // ── Wrap endTurn to push state ─────────────────────────────────────────
     const _origEndTurn = window.endTurn;
     window.endTurn = function() {
       _origEndTurn();
       if (MP.online() && MP.gameId()) {
         MP.pushState();
-        // Also auto-save locally
-        saveGameToLocalStorage && saveGameToLocalStorage();
+        if (typeof saveGameToLocalStorage === "function") saveGameToLocalStorage();
       }
     };
 
-    // Block interaction when it's not your turn
+    // ── Block map interaction when not your turn ───────────────────────────
     MP.onRemoteState(() => {
       const mine = MP.isMyTurn();
       document.getElementById("map-container").style.pointerEvents = mine ? "auto" : "none";
-      document.querySelector("#hud button")?.setAttribute("disabled", mine ? "" : "true");
       const banner = document.getElementById("mp-turn-banner");
       if (banner) banner.textContent = mine ? "" : `Waiting for ${turnOrder[currentTurnIndex]}…`;
     });
