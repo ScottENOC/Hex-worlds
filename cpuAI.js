@@ -23,8 +23,8 @@ function handleCPUPhase(faction) {
 // ── Diplo draw without alert ──────────────────────────────────────────────────
 function cpuDiploDrawAuto() {
   const faction = turnOrder[currentTurnIndex];
-  if (diploDeck.length < 2) diploDeck = buildDiploDeck();
-  const drawn = diploDeck.splice(0, 2);
+  if (!diploDeck.length) diploDeck = buildDiploDeck();
+  const drawn = diploDeck.splice(0, 1);
   diplomacyHands[faction] = (diplomacyHands[faction] || []).concat(drawn);
   currentPhase = "diplo-play";
   updateTurnInfo();
@@ -134,11 +134,12 @@ function cpuAggression(faction) {
 }
 
 // ── Diplomacy phase ───────────────────────────────────────────────────────────
-// Strategy:
-//   1. Always take a free bare roll on any accessible wizard faction (eaters/black_hand).
-//      Cards are wasted on wizards (they ignore card value), so save them for regulars.
-//   2. For regular kingdoms, target the one whose capital is closest to the nearest
-//      opponent capital (contest it before opponents do). Play highest-value card.
+// Decision: card on regular kingdom vs bare roll on wizard faction.
+//   Card of value v on a regular kingdom: P(success) = (v+1)/6  (roll+v >= 6)
+//   Bare roll on wizard (ignores card value): P(success) = 1/6
+//   Bare roll on regular (no card): P(success) = 1/6
+// So any card with value >= 1 is better spent on a regular kingdom than a wizard.
+// Prefer wizards only when we have no regular kingdoms to target.
 function cpuDiplomacy(faction) {
   const advance = () => {
     currentPhase = "siege";
@@ -148,26 +149,24 @@ function cpuDiplomacy(faction) {
 
   const hand = diplomacyHands[faction] || [];
   const kingdoms = getNeutralKingdoms().filter(k => !isAmbassadorBanned(faction, k));
+  if (!kingdoms.length) { advance(); return; }
 
-  // --- Step 1: free bare roll on wizard factions ---
-  const wizardKingdoms = kingdoms.filter(k => k === "eaters" || k === "black_hand");
-  if (wizardKingdoms.length) {
-    // Pick one wizard faction and roll (no card consumed)
-    const target = wizardKingdoms[0];
-    rollWizardDiplomacy(faction, target, advance);
-    return;
-  }
-
-  // --- Step 2: play a card on the best regular neutral kingdom ---
-  const regularCards = hand.filter(c => c.type !== "specialMerc");
+  const regularCards   = hand.filter(c => c.type !== "specialMerc");
+  const bestCard       = regularCards.length
+    ? regularCards.reduce((best, c) => (c.value || 0) > (best.value || 0) ? c : best, regularCards[0])
+    : null;
+  const wizardKingdoms  = kingdoms.filter(k => k === "eaters" || k === "black_hand");
   const regularKingdoms = kingdoms.filter(k => k !== "eaters" && k !== "black_hand");
-  if (!regularCards.length || !regularKingdoms.length) { advance(); return; }
 
-  // Locate my capital
+  // Expected success probability for each action
+  const cardEV    = bestCard ? (bestCard.value + 1) / 6 : 0;
+  const wizardEV  = wizardKingdoms.length ? 1 / 6 : 0;
+  const bareEV    = regularKingdoms.length ? 1 / 6 : 0;
+
+  // Locate my capital and nearest opponent capital for kingdom scoring
   const myCapEntry = Object.entries(tileData).find(([, t]) => t.isCapital && t.faction === faction);
   const [myCapR, myCapC] = myCapEntry ? myCapEntry[0].split(",").map(Number) : [15, 17];
 
-  // Find nearest opponent capital
   const opponentFactions = Object.keys(factions).filter(f => f !== "none" && f !== faction);
   let nearestOppR = myCapR, nearestOppC = myCapC, nearestOppDist = Infinity;
   for (const opp of opponentFactions) {
@@ -178,25 +177,40 @@ function cpuDiplomacy(faction) {
     if (d < nearestOppDist) { nearestOppDist = d; nearestOppR = r; nearestOppC = c; }
   }
 
-  // Score each regular neutral kingdom: close to opponent threat = high priority
-  let bestKingdom = null, bestScore = Infinity;
-  for (const k of regularKingdoms) {
-    const capEntry = Object.entries(tileData).find(([, t]) => t.isCapital && t.faction === k);
-    if (!capEntry) continue;
-    const [r, c] = capEntry[0].split(",").map(Number);
-    const toOpp = hexBFSDistance(r, c, nearestOppR, nearestOppC);
-    const toMe  = hexBFSDistance(r, c, myCapR, myCapC);
-    const score = toOpp * 1.5 + toMe * 0.5;
-    if (score < bestScore) { bestScore = score; bestKingdom = k; }
+  function bestRegularKingdom(pool) {
+    let best = null, bestScore = Infinity;
+    for (const k of pool) {
+      const capEntry = Object.entries(tileData).find(([, t]) => t.isCapital && t.faction === k);
+      if (!capEntry) continue;
+      const [r, c] = capEntry[0].split(",").map(Number);
+      const score = hexBFSDistance(r, c, nearestOppR, nearestOppC) * 1.5
+                  + hexBFSDistance(r, c, myCapR, myCapC) * 0.5;
+      if (score < bestScore) { bestScore = score; best = k; }
+    }
+    return best;
   }
 
-  if (!bestKingdom) { advance(); return; }
+  // Choose best action by EV
+  if (cardEV >= wizardEV && cardEV > 0 && regularKingdoms.length) {
+    // Play best card on best regular kingdom
+    const target = bestRegularKingdom(regularKingdoms);
+    if (!target) { advance(); return; }
+    hand.splice(hand.indexOf(bestCard), 1);
+    playDiplomaticCard(faction, bestCard, target, advance);
 
-  // Play highest-value card (card value matters for regular kingdoms)
-  const card = regularCards.reduce((best, c) => (c.value || 0) > (best.value || 0) ? c : best, regularCards[0]);
-  hand.splice(hand.indexOf(card), 1);
+  } else if (wizardEV > 0) {
+    // Bare roll on wizard (save any card for a future regular kingdom)
+    rollBareAmbassador(faction, wizardKingdoms[0], advance);
 
-  playDiplomaticCard(faction, card, bestKingdom, advance);
+  } else if (bareEV > 0) {
+    // No card, no wizard — bare roll on best regular kingdom (1/6, but free)
+    const target = bestRegularKingdom(regularKingdoms);
+    if (!target) { advance(); return; }
+    rollBareAmbassador(faction, target, advance);
+
+  } else {
+    advance();
+  }
 }
 
 // ── Movement phase ────────────────────────────────────────────────────────────

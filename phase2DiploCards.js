@@ -110,12 +110,12 @@ function initDiplomaticInfluence() {
   }
 }
 
-// Draw 2 cards for the active faction.
+// Draw 1 card for the active faction.
 function handleDiploDrawPhase(faction, onComplete) {
-  if (diploDeck.length < 2) diploDeck = buildDiploDeck();
-  const drawn = diploDeck.splice(0, 2);
+  if (!diploDeck.length) diploDeck = buildDiploDeck();
+  const drawn = diploDeck.splice(0, 1);
   diplomacyHands[faction] = (diplomacyHands[faction] || []).concat(drawn);
   const summary = drawn.map(c => c.label || `+${c.value}`).join(', ');
-  alert(`${faction.toUpperCase()} draws 2 cards: ${summary}\nHand size: ${diplomacyHands[faction].length}`);
+  alert(`${faction.toUpperCase()} draws: ${summary}\nHand size: ${diplomacyHands[faction].length}`);
   onComplete();
 }
