@@ -252,8 +252,20 @@
       measurementId: "G-77TRLCSE3X"
     };
   </script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script>
+    // Load Firebase SDK non-blocking; multiplayer.js handles absence gracefully
+    function _loadFirebase() {
+      const s1 = document.createElement("script");
+      s1.src = "https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js";
+      s1.onerror = () => console.warn("[MP] Firebase app SDK failed to load — offline mode");
+      const s2 = document.createElement("script");
+      s2.src = "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js";
+      s2.onerror = () => console.warn("[MP] Firebase Firestore SDK failed to load — offline mode");
+      document.head.appendChild(s1);
+      document.head.appendChild(s2);
+    }
+    _loadFirebase();
+  </script>
 
   <!-- Multiplayer lobby (shown before setup screen) -->
   <div id="mp-lobby">

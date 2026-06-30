@@ -20,19 +20,26 @@ const MP = (() => {
   let _onRemoteState = null; // callback(state) when remote pushes a new state
 
   // ── Init ────────────────────────────────────────────────────────────────────
-  function init() {
-    if (!window.FIREBASE_CONFIG) return; // offline mode
+  // Called lazily on first online action so Firebase SDK has time to load.
+  function _ensureInit() {
+    if (_db) return true;
+    if (!window.FIREBASE_CONFIG) return false;
+    if (typeof firebase === "undefined") return false; // SDK not loaded yet
     try {
       if (!firebase.apps.length) firebase.initializeApp(window.FIREBASE_CONFIG);
       _db = firebase.firestore();
       console.log("[MP] Firebase connected");
+      return true;
     } catch (e) {
       console.warn("[MP] Firebase init failed — offline mode", e);
+      return false;
     }
   }
 
+  function init() { /* no-op — init is lazy now */ }
+
   // ── Helpers ─────────────────────────────────────────────────────────────────
-  function _online() { return !!_db; }
+  function _online() { return _ensureInit(); }
 
   function _gameRef() { return _db.collection("games").doc(_gameId); }
 
