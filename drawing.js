@@ -374,14 +374,13 @@ if (unit.isMercenary) {
   };
  
   const placeUnits = (units, slices, shape) => {
+    if (!slices.length || !units.length) return;
     let layer = 0, index = 0;
     const maxPerLayer = slices.length;
- 
     while (index < units.length) {
       const radius = baseRadius - layer * layerSpacing;
       for (let i = 0; i < maxPerLayer && index < units.length; i++) {
-        const slice = slices[i];
-        const angle = sliceAngle * (slice + 0.5);
+        const angle = sliceAngle * (slices[i] + 0.5);
         drawUnit(units[index], angle, radius, shape);
         index++;
       }
