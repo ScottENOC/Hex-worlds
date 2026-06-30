@@ -5881,6 +5881,23 @@
   },
   {
     "row": 22,
+    "col": 5,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 22,
     "col": 6,
     "faction": "none",
     "terrain": [
@@ -6577,6 +6594,23 @@
   },
   {
     "row": 24,
+    "col": 5,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 24,
     "col": 6,
     "faction": "none",
     "terrain": [
@@ -6878,6 +6912,23 @@
   },
   {
     "row": 25,
+    "col": 5,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 25,
     "col": 6,
     "faction": "none",
     "terrain": [
@@ -7158,6 +7209,23 @@
   },
   {
     "row": 26,
+    "col": 5,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 26,
     "col": 6,
     "faction": "none",
     "terrain": [
@@ -7236,6 +7304,18 @@
       3,
       4
     ]
+  },
+  {
+    "row": 26,
+    "col": 11,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [],
+    "name": "Tombs of Old",
+    "isAncientBattlefield": true
   },
   {
     "row": 26,
@@ -7428,6 +7508,16 @@
     "lakes": [
       2
     ]
+  },
+  {
+    "row": 27,
+    "col": 12,
+    "faction": "rombune",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
   },
   {
     "row": 27,
@@ -7616,6 +7706,16 @@
   },
   {
     "row": 28,
+    "col": 12,
+    "faction": "rombune",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 28,
     "col": 19,
     "faction": "shucasam",
     "terrain": [
@@ -7740,6 +7840,38 @@
   },
   {
     "row": 29,
+    "col": 8,
+    "faction": "rombune",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [],
+    "name": "Faces to the Sea",
+    "isFacesToTheSea": true
+  },
+  {
+    "row": 29,
+    "col": 9,
+    "faction": "rombune",
+    "terrain": [
+      "forest"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 29,
+    "col": 10,
+    "faction": "rombune",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 29,
     "col": 11,
     "faction": "rombune",
     "terrain": [
@@ -7754,6 +7886,16 @@
     "fortressStrength": 2,
     "isPort": true,
     "isCapital": false
+  },
+  {
+    "row": 29,
+    "col": 13,
+    "faction": "rombune",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
   },
   {
     "row": 29,
@@ -7891,6 +8033,57 @@
     ]
   },
   {
+    "row": 30,
+    "col": 7,
+    "faction": "rombune",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 30,
+    "col": 8,
+    "faction": "rombune",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 30,
+    "col": 9,
+    "faction": "rombune",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 30,
+    "col": 12,
+    "faction": "rombune",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [],
+    "name": "Crater of the Punishing Star"
+  },
+  {
+    "row": 30,
+    "col": 13,
+    "faction": "rombune",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
     "row": 31,
     "col": 1,
     "faction": "none",
@@ -7987,6 +8180,76 @@
       3,
       4
     ]
+  },
+  {
+    "row": 31,
+    "col": 7,
+    "faction": "rombune",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 31,
+    "col": 8,
+    "faction": "rombune",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 31,
+    "col": 9,
+    "faction": "rombune",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 31,
+    "col": 10,
+    "faction": "rombune",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 31,
+    "col": 11,
+    "faction": "rombune",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 31,
+    "col": 12,
+    "faction": "rombune",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
+  },
+  {
+    "row": 31,
+    "col": 13,
+    "faction": "rombune",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": []
   },
   {
     "row": 32,
