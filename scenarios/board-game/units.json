@@ -974,5 +974,81 @@
     "combatStrength": 1,
     "siegeStrength": 1,
     "isNomadic": true
+  },
+  {
+    "faction": "rombune",
+    "row": 28,
+    "col": 5,
+    "moveSpeed": 7,
+    "isLeader": true,
+    "combatStrength": 0,
+    "siegeStrength": 0
+  },
+  {
+    "faction": "rombune",
+    "row": 28,
+    "col": 5,
+    "moveSpeed": 5,
+    "combatStrength": 1,
+    "siegeStrength": 1
+  },
+  {
+    "faction": "rombune",
+    "row": 28,
+    "col": 5,
+    "moveSpeed": 5,
+    "combatStrength": 1,
+    "siegeStrength": 1
+  },
+  {
+    "faction": "rombune",
+    "row": 28,
+    "col": 5,
+    "moveSpeed": 8,
+    "isFleet": true,
+    "combatStrength": 1,
+    "siegeStrength": 1
+  },
+  {
+    "faction": "rombune",
+    "row": 30,
+    "col": 4,
+    "moveSpeed": 8,
+    "isFleet": true,
+    "combatStrength": 1,
+    "siegeStrength": 1
+  },
+  {
+    "faction": "rombune",
+    "row": 30,
+    "col": 4,
+    "moveSpeed": 5,
+    "combatStrength": 1,
+    "siegeStrength": 1
+  },
+  {
+    "faction": "rombune",
+    "row": 29,
+    "col": 11,
+    "moveSpeed": 5,
+    "combatStrength": 1,
+    "siegeStrength": 1
+  },
+  {
+    "faction": "rombune",
+    "row": 29,
+    "col": 11,
+    "moveSpeed": 5,
+    "combatStrength": 1,
+    "siegeStrength": 1
+  },
+  {
+    "faction": "rombune",
+    "row": 29,
+    "col": 11,
+    "moveSpeed": 8,
+    "isFleet": true,
+    "combatStrength": 1,
+    "siegeStrength": 1
   }
 ]

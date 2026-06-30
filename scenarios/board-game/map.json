@@ -9463,7 +9463,7 @@
     "lakes": [
       0
     ],
-    "name": "Rombune",
+    "name": "The Golkus",
     "isFortress": true,
     "fortressStrength": 3,
     "isCapital": true,
@@ -10235,7 +10235,10 @@
     ],
     "rivers": [],
     "lakes": [],
-    "name": "Thores on the Rock"
+    "name": "Thores on the Rock",
+    "isFortress": true,
+    "fortressStrength": 2,
+    "isPort": true
   },
   {
     "row": 30,
