@@ -9,22 +9,24 @@ const terrainIcons = {
 function drawMap() {
   // Clear existing SVG content
   svg.innerHTML = "";
- 
+
   // Get list of currently besieged fortresses
   highlightedTilesByType.siege = Array.from(getBesiegedFortresses()).map(key => {
-  const [row, col] = key.split(',').map(Number);
-   return [row, col];
+    const [row, col] = key.split(',').map(Number);
+    return [row, col];
   });
- 
-  // Loop through all rows and columns of the map
+
+  // Build all SVG elements into a fragment — single DOM insertion avoids per-element reflows
+  const frag = document.createDocumentFragment();
   for (let row = 1; row <= rows; row++) {
     for (let col = 1; col <= columns(row); col++) {
-      drawHex(row, col);
+      drawHex(row, col, frag);
     }
   }
+  svg.appendChild(frag);
 }
  
-function drawHex(row, col, besiegedFortresses = new Set()) {
+function drawHex(row, col, container = svg) {
   const key = `${row},${col}`;
   const rawData = tileData[key];                         // undefined = not yet coded
   const data = rawData || {};
@@ -50,7 +52,7 @@ function drawHex(row, col, besiegedFortresses = new Set()) {
   hex.classList.add("hex");
   hex.setAttribute("pointer-events", "all");
   hex.dataset.hex = `${row},${col}`;
-  svg.appendChild(hex);
+  container.appendChild(hex);
  
   // Handle clicks...
   hex.addEventListener("click", () => {
@@ -155,7 +157,7 @@ if (highlightedTilesByType) {
             overlay.setAttribute("stroke-dasharray", "2,2");
         }
  
-        svg.appendChild(overlay);
+        container.appendChild(overlay);
       }
     }
   }
@@ -175,7 +177,7 @@ if (highlightedTilesByType) {
     lake.setAttribute("fill", "lightblue");
     lake.setAttribute("pointer-events", "none");
     lake.classList.add("lake");
-    svg.appendChild(lake);
+    container.appendChild(lake);
   }
  
   // Rivers
@@ -194,7 +196,7 @@ if (highlightedTilesByType) {
     river.setAttribute("stroke-width", "3");
     river.setAttribute("pointer-events", "none");
     river.classList.add("river");
-    svg.appendChild(river);
+    container.appendChild(river);
   }
  
   // Terrain icons
@@ -206,7 +208,7 @@ if (highlightedTilesByType) {
     icon.setAttribute("pointer-events", "none");
     icon.classList.add("terrain-icon");
     icon.textContent = terrainIcons[terrain] || "";
-    svg.appendChild(icon);
+    container.appendChild(icon);
   });
  
   // Fortress
@@ -220,7 +222,7 @@ if (highlightedTilesByType) {
     castle.setAttribute("pointer-events", "none");
     castle.classList.add("fortress-icon");
     castle.textContent = isBesieged ? "🔥" : "🏰";
-    svg.appendChild(castle);
+    container.appendChild(castle);
  
     const fortressLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
     fortressLabel.setAttribute("x", cx);
@@ -228,7 +230,7 @@ if (highlightedTilesByType) {
     fortressLabel.setAttribute("pointer-events", "none");
     fortressLabel.classList.add("fortress-name");
     fortressLabel.textContent = name;
-    svg.appendChild(fortressLabel);
+    container.appendChild(fortressLabel);
  
     const fortressNumber = document.createElementNS("http://www.w3.org/2000/svg", "text");
     fortressNumber.setAttribute("x", cx);
@@ -236,7 +238,7 @@ if (highlightedTilesByType) {
     fortressNumber.setAttribute("pointer-events", "none");
     fortressNumber.classList.add("fortress-number");
     fortressNumber.textContent = fortressStrength;
-    svg.appendChild(fortressNumber);
+    container.appendChild(fortressNumber);
  
 if (isBesieged) {
   const outline = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
@@ -246,7 +248,7 @@ if (isBesieged) {
   outline.setAttribute("stroke-width", "50");
   outline.setAttribute("pointer-events", "none");
   outline.classList.add("besieged-outline");
-  svg.appendChild(outline);
+  container.appendChild(outline);
 }
 
   }
@@ -261,14 +263,14 @@ if (isBesieged) {
     label.setAttribute("pointer-events", "none");
     label.classList.add("tile-name");
     label.textContent = name;
-    svg.appendChild(label);
+    container.appendChild(label);
   }
  
   // === UNIT DRAWING (new logic using separate function) ===
-  drawUnitsInHex(row, col, cx, cy, lakes);
+  drawUnitsInHex(row, col, cx, cy, lakes, container);
 }
- 
-function drawUnitsInHex(row, col, cx, cy, lakes) {
+
+function drawUnitsInHex(row, col, cx, cy, lakes, container = svg) {
   const hexUnits = units.filter(u => u.row === row && u.col === col);
   if (hexUnits.length === 0) return;
  
@@ -347,7 +349,7 @@ if (unit.isMercenary) {
       }
     });
  
-    svg.appendChild(element);
+    container.appendChild(element);
 
  if (unit.isLeader) {
   const crown = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -357,7 +359,7 @@ if (unit.isMercenary) {
   crown.setAttribute("font-size", "12px");
   crown.setAttribute("pointer-events", "none");
   crown.textContent = "👑";
-  svg.appendChild(crown);
+  container.appendChild(crown);
 }
 
     const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -368,7 +370,7 @@ if (unit.isMercenary) {
     label.setAttribute("pointer-events", "none");
     label.classList.add("unit-label");
     label.textContent = unit.moveSpeed;
-    svg.appendChild(label);
+    container.appendChild(label);
   };
  
   const placeUnits = (units, slices, shape) => {
