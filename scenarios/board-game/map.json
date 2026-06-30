@@ -188,7 +188,7 @@
     "col": 25,
     "faction": "none",
     "terrain": [
-      "plains"
+      "hills"
     ],
     "rivers": [],
     "lakes": []
@@ -198,7 +198,7 @@
     "col": 26,
     "faction": "none",
     "terrain": [
-      "plains"
+      "hills"
     ],
     "rivers": [],
     "lakes": []
@@ -271,7 +271,9 @@
       "plains"
     ],
     "rivers": [],
-    "lakes": []
+    "lakes": [],
+    "name": "Witch's Kitchen",
+    "isWitchsKitchen": true
   },
   {
     "row": 1,
@@ -500,7 +502,7 @@
     "col": 25,
     "faction": "none",
     "terrain": [
-      "plains"
+      "hills"
     ],
     "rivers": [],
     "lakes": []
@@ -838,7 +840,7 @@
     "col": 26,
     "faction": "none",
     "terrain": [
-      "plains"
+      "mountain"
     ],
     "rivers": [],
     "lakes": []
@@ -1206,7 +1208,7 @@
     "col": 32,
     "faction": "none",
     "terrain": [
-      "plains"
+      "mountain"
     ],
     "rivers": [],
     "lakes": []
@@ -1216,7 +1218,7 @@
     "col": 33,
     "faction": "none",
     "terrain": [
-      "plains"
+      "hills"
     ],
     "rivers": [],
     "lakes": []
@@ -1465,7 +1467,7 @@
     "col": 28,
     "faction": "none",
     "terrain": [
-      "plains"
+      "hills"
     ],
     "rivers": [],
     "lakes": []
@@ -1475,7 +1477,7 @@
     "col": 29,
     "faction": "none",
     "terrain": [
-      "plains"
+      "hills"
     ],
     "rivers": [],
     "lakes": []
@@ -1503,7 +1505,7 @@
     "col": 32,
     "faction": "none",
     "terrain": [
-      "plains"
+      "forest"
     ],
     "rivers": [],
     "lakes": []
@@ -1513,7 +1515,7 @@
     "col": 33,
     "faction": "none",
     "terrain": [
-      "plains"
+      "forest"
     ],
     "rivers": [],
     "lakes": []
@@ -1523,7 +1525,7 @@
     "col": 34,
     "faction": "none",
     "terrain": [
-      "plains"
+      "forest"
     ],
     "rivers": [],
     "lakes": []
@@ -1757,7 +1759,7 @@
     "col": 27,
     "faction": "none",
     "terrain": [
-      "plains"
+      "forest"
     ],
     "rivers": [],
     "lakes": []
@@ -1767,7 +1769,7 @@
     "col": 28,
     "faction": "none",
     "terrain": [
-      "plains"
+      "forest"
     ],
     "rivers": [],
     "lakes": []
@@ -1797,7 +1799,7 @@
     "col": 31,
     "faction": "none",
     "terrain": [
-      "plains"
+      "forest"
     ],
     "rivers": [],
     "lakes": []
@@ -1807,7 +1809,7 @@
     "col": 32,
     "faction": "none",
     "terrain": [
-      "plains"
+      "forest"
     ],
     "rivers": [],
     "lakes": []
@@ -1817,7 +1819,7 @@
     "col": 33,
     "faction": "none",
     "terrain": [
-      "plains"
+      "forest"
     ],
     "rivers": [],
     "lakes": []
@@ -2069,7 +2071,7 @@
     "col": 26,
     "faction": "none",
     "terrain": [
-      "plains"
+      "forest"
     ],
     "rivers": [],
     "lakes": []
@@ -2079,7 +2081,7 @@
     "col": 27,
     "faction": "none",
     "terrain": [
-      "plains"
+      "forest"
     ],
     "rivers": [],
     "lakes": []
@@ -2089,7 +2091,7 @@
     "col": 28,
     "faction": "none",
     "terrain": [
-      "plains"
+      "forest"
     ],
     "rivers": [],
     "lakes": []
@@ -2112,7 +2114,9 @@
       "plains"
     ],
     "rivers": [],
-    "lakes": []
+    "lakes": [],
+    "name": "The Wasted Dead",
+    "isAncientBattlefield": true
   },
   {
     "row": 7,
@@ -2342,7 +2346,7 @@
     "col": 22,
     "faction": "none",
     "terrain": [
-      "plains"
+      "forest"
     ],
     "rivers": [],
     "lakes": []
@@ -2352,7 +2356,7 @@
     "col": 23,
     "faction": "none",
     "terrain": [
-      "plains"
+      "mountain"
     ],
     "rivers": [],
     "lakes": []
@@ -2372,7 +2376,7 @@
     "col": 25,
     "faction": "none",
     "terrain": [
-      "plains"
+      "mountain"
     ],
     "rivers": [],
     "lakes": []
@@ -2382,7 +2386,7 @@
     "col": 26,
     "faction": "none",
     "terrain": [
-      "plains"
+      "forest"
     ],
     "rivers": [],
     "lakes": []
@@ -2408,7 +2412,7 @@
     "col": 29,
     "faction": "none",
     "terrain": [
-      "plains"
+      "hills"
     ],
     "rivers": [],
     "lakes": []
@@ -2418,7 +2422,8 @@
     "col": 30,
     "faction": "none",
     "terrain": [
-      "plains"
+      "hills",
+      "forest"
     ],
     "rivers": [],
     "lakes": []
@@ -2428,7 +2433,7 @@
     "col": 31,
     "faction": "none",
     "terrain": [
-      "plains"
+      "hills"
     ],
     "rivers": [],
     "lakes": []
@@ -2735,10 +2740,12 @@
     "col": 30,
     "faction": "none",
     "terrain": [
-      "plains"
+      "forest"
     ],
     "rivers": [],
-    "lakes": []
+    "lakes": [
+      0
+    ]
   },
   {
     "row": 9,
@@ -2748,7 +2755,9 @@
       "plains"
     ],
     "rivers": [],
-    "lakes": []
+    "lakes": [
+      3
+    ]
   },
   {
     "row": 9,
@@ -3046,7 +3055,7 @@
     "col": 29,
     "faction": "none",
     "terrain": [
-      "plains"
+      "hills"
     ],
     "rivers": [],
     "lakes": []
@@ -3056,7 +3065,7 @@
     "col": 30,
     "faction": "none",
     "terrain": [
-      "plains"
+      "hills"
     ],
     "rivers": [],
     "lakes": []
@@ -3384,9 +3393,12 @@
     "col": 30,
     "faction": "none",
     "terrain": [
-      "plains"
+      "mountain"
     ],
-    "rivers": [],
+    "rivers": [
+      3,
+      1
+    ],
     "lakes": []
   },
   {
@@ -3421,16 +3433,6 @@
     "faction": "none",
     "terrain": [
       "mountain"
-    ],
-    "rivers": [],
-    "lakes": []
-  },
-  {
-    "row": 11,
-    "col": 35,
-    "faction": "none",
-    "terrain": [
-      "plains"
     ],
     "rivers": [],
     "lakes": []
@@ -3701,9 +3703,11 @@
     "col": 30,
     "faction": "none",
     "terrain": [
-      "plains"
+      "mountain"
     ],
-    "rivers": [],
+    "rivers": [
+      4
+    ],
     "lakes": []
   },
   {
@@ -4776,16 +4780,6 @@
     "lakes": []
   },
   {
-    "row": 15,
-    "col": 35,
-    "faction": "none",
-    "terrain": [
-      "plains"
-    ],
-    "rivers": [],
-    "lakes": []
-  },
-  {
     "row": 16,
     "col": 1,
     "terrain": [
@@ -5465,7 +5459,7 @@
     "col": 31,
     "faction": "none",
     "terrain": [
-      "plains"
+      "forest"
     ],
     "rivers": [],
     "lakes": []
@@ -5485,7 +5479,7 @@
     "col": 33,
     "faction": "none",
     "terrain": [
-      "plains"
+      "mountain"
     ],
     "rivers": [],
     "lakes": []
@@ -5811,7 +5805,7 @@
     "col": 30,
     "faction": "pon",
     "terrain": [
-      "forest"
+      "hills"
     ],
     "rivers": [],
     "lakes": []
@@ -5821,7 +5815,7 @@
     "col": 31,
     "faction": "none",
     "terrain": [
-      "plains"
+      "forest"
     ],
     "rivers": [],
     "lakes": []
@@ -5831,7 +5825,7 @@
     "col": 32,
     "faction": "none",
     "terrain": [
-      "mountain"
+      "plains"
     ],
     "rivers": [],
     "lakes": []
@@ -5841,7 +5835,7 @@
     "col": 33,
     "faction": "none",
     "terrain": [
-      "plains"
+      "hills"
     ],
     "rivers": [],
     "lakes": []
