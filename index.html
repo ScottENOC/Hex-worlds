@@ -648,7 +648,7 @@
       // Resolve "random" players — assign them unclaimed factions
       const claimed   = new Set(Object.keys(claims));
       const unclaimed = [..._playableFactions].filter(f => !claimed.has(f));
-      shuffle(unclaimed); // shuffle so random assignments are themselves random
+      shuffle(unclaimed);
 
       const finalPlayers = [];
       for (const [, p] of Object.entries(players)) {
@@ -656,7 +656,6 @@
         if (p.faction === "random") {
           const assigned = unclaimed.shift();
           if (assigned) finalPlayers.push({ faction: assigned, control: "human" });
-          // if no unclaimed left, this player becomes a spectator (edge case)
         } else {
           finalPlayers.push({ faction: p.faction, control: "human" });
         }
@@ -671,9 +670,19 @@
 
       fpEl.style.display = "none";
 
-      await loadScenario("board-game");
-      initGame({ players: finalPlayers });
-      await MP.startGame();
+      try {
+        console.log("[MP] Loading scenario…");
+        await loadScenario("board-game");
+        console.log("[MP] Scenario loaded — starting game");
+        initGame({ players: finalPlayers });
+        console.log("[MP] initGame done — pushing to Firestore");
+        await MP.startGame();
+        console.log("[MP] startGame done");
+      } catch (e) {
+        console.error("[MP] Start failed:", e);
+        alert("Failed to start: " + (e.message || e));
+        fpEl.style.display = "flex"; // re-show picker on error
+      }
     });
 
     // ── Wrap endTurn to push state ─────────────────────────────────────────
