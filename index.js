@@ -46,15 +46,23 @@ function initGame({ players } = {}) {
   shuffle(turnOrder);
   currentTurnIndex = 0;
 
+  console.log("[init] buildDiploDeck");
   diploDeck = buildDiploDeck();
+  console.log("[init] initDiplomaticInfluence");
   initDiplomaticInfluence();
+  console.log("[init] assignPersonalityCards");
   assignPersonalityCards();
+  console.log("[init] drawMap");
   drawMap();
+  console.log("[init] updateTurnInfo");
   updateTurnInfo();
+  console.log("[init] updateVPInfo");
   updateVPInfo();
+  console.log("[init] resetEatersSpellsForTurn");
   resetEatersSpellsForTurn();
-
+  console.log("[init] dispatchCPUIfNeeded");
   dispatchCPUIfNeeded();
+  console.log("[init] done");
 }
 
 // ---------------------------
