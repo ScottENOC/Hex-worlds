@@ -213,7 +213,7 @@ if (highlightedTilesByType) {
  
   // Fortress
   if (isFortress) {
-    const isBesieged = besiegedFortresses.has(`${row},${col}`);
+    const isBesieged = (highlightedTilesByType.siege || []).some(([r, c]) => r === row && c === col);
  
     const castle = document.createElementNS("http://www.w3.org/2000/svg", "text");
     castle.setAttribute("x", cx);
