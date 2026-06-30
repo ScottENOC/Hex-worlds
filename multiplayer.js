@@ -46,6 +46,7 @@ const MP = (() => {
     return {
       units:            JSON.parse(JSON.stringify(units)),
       tileData:         JSON.parse(JSON.stringify(tileData)),
+      kingdomColors:    JSON.parse(JSON.stringify(kingdomColors)),
       turnOrder,        currentTurnIndex, currentPhase, turnNumber,
       reserves:         JSON.parse(JSON.stringify(reserves)),
       victoryPoints:    JSON.parse(JSON.stringify(victoryPoints)),
@@ -62,8 +63,10 @@ const MP = (() => {
   function _deserialize(state) {
     units.length = 0;
     units.push(...state.units);
-    for (const k of Object.keys(tileData)) delete tileData[k];
-    Object.assign(tileData, state.tileData);
+    for (const k of Object.keys(tileData))       delete tileData[k];
+    for (const k of Object.keys(kingdomColors))  delete kingdomColors[k];
+    Object.assign(tileData,      state.tileData);
+    Object.assign(kingdomColors, state.kingdomColors || {});
     turnOrder.length = 0;
     turnOrder.push(...state.turnOrder);
     currentTurnIndex = state.currentTurnIndex;
