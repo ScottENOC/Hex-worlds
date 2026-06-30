@@ -238,7 +238,8 @@
       background: #f9f9f9;
     }
     .fp-card:hover { border-color: #888; background: #f0f0f0; }
-    .fp-card.fp-mine   { border-color: #2a6; background: #e8f5ee; }
+    .fp-random-card    { border-style: dashed; border-color: #888; }
+    .fp-card.fp-mine   { border-color: #2a6; background: #e8f5ee; border-style: solid; }
     .fp-card.fp-taken  { border-color: #ccc; background: #f0f0f0; opacity: 0.55; cursor: default; }
     .fp-card.fp-pending { border-color: #e80; background: #fff8e8; }
     .fp-card-name   { font-weight: bold; font-size: 13px; margin-bottom: 4px; }
@@ -423,6 +424,7 @@
     let _playableFactions = [];
     let _displayNames     = {};
     let _pendingFaction   = null; // optimistic before transaction resolves
+    let _markedReady      = false; // true once Ready button clicked (prevents re-enable)
 
     // ── Load playable factions from scenario.json ──────────────────────────
     async function loadFactions() {
@@ -447,6 +449,15 @@
       // Build faction card grid
       const grid = document.getElementById("mp-fp-grid");
       grid.innerHTML = "";
+
+      // Random card first
+      const randCard = document.createElement("div");
+      randCard.className = "fp-card fp-random-card";
+      randCard.dataset.faction = "random";
+      randCard.innerHTML = `<div class="fp-card-name">Random</div><div class="fp-card-status">Assigned at start</div>`;
+      randCard.addEventListener("click", () => handleFactionClick("random"));
+      grid.appendChild(randCard);
+
       for (const fId of _playableFactions) {
         const card = document.createElement("div");
         card.className = "fp-card";
@@ -460,14 +471,21 @@
       const startBtn = document.getElementById("mp-fp-start-btn");
       if (MP.isHost()) startBtn.style.display = "inline-block";
       else startBtn.style.display = "none";
-
-      // Auto-assign a random faction immediately
-      MP.autoAssign(_playableFactions);
     }
 
     // ── Handle clicking a faction card ─────────────────────────────────────
     async function handleFactionClick(fId) {
       if (fId === MP.myFaction()) return; // already mine
+
+      if (fId === "random") {
+        // Release any specific claim; mark as random
+        _pendingFaction = "random";
+        refreshGrid(MP.getRoomData());
+        await MP.claimFaction(null); // release claim
+        await MP.setFactionRandom();
+        _pendingFaction = null;
+        return;
+      }
 
       // Optimistic update
       _pendingFaction = fId;
@@ -477,10 +495,10 @@
       _pendingFaction = null;
 
       if (!ok) {
-        // Faction was taken — server has already reverted us; auto-assign a new one
-        await MP.autoAssign(_playableFactions);
+        // Faction taken — stay on random
+        await MP.setFactionRandom();
       }
-      // Firestore listener will refresh the grid with authoritative state
+      // Firestore listener refreshes with authoritative state
     }
 
     // ── Refresh faction grid from Firestore data ───────────────────────────
@@ -496,20 +514,26 @@
         claimNames[fId] = players[pId]?.name || "?";
       }
 
+      const myFaction = _pendingFaction || MP.myFaction();
+
       for (const card of document.querySelectorAll(".fp-card")) {
         const fId      = card.dataset.faction;
         const statusEl = card.querySelector(".fp-card-status");
-        card.className = "fp-card";
+        // preserve base classes (fp-random-card)
+        const isRandom = fId === "random";
+        card.className = "fp-card" + (isRandom ? " fp-random-card" : "");
 
         if (fId === _pendingFaction) {
           card.classList.add("fp-pending");
           statusEl.textContent = "Confirming…";
-        } else if (fId === MP.myFaction() && !_pendingFaction) {
+        } else if (fId === myFaction && !_pendingFaction) {
           card.classList.add("fp-mine");
-          statusEl.textContent = "✓ Your pick";
-        } else if (claimNames[fId] && claimNames[fId] !== (players[MP.playerId()]?.name)) {
+          statusEl.textContent = isRandom ? "✓ Random" : "✓ Your pick";
+        } else if (!isRandom && claimNames[fId]) {
           card.classList.add("fp-taken");
           statusEl.textContent = claimNames[fId];
+        } else if (isRandom) {
+          statusEl.textContent = "Assigned at start";
         } else {
           statusEl.textContent = "";
         }
@@ -518,10 +542,11 @@
       refreshPlayerList(data);
       refreshStartBtn(data);
 
-      // Enable ready button only once a faction is confirmed
-      const readyBtn = document.getElementById("mp-fp-ready-btn");
-      if (readyBtn && !readyBtn.disabled) {
-        readyBtn.disabled = !MP.myFaction();
+      // Enable ready button when a choice is made (specific faction or random)
+      // but never re-enable after the player has clicked Ready
+      if (!_markedReady) {
+        const readyBtn = document.getElementById("mp-fp-ready-btn");
+        if (readyBtn) readyBtn.disabled = !myFaction;
       }
     }
 
@@ -532,7 +557,9 @@
       const myId    = MP.playerId();
       el.innerHTML  = Object.entries(players).map(([pId, p]) => {
         const you     = pId === myId ? " (you)" : "";
-        const faction = p.faction ? (_displayNames[p.faction] || p.faction) : "choosing…";
+        const faction = !p.faction ? "choosing…"
+                      : p.faction === "random" ? "Random"
+                      : (_displayNames[p.faction] || p.faction);
         const ready   = p.ready ? " ✓" : "";
         return `<div class="fp-player${p.ready ? " fp-player-ready" : ""}">${p.name}${you}: ${faction}${ready}</div>`;
       }).join("");
@@ -542,6 +569,7 @@
       const btn = document.getElementById("mp-fp-start-btn");
       if (!btn || !MP.isHost()) return;
       const players = Object.values(data.players || {});
+      // faction can be a specific ID or "random" — both count as chosen
       const allReady = players.length > 0 && players.every(p => p.ready && p.faction);
       btn.disabled    = !allReady;
       btn.textContent = allReady ? "Start Game" : "Waiting for players…";
@@ -605,6 +633,7 @@
 
     // ── Faction picker buttons ─────────────────────────────────────────────
     document.getElementById("mp-fp-ready-btn").addEventListener("click", async function() {
+      _markedReady     = true;
       this.disabled    = true;
       this.textContent = "✓ Ready";
       await MP.setReady(true);
@@ -614,24 +643,37 @@
       const data = MP.getRoomData();
       if (!data) return;
 
-      // Build controlTypes: claimed factions = human; rest = neutral/cpu
-      const claims = data.factionClaims || {};
-      for (const f of _playableFactions) {
-        controlTypes[f] = claims[f] ? "human" : "neutral";
+      const claims  = data.factionClaims || {};
+      const players = data.players || {};
+
+      // Resolve "random" players — assign them unclaimed factions
+      const claimed   = new Set(Object.keys(claims));
+      const unclaimed = [..._playableFactions].filter(f => !claimed.has(f));
+      shuffle(unclaimed); // shuffle so random assignments are themselves random
+
+      const finalPlayers = [];
+      for (const [, p] of Object.entries(players)) {
+        if (!p.faction) continue;
+        if (p.faction === "random") {
+          const assigned = unclaimed.shift();
+          if (assigned) finalPlayers.push({ faction: assigned, control: "human" });
+          // if no unclaimed left, this player becomes a spectator (edge case)
+        } else {
+          finalPlayers.push({ faction: p.faction, control: "human" });
+        }
       }
+
+      // Build controlTypes
+      const humanFactions = new Set(finalPlayers.map(p => p.faction));
       for (const f of _playableFactions) {
-        if (!claims[f]) neutralFactions.add(f);
+        controlTypes[f] = humanFactions.has(f) ? "human" : "neutral";
+        if (!humanFactions.has(f)) neutralFactions.add(f);
       }
 
       fpEl.style.display = "none";
 
       await loadScenario("board-game");
-
-      const players = Object.values(data.players)
-        .filter(p => p.faction)
-        .map(p => ({ faction: p.faction, control: "human" }));
-
-      initGame({ players });
+      initGame({ players: finalPlayers });
       await MP.startGame();
     });
 

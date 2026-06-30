@@ -182,6 +182,16 @@ const MP = (() => {
     }
   }
 
+  // ── Mark player as "random" (no specific claim) ─────────────────────────────
+  async function setFactionRandom() {
+    if (!_online() || !_gameId) return;
+    _myFaction = "random";
+    await _gameRef().update({
+      [`players.${_playerId}.faction`]: "random",
+      [`players.${_playerId}.ready`]:   false,
+    });
+  }
+
   // ── Ready up ─────────────────────────────────────────────────────────────────
   async function setReady(ready = true) {
     if (!_online() || !_gameId) return;
@@ -266,7 +276,7 @@ const MP = (() => {
   function onGameStart(cb)     { _onGameStart     = cb; }
 
   return {
-    init, createGame, joinGame, claimFaction, autoAssign, setReady, startGame, pushState,
+    init, createGame, joinGame, claimFaction, autoAssign, setFactionRandom, setReady, startGame, pushState,
     isMyTurn, myFaction, gameId, online, isHost, playerId, getRoomData,
     onRemoteState, onFactionUpdate, onGameStart,
   };
