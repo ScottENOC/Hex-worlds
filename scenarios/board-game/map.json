@@ -5881,23 +5881,6 @@
   },
   {
     "row": 22,
-    "col": 5,
-    "faction": "none",
-    "terrain": [
-      "plains"
-    ],
-    "rivers": [],
-    "lakes": [
-      0,
-      1,
-      2,
-      3,
-      4,
-      5
-    ]
-  },
-  {
-    "row": 22,
     "col": 6,
     "faction": "none",
     "terrain": [
@@ -6594,23 +6577,6 @@
   },
   {
     "row": 24,
-    "col": 5,
-    "faction": "none",
-    "terrain": [
-      "plains"
-    ],
-    "rivers": [],
-    "lakes": [
-      0,
-      1,
-      2,
-      3,
-      4,
-      5
-    ]
-  },
-  {
-    "row": 24,
     "col": 6,
     "faction": "none",
     "terrain": [
@@ -6912,23 +6878,6 @@
   },
   {
     "row": 25,
-    "col": 5,
-    "faction": "none",
-    "terrain": [
-      "plains"
-    ],
-    "rivers": [],
-    "lakes": [
-      0,
-      1,
-      2,
-      3,
-      4,
-      5
-    ]
-  },
-  {
-    "row": 25,
     "col": 6,
     "faction": "none",
     "terrain": [
@@ -7193,23 +7142,6 @@
   {
     "row": 26,
     "col": 4,
-    "faction": "none",
-    "terrain": [
-      "plains"
-    ],
-    "rivers": [],
-    "lakes": [
-      0,
-      1,
-      2,
-      3,
-      4,
-      5
-    ]
-  },
-  {
-    "row": 26,
-    "col": 5,
     "faction": "none",
     "terrain": [
       "plains"
@@ -8028,6 +7960,23 @@
   },
   {
     "row": 31,
+    "col": 5,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 31,
     "col": 6,
     "faction": "rombune",
     "terrain": [
@@ -8093,6 +8042,40 @@
   {
     "row": 32,
     "col": 4,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 32,
+    "col": 5,
+    "faction": "none",
+    "terrain": [
+      "plains"
+    ],
+    "rivers": [],
+    "lakes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "row": 32,
+    "col": 6,
     "faction": "none",
     "terrain": [
       "plains"
