@@ -1,25 +1,32 @@
-const CACHE_NAME = 'divine-right-cache-v1';
+const CACHE_NAME = 'divine-right-cache-v2';
 const urlsToCache = [
-  '/index.html',
-  '/manifest.json',
-  '/icons/icon-192.png',
-  '/icons/icon-512.png',
-  '/state.js',
-  '/utils.js',
-  '/drawing.js',
-  '/mapData.js',
-  '/unitData.js',
-  '/main.js',
-
-  '/scripts/phase1Event.js',
-  '/scripts/phase2DiploCards.js',
-  '/scripts/phase3diplomacy.js',
-  '/scripts/phase4siege.js',
-  '/scripts/phase5Movement.js',
-  '/scripts/phase6combatDeclaration.js',
-  '/scripts/phase7CombatResolution.js',
-
-  // Add any icons, images, sounds, etc. used by your game
+  './index.html',
+  './manifest.json',
+  './state.js',
+  './utils.js',
+  './drawing.js',
+  './mapData.js',
+  './unitData.js',
+  './scenarioLoader.js',
+  './multiplayer.js',
+  './retreat.js',
+  './phase1Event.js',
+  './phase2DiploCards.js',
+  './phase3diplomacy.js',
+  './phase4siege.js',
+  './phase5Movement.js',
+  './phase6combatDeclaration.js',
+  './phase7CombatResolution.js',
+  './eaterSpells.js',
+  './blackhand.js',
+  './greystaff.js',
+  './cpuAI.js',
+  './index.js',
+  './setup.js',
+  './panZoom.js',
+  './scenarios/board-game/scenario.json',
+  './scenarios/board-game/map.json',
+  './scenarios/board-game/units.json',
 ];
 
 self.addEventListener('install', event => {
