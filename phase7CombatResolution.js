@@ -37,6 +37,48 @@ function startCombatResolution() {
     return;
   }
 
+  // ── LEPERS: block attacks unless attacker is Black Hand or Eaters ────────
+  const lepersInTarget = defenders.some(u => u.isLeper);
+  if (lepersInTarget) {
+    const attFaction = attackers[0]?.faction;
+    if (!canAttackLepers(attFaction)) {
+      alert(`The Lepers at (${targetHex.row},${targetHex.col}) cannot be attacked by ${attFaction}! Only the Black Hand or Eaters of Wisdom may attack them.`);
+      startCombatResolution();
+      return;
+    }
+  }
+
+  // ── LEPERS: auto-retreat any stack adjacent to Lepers ────────────────────
+  const leper = getLepers();
+  if (leper && leper.row != null) {
+    const defFaction = defenders[0]?.faction;
+    if (checkLepersAutoRetreat(defFaction, targetHex.row, targetHex.col)) {
+      alert(`Units of ${defFaction} at (${targetHex.row},${targetHex.col}) must automatically retreat before the Lepers!`);
+      executeLepersRetreat(defenders, targetHex.row, targetHex.col, leper.row, leper.col);
+      drawMap();
+      startCombatResolution();
+      return;
+    }
+  }
+
+  // ── RETREAT BEFORE COMBAT ─────────────────────────────────────────────────
+  const defFactionName = defenders[0]?.faction;
+  if (defenders.length > 0 && defFactionName !== turnOrder[currentTurnIndex]) {
+    const wantRetreat = confirm(
+      `${defFactionName} is being attacked at (${targetHex.row},${targetHex.col}).\n` +
+      `Attempt retreat before combat?`
+    );
+    if (wantRetreat) {
+      const retreated = attemptRetreatBeforeCombat(defenders, targetHex);
+      if (retreated) {
+        drawMap();
+        startCombatResolution();
+        return;
+      }
+      // Failed retreat — attacker may optionally advance into vacated hex (only if fully vacated)
+    }
+  }
+
   window.currentCombat = { attackers: [...attackers], defenders: [...defenders], fromHex, targetHex };
 
   document.getElementById("combat-info").innerHTML = `
@@ -94,11 +136,13 @@ function resolveCurrentCombat() {
   const defenderFaction = defenders[0]?.faction;
   const attackerSleepPenalty = units.some(u => u.isLeader && u.faction === attackerFaction && u.templeSleep) ? -1 : 0;
   const defenderSleepPenalty = units.some(u => u.isLeader && u.faction === defenderFaction && u.templeSleep) ? -1 : 0;
+  const attackerIsleOfFrightPenalty = typeof getIsleOfFrightPenalty === "function" ? getIsleOfFrightPenalty(attackerFaction) : 0;
+  const defenderIsleOfFrightPenalty = typeof getIsleOfFrightPenalty === "function" ? getIsleOfFrightPenalty(defenderFaction) : 0;
 
   const attackerRoll = Math.floor(Math.random() * 6) + 1;
   const defenderRoll = Math.floor(Math.random() * 6) + 1;
-  const attackerTotal = attackerRoll + attackerBonus + attackerSleepPenalty;
-  const defenderTotal = defenderRoll + defenderBonus + defenderSleepPenalty;
+  const attackerTotal = attackerRoll + attackerBonus + attackerSleepPenalty + attackerIsleOfFrightPenalty;
+  const defenderTotal = defenderRoll + defenderBonus + defenderSleepPenalty + defenderIsleOfFrightPenalty;
 
   let attackerLosses = 0, defenderLosses = 0;
   let resultLine;

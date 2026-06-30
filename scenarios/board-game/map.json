@@ -8749,7 +8749,7 @@
     ],
     "rivers": [],
     "lakes": [],
-    "name": "Tombs of Old",
+    "name": "Tombs of Olde",
     "isAncientBattlefield": true
   },
   {
@@ -10391,11 +10391,10 @@
     "col": 19,
     "faction": "none",
     "terrain": [
-      "hills"
+      "plains"
     ],
     "rivers": [],
-    "lakes": [],
-    "name": "Robin's Hills"
+    "lakes": []
   },
   {
     "row": 30,

@@ -204,10 +204,11 @@ function endTurn() {
       const bonus = Math.max(0, defenderStrength > 0 ? Math.floor(attackerStrength / defenderStrength) - 1 : 0);
       // Ogsbogg adds +1 to the siege die roll when participating
       const ogsboggBonus = adjacentAttackers.some(u => u.isOgsbogg) ? 1 : 0;
+      const iofPenalty = typeof getIsleOfFrightPenalty === "function" ? getIsleOfFrightPenalty(currentFaction) : 0;
       const roll = Math.ceil(Math.random() * 6);
-      const total = roll + bonus + ogsboggBonus;
+      const total = roll + bonus + ogsboggBonus + iofPenalty;
 
-      alert(`Siege at (${row},${col}): roll ${roll} + ratio-bonus ${bonus}${ogsboggBonus ? ` + Ogsbogg +${ogsboggBonus}` : ''} = ${total}`);
+      alert(`Siege at (${row},${col}): roll ${roll} + ratio-bonus ${bonus}${ogsboggBonus ? ` + Ogsbogg +${ogsboggBonus}` : ''}${iofPenalty ? ` ${iofPenalty} (Isle of Fright)` : ''} = ${total}`);
 
       if (total >= 6) {
         for (const u of [...defendersInFortress]) {
@@ -294,10 +295,17 @@ function endTurn() {
 }
 
 function offerEndOfTurnSpells(faction, onDone) {
-  if (typeof eatersOwnedByCurrentFaction === "function" && eatersOwnedByCurrentFaction()) {
-    showSpellPanel("endturn", onDone);
+  const afterGreystaff = () => {
+    if (typeof eatersOwnedByCurrentFaction === "function" && eatersOwnedByCurrentFaction()) {
+      showSpellPanel("endturn", onDone);
+    } else {
+      onDone();
+    }
+  };
+  if (typeof offerGreystaffSacrifice === "function") {
+    offerGreystaffSacrifice(faction, afterGreystaff);
   } else {
-    onDone();
+    afterGreystaff();
   }
 }
 

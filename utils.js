@@ -862,3 +862,68 @@ function updateVPInfo() {
       .join("\n");
   }
 }
+// ── ISLE OF FRIGHT CASTAWAY ───────────────────────────────────────────────────
+// Call this when a leader's fleet is destroyed at open sea and no enemy fleet
+// is adjacent. The leader washes up on the Isle of Fright instead of dying.
+function leaderAdriftAtSea(leader) {
+  if (!leader || !leader.isLeader) return;
+
+  // Check for enemy fleets in adjacent hexes — if present, use normal fate die roll
+  const adj = getAdjacentCoords(leader.row, leader.col);
+  const enemyFleetAdjacent = units.some(u =>
+    u.isFleet && u.faction !== leader.faction &&
+    adj.some(([r, c]) => u.row === r && u.col === c)
+  );
+
+  if (enemyFleetAdjacent) {
+    // Normal fate die roll applies
+    fateDieRoll(leader);
+    return;
+  }
+
+  // Find Isle of Fright tile
+  let iofRow = null, iofCol = null;
+  for (const k in tileData) {
+    if (tileData[k].isIsleOfFright) {
+      [iofRow, iofCol] = k.split(',').map(Number);
+      break;
+    }
+  }
+
+  if (iofRow == null) {
+    // No Isle of Fright on map — use normal fate die roll
+    fateDieRoll(leader);
+    return;
+  }
+
+  leader.row = iofRow;
+  leader.col = iofCol;
+  leader.isOnIsleOfFright = true;
+  alert(
+    `${leader.faction}'s leader is adrift at sea and washes up on the Isle of Fright (${iofRow},${iofCol})!\n` +
+    `All ${leader.faction} troops suffer -1 to combat and siege rolls until rescued.\n` +
+    `A friendly fleet must enter the Isle to rescue them.`
+  );
+  drawMap();
+}
+
+// Check if a fleet entering the Isle of Fright hex is performing a rescue
+function checkIsleOfFrightRescue(fleet, targetRow, targetCol) {
+  const tile = tileData[`${targetRow},${targetCol}`];
+  if (!tile?.isIsleOfFright) return false;
+
+  const castaway = units.find(u =>
+    u.isLeader && u.isOnIsleOfFright && u.row === targetRow && u.col === targetCol &&
+    u.faction === fleet.faction
+  );
+  if (!castaway) return false;
+
+  castaway.isOnIsleOfFright = false;
+  alert(`${fleet.faction}'s fleet rescues their leader from the Isle of Fright!`);
+  return true;
+}
+
+// Apply Isle of Fright -1 penalty if a faction's leader is stranded there
+function getIsleOfFrightPenalty(faction) {
+  return units.some(u => u.isLeader && u.faction === faction && u.isOnIsleOfFright) ? -1 : 0;
+}

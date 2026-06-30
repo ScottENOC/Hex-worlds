@@ -300,13 +300,18 @@ function invokeVentedWraiths(onDone) {
   for (const hexKey of hexes) {
     const [r, c] = hexKey.split(",").map(Number);
     const stack = enemyStacks[hexKey];
+    // Use per-unit retreat threshold: unit with worst odds tests first
+    const worstUnit = stack.reduce((worst, u) => {
+      const th = typeof getRetreatThreshold === "function" ? getRetreatThreshold(u) : 4;
+      const wth = typeof getRetreatThreshold === "function" ? getRetreatThreshold(worst) : 4;
+      return th > wth ? u : worst;
+    }, stack[0]);
+    const threshold = typeof getRetreatThreshold === "function" ? getRetreatThreshold(worstUnit) : 4;
     const roll = Math.ceil(Math.random() * 6);
-    // Default: units retreat on 1-4, stand on 5-6 (most units retreat before combat on 5+)
-    // Simplified: use retreat threshold of 3 (stand on 4-6 like most regulars)
-    const stands = roll >= 4;
+    const stands = roll >= threshold;
 
     if (stands) {
-      alert(`Vented Wraiths terrorize (${r},${c})!\nRoll: ${roll} — They STAND before the Wraiths! But they may not attempt retreat before combat.`);
+      alert(`Vented Wraiths terrorize (${r},${c})!\nRoll: ${roll} (needs ${threshold}+) — They STAND before the Wraiths! But they may not attempt retreat before combat.`);
       for (const u of stack) u.cannotRetreatBeforeCombat = true;
     } else {
       // Force retreat
