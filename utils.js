@@ -1,41 +1,62 @@
 function saveGameToLocalStorage() {
   const gameState = {
-    units,
-    tileData,
+    units:            JSON.parse(JSON.stringify(units)),
+    tileData:         JSON.parse(JSON.stringify(tileData)),
     turnOrder,
     currentTurnIndex,
+    currentPhase,
     turnNumber,
-    mercenaryReserve,
-    reserves,
-    victoryPoints,
+    reserves:         JSON.parse(JSON.stringify(reserves)),
+    victoryPoints:    JSON.parse(JSON.stringify(victoryPoints)),
+    gold:             JSON.parse(JSON.stringify(gold)),
+    declaredCombats:  JSON.parse(JSON.stringify(declaredCombats)),
+    diplomacyHands:   JSON.parse(JSON.stringify(diplomacyHands)),
+    personalityCards: JSON.parse(JSON.stringify(personalityCards)),
+    controlTypes:     JSON.parse(JSON.stringify(controlTypes)),
   };
-
-  localStorage.setItem('myGameSave', JSON.stringify(gameState));
-  alert("Game saved to local storage.");
+  localStorage.setItem('divineRightSave', JSON.stringify(gameState));
 }
 
 function loadGameFromLocalStorage() {
-  const saved = localStorage.getItem('myGameSave');
-  if (!saved) {
-    alert("No save found.");
-    return;
-  }
+  const saved = localStorage.getItem('divineRightSave');
+  if (!saved) { alert("No save found."); return; }
 
   const state = JSON.parse(saved);
 
-  // Restore state
-  units = state.units;
-  tileData = state.tileData;
-  turnOrder = state.turnOrder;
-  currentTurnIndex = state.currentTurnIndex;
-  turnNumber = state.turnNumber;
-  mercenaryReserve = state.mercenaryReserve;
-  reserves = state.reserves;
-  victoryPoints = state.victoryPoints;
+  units.length = 0;
+  units.push(...state.units);
 
-  drawMap(); // or your full redraw/refresh function
-  updateTurnInfo(); // if needed
-  alert("Game loaded from local storage.");
+  for (const k of Object.keys(tileData)) delete tileData[k];
+  Object.assign(tileData, state.tileData);
+
+  turnOrder.length = 0;
+  turnOrder.push(...(state.turnOrder || []));
+  currentTurnIndex = state.currentTurnIndex ?? 0;
+  if (state.currentPhase) currentPhase = state.currentPhase;
+  turnNumber = state.turnNumber ?? 1;
+
+  for (const k of Object.keys(reserves))         delete reserves[k];
+  for (const k of Object.keys(victoryPoints))    delete victoryPoints[k];
+  for (const k of Object.keys(gold))             delete gold[k];
+  for (const k of Object.keys(diplomacyHands))   delete diplomacyHands[k];
+  for (const k of Object.keys(personalityCards)) delete personalityCards[k];
+  for (const k of Object.keys(controlTypes))     delete controlTypes[k];
+
+  Object.assign(reserves,         state.reserves         || {});
+  Object.assign(victoryPoints,    state.victoryPoints    || {});
+  Object.assign(gold,             state.gold             || {});
+  Object.assign(diplomacyHands,   state.diplomacyHands   || {});
+  Object.assign(personalityCards, state.personalityCards || {});
+  Object.assign(controlTypes,     state.controlTypes     || {});
+
+  if (state.declaredCombats) {
+    declaredCombats.length = 0;
+    declaredCombats.push(...state.declaredCombats);
+  }
+
+  drawMap();
+  updateTurnInfo();
+  updateVPInfo();
 }
 function fateDieRoll(unit) {
   if (!unit.isLeader || unit.hasTakenAFateDieRoll) return;

@@ -194,6 +194,33 @@
     }
     #setup-start-btn:hover { background: #1a5; }
 
+    /* ── Multiplayer lobby ── */
+    #mp-lobby {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+      display: flex; align-items: center; justify-content: center; z-index: 110;
+    }
+    #mp-lobby-box {
+      background: #fff; border-radius: 10px; padding: 28px 32px;
+      max-width: 440px; width: 90vw; box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+    }
+    #mp-lobby-box h2 { margin: 0 0 16px; font-size: 20px; }
+    #mp-room-code { font-size: 28px; font-weight: bold; letter-spacing: 4px;
+      text-align: center; padding: 10px; background: #f4f4f4;
+      border-radius: 6px; margin: 12px 0; }
+    .mp-player { display: flex; justify-content: space-between; padding: 6px 0;
+      border-bottom: 1px solid #eee; font-size: 14px; }
+    .mp-player.mp-ready { color: #2a6; }
+    #mp-lobby-box input { padding: 6px 10px; font-size: 14px; border: 1px solid #ccc;
+      border-radius: 4px; width: 100%; box-sizing: border-box; margin: 4px 0 10px; }
+    #mp-lobby-box button { padding: 8px 18px; font-size: 14px; border-radius: 5px;
+      border: none; cursor: pointer; margin: 4px 4px 0 0; }
+    #mp-create-btn  { background: #2a6; color: #fff; }
+    #mp-join-btn    { background: #46a; color: #fff; }
+    #mp-ready-btn   { background: #e80; color: #fff; }
+    #mp-start-btn   { background: #2a6; color: #fff; }
+    #mp-start-btn:disabled { background: #aaa; cursor: default; }
+    #mp-offline-btn { background: #888; color: #fff; }
+
     /* ── Eaters spell panel ── */
     #spell-panel {
       position: fixed; top: 60px; left: 50%; transform: translateX(-50%);
@@ -212,6 +239,54 @@
 </head>
 
 <body style="display:flex; flex-direction:column; height:100%;">
+
+  <!-- Firebase (optional — set FIREBASE_CONFIG before this loads) -->
+  <!-- To enable multiplayer, paste your Firebase config into a <script> tag here:
+    <script>
+      window.FIREBASE_CONFIG = {
+        apiKey: "...", authDomain: "...", projectId: "...",
+        storageBucket: "...", messagingSenderId: "...", appId: "..."
+      };
+    </script>
+  -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+  <!-- Multiplayer lobby (shown before setup screen) -->
+  <div id="mp-lobby">
+    <div id="mp-lobby-box">
+      <h2>Divine Right — Multiplayer</h2>
+
+      <!-- Mode picker -->
+      <div id="mp-mode-picker">
+        <p style="color:#555;font-size:13px;margin:0 0 12px">
+          Play online with friends (async — take turns when ready) or offline locally.
+        </p>
+        <input id="mp-faction-input" placeholder="Your faction name (e.g. muetar)" />
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button id="mp-create-btn">Create Room</button>
+          <button id="mp-join-btn">Join Room</button>
+          <button id="mp-offline-btn">Play Offline</button>
+        </div>
+        <div id="mp-join-row" style="display:none;margin-top:10px">
+          <input id="mp-code-input" placeholder="Enter 6-letter room code" maxlength="6"
+                 style="text-transform:uppercase" />
+          <button id="mp-join-confirm-btn" style="background:#46a;color:#fff;padding:6px 14px;border:none;border-radius:4px;cursor:pointer">Join</button>
+        </div>
+      </div>
+
+      <!-- Lobby waiting room -->
+      <div id="mp-waiting-room" style="display:none">
+        <div id="mp-room-code">------</div>
+        <p style="font-size:12px;color:#666;text-align:center;margin:0 0 12px">Share this code with your friends</p>
+        <div id="mp-lobby-players"></div>
+        <div style="margin-top:14px;display:flex;gap:8px">
+          <button id="mp-ready-btn">Ready</button>
+          <button id="mp-start-btn" disabled>Waiting for players…</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Setup screen (shown first; hidden when game starts) -->
   <div id="setup-screen">
@@ -249,6 +324,7 @@
   <!-- HUD -->
   <div id="hud">
     <div id="turnInfo">Loading…</div>
+    <div id="mp-turn-banner" style="color:#c00;font-weight:bold;font-size:13px"></div>
     <div id="vpInfo"></div>
     <button onclick="endTurn()">End Phase</button>
     <button onclick="saveGameToLocalStorage()">Save</button>
@@ -275,6 +351,7 @@
   <script src="phase4siege.js"></script>
   <script src="phase5Movement.js"></script>
   <script src="phase6combatDeclaration.js"></script>
+  <script src="multiplayer.js"></script>
   <script src="retreat.js"></script>
   <script src="phase7CombatResolution.js"></script>
   <script src="eaterSpells.js"></script>
@@ -285,6 +362,104 @@
   <script src="phase1Event.js"></script>
   <script src="setup.js"></script>
   <script src="panZoom.js"></script>
+
+  <script>
+  // ── Multiplayer lobby wiring ────────────────────────────────────────────────
+  (function() {
+    MP.init();
+
+    const lobbyEl       = document.getElementById("mp-lobby");
+    const modeEl        = document.getElementById("mp-mode-picker");
+    const waitingEl     = document.getElementById("mp-waiting-room");
+    const joinRowEl     = document.getElementById("mp-join-row");
+    const factionInput  = document.getElementById("mp-faction-input");
+    const codeInput     = document.getElementById("mp-code-input");
+
+    function getFaction() {
+      return (factionInput.value || "").trim().toLowerCase();
+    }
+
+    // Play offline — skip lobby, go straight to setup screen
+    document.getElementById("mp-offline-btn").addEventListener("click", () => {
+      lobbyEl.style.display = "none";
+    });
+
+    // Show join row
+    document.getElementById("mp-join-btn").addEventListener("click", () => {
+      joinRowEl.style.display = joinRowEl.style.display === "none" ? "block" : "none";
+    });
+
+    // Create room
+    document.getElementById("mp-create-btn").addEventListener("click", async () => {
+      const faction = getFaction();
+      if (!faction) { alert("Enter your faction name first."); return; }
+      if (!MP.online()) { alert("No Firebase config set — running offline."); lobbyEl.style.display = "none"; return; }
+      const code = await MP.createGame(faction);
+      modeEl.style.display = "none";
+      waitingEl.style.display = "block";
+      document.getElementById("mp-room-code").textContent = code;
+    });
+
+    // Confirm join
+    document.getElementById("mp-join-confirm-btn").addEventListener("click", async () => {
+      const faction = getFaction();
+      const code    = codeInput.value.trim().toUpperCase();
+      if (!faction) { alert("Enter your faction name first."); return; }
+      if (!code)    { alert("Enter a room code."); return; }
+      const ok = await MP.joinGame(code, faction);
+      if (!ok) return;
+      modeEl.style.display = "none";
+      waitingEl.style.display = "block";
+      document.getElementById("mp-room-code").textContent = code;
+      // Hide start button for non-host
+      document.getElementById("mp-start-btn").style.display = "none";
+    });
+
+    // Ready
+    document.getElementById("mp-ready-btn").addEventListener("click", async () => {
+      await MP.setReady(true);
+      document.getElementById("mp-ready-btn").textContent = "✓ Ready";
+      document.getElementById("mp-ready-btn").disabled = true;
+    });
+
+    // Start (host only)
+    document.getElementById("mp-start-btn").addEventListener("click", async () => {
+      // The setup screen will run first (offline) then we push state once initGame fires
+      lobbyEl.style.display = "none";
+      window._mpStartPending = true;
+    });
+
+    // After initGame() runs, if we came from multiplayer, push initial state
+    const _origInitGame = window.initGame;
+    window.initGame = function(opts) {
+      _origInitGame(opts);
+      if (window._mpStartPending) {
+        window._mpStartPending = false;
+        MP.startGame();
+      }
+    };
+
+    // Auto-push state after every endTurn()
+    const _origEndTurn = window.endTurn;
+    window.endTurn = function() {
+      _origEndTurn();
+      if (MP.online() && MP.gameId()) {
+        MP.pushState();
+        // Also auto-save locally
+        saveGameToLocalStorage && saveGameToLocalStorage();
+      }
+    };
+
+    // Block interaction when it's not your turn
+    MP.onRemoteState(() => {
+      const mine = MP.isMyTurn();
+      document.getElementById("map-container").style.pointerEvents = mine ? "auto" : "none";
+      document.querySelector("#hud button")?.setAttribute("disabled", mine ? "" : "true");
+      const banner = document.getElementById("mp-turn-banner");
+      if (banner) banner.textContent = mine ? "" : `Waiting for ${turnOrder[currentTurnIndex]}…`;
+    });
+  })();
+  </script>
 
 </body>
 </html>
