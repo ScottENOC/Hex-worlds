@@ -1,4 +1,4 @@
-const CACHE_NAME = 'divine-right-cache-v8';
+const CACHE_NAME = 'divine-right-cache-v9';
 const urlsToCache = [
   './index.html',
   './manifest.json',
@@ -22,6 +22,9 @@ const urlsToCache = [
   './siegeAdvanced.js',
   './siegeResolution.js',
   './rulesMinorFidelity.js',
+  './rulesLeadershipFidelity.js',
+  './specialUnitFidelity.js',
+  './combatLeadershipResolution.js',
   './eaterSpells.js',
   './blackhand.js',
   './greystaff.js',
@@ -38,19 +41,11 @@ const urlsToCache = [
 ];
 
 self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache))
-  );
+  event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache)));
 });
-
 self.addEventListener('activate', event => {
-  event.waitUntil(
-    caches.keys().then(cacheNames =>
-      Promise.all(cacheNames.map(cacheName => cacheName !== CACHE_NAME ? caches.delete(cacheName) : null))
-    )
-  );
+  event.waitUntil(caches.keys().then(names => Promise.all(names.map(name => name !== CACHE_NAME ? caches.delete(name) : null))));
 });
-
 self.addEventListener('fetch', event => {
   event.respondWith(caches.match(event.request).then(response => response || fetch(event.request)));
 });
