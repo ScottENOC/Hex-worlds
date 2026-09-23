@@ -45,6 +45,7 @@
       const attackerStrength=Math.max(0,c.attackingCombatUnits);
       let bonus=Math.max(0,Math.floor(attackerStrength/defenderStrength)-1);
       if(c.besiegers.some(u=>u.isOgsbogg)) bonus+=1;
+      if(typeof getTalismanEnchantedCastleSiegeBonus==='function') bonus+=getTalismanEnchantedCastleSiegeBonus(c.besiegers,row,col)||0;
       if(typeof getIsleOfFrightPenalty==='function') bonus+=getIsleOfFrightPenalty(attacker)||0;
       const roll=d6(), total=roll+bonus;
 

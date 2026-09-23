@@ -15,7 +15,9 @@
     'magicSpecialFidelity.js',
     'magicCombatCompat.js',
     'combatLeadershipResolution.js',
-    'magicRuleFinalCompat.js'
+    'magicRuleFinalCompat.js',
+    'magicEdgeFidelity.js',
+    'talismanSpellFidelity.js'
   ];
   function loadNext(i) {
     if (i >= files.length) return;
