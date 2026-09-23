@@ -35,5 +35,7 @@ jobs:
         run: node tests/minor-fidelity.test.cjs
       - name: Leadership/personality fidelity regression
         run: node tests/leadership-fidelity.test.cjs
+      - name: Magic/special-unit fidelity regression
+        run: node tests/magic-special-fidelity.test.cjs
       - name: Territorial pressure regression
         run: node tests/territorial-pressure.test.cjs
