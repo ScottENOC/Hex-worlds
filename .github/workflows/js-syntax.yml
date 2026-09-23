@@ -33,5 +33,7 @@ jobs:
         run: node tests/siege-advanced.test.cjs
       - name: Minor rules fidelity regression
         run: node tests/minor-fidelity.test.cjs
+      - name: Leadership/personality fidelity regression
+        run: node tests/leadership-fidelity.test.cjs
       - name: Territorial pressure regression
         run: node tests/territorial-pressure.test.cjs

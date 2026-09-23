@@ -7,7 +7,11 @@
     'diplomacyAdvanced.js',
     'siegeAdvanced.js',
     'siegeResolution.js',
-    'rulesMinorFidelity.js'
+    'rulesMinorFidelity.js',
+    'rulesFidelityCompat.js',
+    'rulesLeadershipFidelity.js',
+    'specialUnitFidelity.js',
+    'combatLeadershipResolution.js'
   ];
   function loadNext(i) {
     if (i >= files.length) return;
