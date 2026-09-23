@@ -12,6 +12,7 @@
     'rulesLeadershipFidelity.js',
     'specialUnitFidelity.js',
     'magicSpecialFidelity.js',
+    'magicCombatCompat.js',
     'combatLeadershipResolution.js'
   ];
   function loadNext(i) {
