@@ -43,13 +43,15 @@
       return;
     }
 
+    if(typeof divineRightPrepareSurfaceAttack==='function') divineRightPrepareSurfaceAttack(attackers,defenders);
+
     const tile=tileData[`${targetHex.row},${targetHex.col}`];
     const terrainList=Array.isArray(tile?.terrain)?tile.terrain:[tile?.terrain];
     const eater=defenders.find(u=>u.isEatersOfWisdom);
     if(eater&&units.some(u=>u.row===targetHex.row&&u.col===targetHex.col&&u.faction!==eater.faction&&(u.combatStrength||0)>0)) eater.combatStrength=0;
 
-    let as=attackers.reduce((s,u)=>s+(u.combatStrength||0),0);
-    let ds=defenders.reduce((s,u)=>s+(u.combatStrength||0),0);
+    let as=typeof divineRightEffectiveCombatStrength==='function'?divineRightEffectiveCombatStrength(attackers,targetHex):attackers.reduce((s,u)=>s+(u.combatStrength||0),0);
+    let ds=typeof divineRightEffectiveCombatStrength==='function'?divineRightEffectiveCombatStrength(defenders,targetHex):defenders.reduce((s,u)=>s+(u.combatStrength||0),0);
     if(terrainList.includes('mountain_pass')) ds*=2;
     if(typeof getEnchantedCastleBonus==='function') ds*=getEnchantedCastleBonus(targetHex.row,targetHex.col);
     let ab=0,db=0;
@@ -57,7 +59,8 @@
     else if(ds>as&&as>0){db=Math.floor(ds/as)-1;if(db===0)db=1;}
     if(terrainList.includes('mountain')) db+=1;
 
-    const aLeader=typeof getDivineRightCombatLeaderBonus==='function'?getDivineRightCombatLeaderBonus(attackers,targetHex):0;
+    const talismanHere=typeof hexHasActiveTalisman==='function'&&hexHasActiveTalisman(targetHex.row,targetHex.col);
+    const aLeader=talismanHere?0:(typeof getDivineRightCombatLeaderBonus==='function'?getDivineRightCombatLeaderBonus(attackers,targetHex):0);
     const dLeader=typeof getDivineRightCombatLeaderBonus==='function'?getDivineRightCombatLeaderBonus(defenders,targetHex):0;
     const aSleep=units.some(u=>u.isLeader&&u.faction===attackerFaction&&u.templeSleep)?-1:0;
     const dSleep=units.some(u=>u.isLeader&&u.faction===defenderFaction&&u.templeSleep)?-1:0;
@@ -69,6 +72,11 @@
     if(at>dt){dl=at-dt;result=`<p>Attackers win! Defenders lose ${dl} unit(s).</p>`;}
     else if(dt>at){al=dt-at;result=`<p>Defenders win! Attackers lose ${al} unit(s).</p>`;}
     else{al=dl=at;result=`<p>Tie! Both sides lose ${al} unit(s).</p>`;}
+
+    const aHealing=al>0&&typeof stackHasHealingWand==='function'&&stackHasHealingWand(attackers);
+    const dHealing=dl>0&&typeof stackHasHealingWand==='function'&&stackHasHealingWand(defenders);
+    if(aHealing){al=Math.max(0,al-1);result+=`<p>Wand of Healing saves one attacking combat unit.</p>`;}
+    if(dHealing){dl=Math.max(0,dl-1);result+=`<p>Wand of Healing saves one defending combat unit.</p>`;}
 
     const lossHexes=new Set();
     for(let i=0;i<dl;i++){
@@ -93,8 +101,8 @@
 
     document.getElementById('combat-info').innerHTML=`
       <p><strong>Combat Result</strong></p>
-      <p>Attacker: ${ar}${ab?` +${ab} ratio`:''}${aLeader?` +${aLeader} leader`:''} = ${at}</p>
-      <p>Defender: ${dr}${db?` +${db} terrain/ratio`:''}${dLeader?` +${dLeader} leader`:''} = ${dt}</p>${result}`;
+      <p>Attacker: ${ar}${ab?` +${ab} ratio`:''}${aLeader?` +${aLeader} leader/gift`:''} = ${at}</p>
+      <p>Defender: ${dr}${db?` +${db} terrain/ratio`:''}${dLeader?` +${dLeader} leader/gift`:''} = ${dt}</p>${result}`;
     document.getElementById('resolve-button').style.display='none';
     document.getElementById('continue-button').style.display='inline';
   };
