@@ -31,21 +31,22 @@
     "cumulativeTerrainCosts": true,
     "minimumOneHexMovement": true,
     "multiHexCombat": true,
+    "splitStackCombat": true,
     "optionalAdvanceAfterCombat": true
   },
   "specialMercs": {
     "scum":            { "entryHex": "scum",           "count": 2 },
     "ogsbogg":         { "entryHex": "ogsbogg",        "count": 1 },
     "ozergMtrs":       { "entryHex": "ozergMtrs",      "count": 1 },
-    "hamahara":        { "entryHex": "hamahara",        "count": 1 },
-    "urmoff":          { "entryHex": "urmoff",          "count": 1 },
-    "blackKnight":     { "entryHex": null,              "count": 2 },
-    "juulute":         { "entryHex": null,              "count": 1 },
-    "schardenzar":     { "entryHex": null,              "count": 1 },
-    "bilgeRat":        { "entryHex": null,              "count": 2 },
-    "usurper":         { "entryHex": null,              "count": 1 },
+    "hamahara":        { "entryHex": "hamahara",       "count": 1 },
+    "urmoff":          { "entryHex": "urmoff",         "count": 1 },
+    "blackKnight":     { "entryHex": null,             "count": 2 },
+    "juulute":         { "entryHex": null,             "count": 1 },
+    "schardenzar":     { "entryHex": null,             "count": 1 },
+    "bilgeRat":        { "entryHex": null,             "count": 2 },
+    "usurper":         { "entryHex": null,             "count": 1 },
     "orderHippogriff": { "entryHex": "orderHippogriff","count": 1 },
     "ghostRiders":     { "entryHex": "ghostRiders",    "count": 1 },
-    "wanderingPeople": { "entryHex": null,              "count": 2 }
+    "wanderingPeople": { "entryHex": null,             "count": 2 }
   }
 }
