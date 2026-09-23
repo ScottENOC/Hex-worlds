@@ -31,3 +31,5 @@ jobs:
         run: node tests/diplomacy-fidelity.test.cjs
       - name: Advanced siege fidelity regression
         run: node tests/siege-advanced.test.cjs
+      - name: Minor rules fidelity regression
+        run: node tests/minor-fidelity.test.cjs
