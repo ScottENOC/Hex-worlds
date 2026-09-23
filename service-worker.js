@@ -1,4 +1,4 @@
-const CACHE_NAME = 'divine-right-cache-v2';
+const CACHE_NAME = 'divine-right-cache-v3';
 const urlsToCache = [
   './index.html',
   './manifest.json',
@@ -27,6 +27,9 @@ const urlsToCache = [
   './scenarios/board-game/scenario.json',
   './scenarios/board-game/map.json',
   './scenarios/board-game/units.json',
+  './scenarios/custom/scenario.json',
+  './scenarios/custom/map.json',
+  './scenarios/custom/units.json',
 ];
 
 self.addEventListener('install', event => {
