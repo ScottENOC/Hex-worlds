@@ -1,4 +1,4 @@
-const CACHE_NAME = 'divine-right-cache-v7';
+const CACHE_NAME = 'divine-right-cache-v8';
 const urlsToCache = [
   './index.html',
   './manifest.json',
@@ -21,6 +21,7 @@ const urlsToCache = [
   './diplomacyAdvanced.js',
   './siegeAdvanced.js',
   './siegeResolution.js',
+  './rulesMinorFidelity.js',
   './eaterSpells.js',
   './blackhand.js',
   './greystaff.js',
