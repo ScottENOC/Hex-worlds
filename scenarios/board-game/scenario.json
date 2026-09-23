@@ -29,7 +29,9 @@
     "dynamicFortresses": false,
     "casualtySelectionMode": "priority",
     "cumulativeTerrainCosts": true,
-    "minimumOneHexMovement": true
+    "minimumOneHexMovement": true,
+    "multiHexCombat": true,
+    "optionalAdvanceAfterCombat": true
   },
   "specialMercs": {
     "scum":            { "entryHex": "scum",           "count": 2 },
