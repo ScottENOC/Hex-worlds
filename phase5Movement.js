@@ -7,6 +7,7 @@
     'diplomacyAdvanced.js',
     'siegeAdvanced.js',
     'siegeResolution.js',
+    'airTransportEarly.js',
     'rulesMinorFidelity.js',
     'rulesFidelityCompat.js',
     'rulesLeadershipFidelity.js',
