@@ -246,10 +246,16 @@
   // ---------------------------------------------------------------------------
   // Movement fidelity
   // ---------------------------------------------------------------------------
-  // Divine Right terrain costs are cumulative when a hex contains more than
-  // one terrain type. Friendly forest/hill movement benefits are retained.
-  if (ruleEnabled("cumulativeTerrainCosts", false) && typeof getTileCost === "function") {
+  // These wrappers consult scenarioRules at call time. Scenario JSON is loaded
+  // only after the page scripts have executed, so checking once at script load
+  // would silently skip the Divine Right movement rules.
+  if (typeof getTileCost === "function") {
+    const baseGetTileCost = getTileCost;
     getTileCost = function (row, col, unit) {
+      if (!ruleEnabled("cumulativeTerrainCosts", false)) {
+        return baseGetTileCost(row, col, unit);
+      }
+
       const data = tileData[`${row},${col}`];
       if (!data) return Infinity;
 
@@ -288,10 +294,13 @@
     };
   }
 
-  // Every mobile land unit may move at least one legal hex even if the terrain
-  // cost exceeds its movement allowance. Entering a mountain still ends movement.
-  if (ruleEnabled("minimumOneHexMovement", false) && typeof validMoves === "function") {
+  if (typeof validMoves === "function") {
+    const baseValidMoves = validMoves;
     validMoves = function (unit) {
+      if (!ruleEnabled("minimumOneHexMovement", false)) {
+        return baseValidMoves(unit);
+      }
+
       if (unit.isLeader && !unit.isEatersOfWisdom) {
         const cardId = typeof personalityCards !== "undefined" && personalityCards[unit.faction];
         const pCard = cardId != null && typeof PERSONALITY_CARDS !== "undefined" ? PERSONALITY_CARDS[cardId] : null;
@@ -334,17 +343,16 @@
         }
       }
 
-      function dfs(r, c, mp, movedHexes = 0, mustStop = false) {
+      function dfs(r, c, mp, movedHexes = 0) {
         const key = `${r},${c}`;
-        if (!tileData[key] || mp < 0 || mustStop) return;
+        if (!tileData[key] || mp < 0) return;
         if (visited[key] !== undefined && visited[key] >= mp) return;
         visited[key] = mp;
 
         if (movedHexes > 0) addResult(r, c);
 
         const currentTerrain = Array.isArray(tileData[key].terrain) ? tileData[key].terrain : [tileData[key].terrain];
-        const enteredMountain = movedHexes > 0 && currentTerrain.includes("mountain");
-        if (enteredMountain) return;
+        if (movedHexes > 0 && currentTerrain.includes("mountain")) return;
 
         const directions = (r % 2 === 0) ? sideOffsetsEven : sideOffsetsOdd;
         for (const [dr, dc] of directions) {
@@ -359,7 +367,7 @@
           if (!Number.isFinite(cost)) continue;
 
           if (mp >= cost) {
-            dfs(nr, nc, mp - cost, movedHexes + 1, false);
+            dfs(nr, nc, mp - cost, movedHexes + 1);
           } else if (movedHexes === 0 && moveSpeed > 0) {
             // Rulebook minimum move: one legal hex even when terrain costs more
             // than the unit's entire movement allowance.
@@ -368,7 +376,7 @@
         }
       }
 
-      dfs(unit.row, unit.col, moveSpeed, 0, false);
+      dfs(unit.row, unit.col, moveSpeed, 0);
       return result;
     };
   }
