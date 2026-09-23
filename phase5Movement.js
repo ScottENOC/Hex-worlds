@@ -2,7 +2,13 @@
 // installed their final overrides. This avoids coupling the custom scenario to
 // board-game-specific rules while keeping the original script order intact.
 (function () {
-  const files = ['navalRules.js', 'diplomacyAdvanced.js', 'siegeAdvanced.js', 'siegeResolution.js'];
+  const files = [
+    'navalRules.js',
+    'diplomacyAdvanced.js',
+    'siegeAdvanced.js',
+    'siegeResolution.js',
+    'rulesMinorFidelity.js'
+  ];
   function loadNext(i) {
     if (i >= files.length) return;
     const script = document.createElement('script');
