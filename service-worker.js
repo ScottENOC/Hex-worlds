@@ -1,4 +1,4 @@
-const CACHE_NAME = 'divine-right-cache-v4';
+const CACHE_NAME = 'divine-right-cache-v5';
 const urlsToCache = [
   './index.html',
   './manifest.json',
