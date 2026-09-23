@@ -33,7 +33,7 @@ function makeContext({ rules, tileData, units, adjacency = {} }) {
     tileData,
     units: [{ faction: 'red', row: 1, col: 1, combatStrength: 10 }],
   });
-  assert.deepStrictEqual(ctx.updateTerritorialPressure(), []);
+  assert.strictEqual(ctx.updateTerritorialPressure().length, 0);
   assert.strictEqual(tileData['1,1'].faction, 'none');
 }
 
