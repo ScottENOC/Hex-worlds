@@ -14,6 +14,16 @@
   </select>`;
   setupBox.insertBefore(scenarioLabel, document.getElementById("setup-slots"));
 
+  const rulesLabel = document.createElement("label");
+  rulesLabel.id = "setup-casualty-option";
+  rulesLabel.style.display = "block";
+  rulesLabel.style.margin = "8px 0";
+  rulesLabel.innerHTML = `
+    <input type="checkbox" id="setup-priority-casualties" checked>
+    Streamlined casualties (Scum → Barbarians → mercenaries → allied troops → regular troops → special mercenaries)
+  `;
+  setupBox.insertBefore(rulesLabel, document.getElementById("setup-slots"));
+
   function buildSlots(playableFactions, displayNames) {
     const n = +document.getElementById("setup-count").value;
     const box = document.getElementById("setup-slots");
@@ -44,6 +54,15 @@
       if (chosen.has(f)) { alert(`${displayNames[f] || f} is already taken by another player.`); return; }
       chosen.set(f, c);
     }
+
+    // Rules options are kept separate from scenario defaults. This lets local
+    // hotseat use owner-selected casualties while async multiplayer can default
+    // to deterministic priority casualties.
+    window.gameOptions = window.gameOptions || {};
+    window.gameOptions.casualtySelectionMode = document.getElementById("setup-priority-casualties")?.checked
+      ? "priority"
+      : "manual";
+    localStorage.setItem("hexWorldsCasualtySelectionMode", window.gameOptions.casualtySelectionMode);
 
     // Populate globals
     for (const [f, c] of chosen) controlTypes[f] = c;
@@ -76,6 +95,13 @@
           Object.entries(data.factions).map(([id, f]) => [id, f.display || id])
         );
         const allFactions = Object.keys(data.factions);
+
+        const casualtyCheckbox = document.getElementById("setup-priority-casualties");
+        if (casualtyCheckbox) {
+          const saved = localStorage.getItem("hexWorldsCasualtySelectionMode");
+          const defaultMode = saved || data.rules?.casualtySelectionMode || "manual";
+          casualtyCheckbox.checked = defaultMode === "priority";
+        }
 
         // Cap player count to number of playable factions
         const countSel = document.getElementById("setup-count");
