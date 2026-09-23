@@ -9,6 +9,22 @@
     "siegeStrength": 0
   },
   {
+    "faction": "veldra",
+    "row": 12,
+    "col": 6,
+    "moveSpeed": 5,
+    "combatStrength": 1,
+    "siegeStrength": 1
+  },
+  {
+    "faction": "veldra",
+    "row": 12,
+    "col": 6,
+    "moveSpeed": 5,
+    "combatStrength": 1,
+    "siegeStrength": 1
+  },
+  {
     "faction": "keth",
     "row": 22,
     "col": 49,
@@ -16,5 +32,21 @@
     "isLeader": true,
     "combatStrength": 0,
     "siegeStrength": 0
+  },
+  {
+    "faction": "keth",
+    "row": 22,
+    "col": 49,
+    "moveSpeed": 5,
+    "combatStrength": 1,
+    "siegeStrength": 1
+  },
+  {
+    "faction": "keth",
+    "row": 22,
+    "col": 49,
+    "moveSpeed": 5,
+    "combatStrength": 1,
+    "siegeStrength": 1
   }
 ]

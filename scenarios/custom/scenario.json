@@ -30,8 +30,76 @@
       "adjacentFortFactor": 0.5,
       "adjacentCityFactor": 0.5
     },
+    "economy": {
+      "enabled": true,
+      "startingGold": 5,
+      "tileIncome": 1,
+      "upkeepPerTroop": 1,
+      "recruitCost": 5,
+      "recruitMoveSpeed": 5
+    },
     "tileUpgrades": false,
     "resources": false,
     "dynamicFortresses": false
-  }
+  },
+  "locations": [
+    {
+      "faction": "veldra",
+      "relativeToCapital": [0, 0],
+      "name": "Veldra Keep",
+      "strength": 5,
+      "isCapital": true,
+      "claimRadius": 1
+    },
+    {
+      "faction": "veldra",
+      "relativeToCapital": [4, 5],
+      "name": "Redwater",
+      "strength": 3,
+      "claimRadius": 1
+    },
+    {
+      "faction": "veldra",
+      "relativeToCapital": [-5, 8],
+      "name": "High Veld",
+      "strength": 2,
+      "claimRadius": 1
+    },
+    {
+      "faction": "keth",
+      "relativeToCapital": [0, 0],
+      "name": "Keth Hold",
+      "strength": 5,
+      "isCapital": true,
+      "claimRadius": 1
+    },
+    {
+      "faction": "keth",
+      "relativeToCapital": [-4, -5],
+      "name": "Stonegate",
+      "strength": 3,
+      "claimRadius": 1
+    },
+    {
+      "faction": "keth",
+      "relativeToCapital": [5, -8],
+      "name": "Kethmarsh",
+      "strength": 2,
+      "claimRadius": 1
+    },
+    {
+      "faction": "none",
+      "row": 18,
+      "col": 28,
+      "name": "Greyhaven",
+      "strength": 4
+    },
+    {
+      "faction": "none",
+      "row": 25,
+      "col": 31,
+      "name": "Crossroads",
+      "strength": 2
+    }
+  ]
 }

@@ -41,3 +41,5 @@ jobs:
         run: node tests/magic-edge-fidelity.test.cjs
       - name: Territorial pressure regression
         run: node tests/territorial-pressure.test.cjs
+      - name: Simple economy regression
+        run: node tests/simple-economy.test.cjs
