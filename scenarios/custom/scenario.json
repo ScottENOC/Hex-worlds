@@ -19,7 +19,17 @@
     "mercenaryLandCount": 13,
     "mercenaryFleetCount": 2,
     "barbarianPoolSize": 43,
-    "canSeizeTerrain": false,
+    "canSeizeTerrain": true,
+    "territorialPressure": {
+      "requiredRounds": 3,
+      "requiredLead": 2,
+      "defenderBase": 2,
+      "fortMultiplier": 3,
+      "capitalPressure": 3,
+      "cityPressure": 2,
+      "adjacentFortFactor": 0.5,
+      "adjacentCityFactor": 0.5
+    },
     "tileUpgrades": false,
     "resources": false,
     "dynamicFortresses": false
