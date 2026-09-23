@@ -25,3 +25,9 @@ jobs:
         run: node tests/siege-fidelity.test.cjs
       - name: Combat fidelity regression
         run: node tests/combat-fidelity.test.js
+      - name: Naval fidelity regression
+        run: node tests/naval-fidelity.test.cjs
+      - name: Diplomacy fidelity regression
+        run: node tests/diplomacy-fidelity.test.cjs
+      - name: Advanced siege fidelity regression
+        run: node tests/siege-advanced.test.cjs
