@@ -26,7 +26,10 @@
     "canSeizeTerrain": false,
     "tileUpgrades": false,
     "resources": false,
-    "dynamicFortresses": false
+    "dynamicFortresses": false,
+    "casualtySelectionMode": "priority",
+    "cumulativeTerrainCosts": true,
+    "minimumOneHexMovement": true
   },
   "specialMercs": {
     "scum":            { "entryHex": "scum",           "count": 2 },
