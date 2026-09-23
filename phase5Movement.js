@@ -8,6 +8,7 @@
     'siegeAdvanced.js',
     'siegeResolution.js',
     'rulesMinorFidelity.js',
+    'rulesFidelityCompat.js',
     'rulesLeadershipFidelity.js',
     'specialUnitFidelity.js',
     'combatLeadershipResolution.js'
