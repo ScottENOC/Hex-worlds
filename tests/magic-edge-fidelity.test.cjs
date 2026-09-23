@@ -42,8 +42,6 @@ assert.equal(context.window.getTalismanEnchantedCastleSiegeBonus([besieger],8,8)
 assert.equal(context.window.getTalismanEnchantedCastleSiegeBonus([],8,8),0);
 
 // Magical combat strength is suppressed in a protected target hex.
-context.window.divineRightEffectiveCombatStrength=(side)=>side.reduce((n,u)=>n+(u.combatStrength||0),0);
-// The final edge wrapper was installed before this test replacement, so static verification covers the hook itself.
 assert(edge.includes('if(!isMagicalUnit(u)) total+=Number(u.combatStrength||0)'));
 
 // The final modules must remain last in the dynamic load chain.
@@ -61,11 +59,12 @@ assert(edge.includes("roll<=4"));
 assert(edge.includes('blackKnightDisabled=true'));
 assert(edge.includes('Stubstaff Keep'));
 
-// Mask path explicitly excludes assassination/duel by only exposing the four legal action classes.
-assert(edge.includes("id:'activate'"));
-assert(edge.includes("id:'deactivate'"));
-assert(edge.includes("id:'merc'"));
-assert(edge.includes("id:'barb'"));
-assert(!/MASK OF INFLUENCE[\s\S]{0,1500}assass/i.test(edge));
+// Mask UI exposes only the four permitted diplomatic action classes plus pass.
+const maskActionBlock=edge.match(/const options=\[\];([\s\S]*?)const n=Number\.parseInt\(prompt\(`MASK OF INFLUENCE/);
+assert(maskActionBlock,'Mask action block missing');
+const actionText=maskActionBlock[1];
+for(const id of ['activate','deactivate','merc','barb','none']) assert(actionText.includes(`id:'${id}'`));
+assert(!actionText.includes("id:'assassinate'"));
+assert(!actionText.includes("id:'duel'"));
 
 console.log('Magic edge fidelity regression passed.');
