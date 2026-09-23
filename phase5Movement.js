@@ -13,7 +13,8 @@
     'specialUnitFidelity.js',
     'magicSpecialFidelity.js',
     'magicCombatCompat.js',
-    'combatLeadershipResolution.js'
+    'combatLeadershipResolution.js',
+    'magicRuleFinalCompat.js'
   ];
   function loadNext(i) {
     if (i >= files.length) return;
